@@ -1,0 +1,32 @@
+body{height:100%}
+table, th, td {border: 1px solid black;}
+.context-menu {
+	display: none;
+	position: absolute;
+	z-index: 10;
+}
+
+ul.context-menu__items {
+	color: #fff;
+	display: flex;
+	justify-content: space-between;
+	padding: 12px 29px;
+	border-bottom: solid 1px #413636;
+	border-radius: 10px;
+	list-style: none;text-align: center;
+	background-color: #110f0f;
+	display: block;
+	font-family: sans;
+	font-size:auto;
+}
+.context-menu--active {
+	font-family: "Roboto", sans-serif;
+	display: flex;
+	justify-content: space-between;
+}
+.task{height:500px}
+ul.context-menu__items:hover {
+	cursor: pointer;
+	color: white;
+	text-decoration: none;
+}
