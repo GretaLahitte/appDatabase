@@ -1,12 +1,17 @@
+
+//Create a table
+var id=0;
+
 	function createTable(){
 		var element = document.getElementById("dxy");
-		var newElement = '<table><tr><th>table</th>	</tr><tr><td>_id:xxxxxxxxxxxxxxx</td></tr></table>'
-		element.insertAdjacentHTML('beforeend',newElement)
+		var newElement = '<table id='+id+'><tr><th>table</th>	</tr><tr><td>_id:xxxxxxxxxxxxxxx</td></tr></table>'
+		element.insertAdjacentHTML('beforeend',newElement);
+		id +=1
 		};
 var offX;
 var offY;
 
-
+//Move element
 function addListeners(){
     document.getElementById('dxy').addEventListener('mousedown', mouseDown, false);
     window.addEventListener('mouseup', mouseUp, false);
