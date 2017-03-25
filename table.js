@@ -39,7 +39,7 @@ function divMove(e){
 window.onload = addListeners();
 
 
-////////////////////
+////////////////////Context Menu
 (function() {
   
   "use strict";
