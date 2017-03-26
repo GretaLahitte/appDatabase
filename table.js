@@ -24,17 +24,21 @@ function mouseUp()
 }
 
 function mouseDown(e){
-  var div = document.getElementById('dxy');
-  offY= e.clientY-parseInt(div.offsetTop);
-  offX= e.clientX-parseInt(div.offsetLeft);
- window.addEventListener('mousemove', divMove, true);
+	if(e.srcElement.offsetParent.id){
+		var div = document.getElementById(e.srcElement.offsetParent.id);
+		offY= e.clientY-parseInt(div.offsetTop);
+		offX= e.clientX-parseInt(div.offsetLeft);
+		window.addEventListener('mousemove', divMove, true);
+	}
 }
 
 function divMove(e){
-    var div = document.getElementById('dxy');
-  div.style.position = 'absolute';
-  div.style.top = (e.clientY-offY) + 'px';
-  div.style.left = (e.clientX-offX) + 'px';
+	if(e.srcElement.offsetParent.id){
+		var div = document.getElementById(e.srcElement.offsetParent.id);
+		div.style.position = 'absolute';
+		div.style.top = (e.clientY-offY) + 'px';
+		div.style.left = (e.clientX-offX) + 'px';
+	}
 }
 window.onload = addListeners();
 
