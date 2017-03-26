@@ -1,5 +1,11 @@
 body{height:100%}
-table, th, td {border: 1px solid black;}
+table {
+	border: 1px solid #a95454;
+	border-radius: 12px;
+	padding: 5px;
+	background-color: rgba(243, 232, 232, 0.77);
+}
+th, td{border: 1px solid #a95454;}
 .context-menu {
 	display: none;
 	position: absolute;
