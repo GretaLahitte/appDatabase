@@ -1,4 +1,22 @@
 body{height:100%}
+#dxy{
+	border: 1px solid #a95454;
+}
+#hover-content {
+    display:none;
+}
+ 
+#hover-me:hover #hover-content {
+    display:block;
+}
+ul{
+	display: table;margin-left:auto;
+margin-right:auto;
+align-items: center;}
+li{	margin-left:auto;margin-right:auto;
+	display:inline;
+	
+	}
 table {
 	border: 1px solid #a95454;
 	border-radius: 12px;
