@@ -2,10 +2,21 @@ body{height:100%}
 #dxy{
 	border: 1px solid #a95454;
 }
+#formTable{
+	display:none
+}
+#hover-me{
+    text-align: center;
+	background-color:#000;
+	color:#fff;
+    font-family: sans;
+	margin: 0 auto;
+    width: 20%;
+}
 #hover-content {
     display:none;
 }
- 
+a:hover{cursor:pointer}
 #hover-me:hover #hover-content {
     display:block;
 }

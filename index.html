@@ -7,21 +7,28 @@
 
 </head>
 <body oncontextmenu="return false">
-	
-	<div id="dxy" class="task">
-		<div id="hover-me">
+	<div id="hover-me">
 			<span>menu</span>
 			<ul id='hover-content'>
 				<li><a>New</a></li>
 				<li><a>Save</a></li>
 				<li><a>Open</a></li>
+				<li><a>Export</a></li>
+				<li><a>About</a></li>
 			</ul>
 		</div>
+	<div id="dxy" class="task">
+		
 	</div>
-	
+
+<form id="formTable" action="javascript:;" onSubmit="createTable()">
+	Nom:<input id="tableName" type="text">
+	<input type="submit" value="Submit">
+
+</form>
 <nav class="context-menu" id="nav">
 		<ul class="context-menu__items">
-			<li class="context-menu__item" onclick="createTable()">Creer une table</li>	    
+			<li class="context-menu__item" onclick="formTable()">Creer une table</li>	    
 		</ul>
 	</nav>
 <script src="table.js"></script>

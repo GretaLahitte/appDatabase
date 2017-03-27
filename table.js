@@ -2,12 +2,24 @@
 //Create a table
 var id=0;
 
-	function createTable(){
-		var element = document.getElementById("dxy");
-		var newElement = '<table id='+id+'><tr><th>table</th>	</tr><tr><td>_id:xxxxxxxxxxxxxxx</td></tr></table>'
-		element.insertAdjacentHTML('beforeend',newElement);
-		id +=1
-		};
+function formTable(){
+	var formTable=document.getElementById('formTable');
+	if(formTable.style.display == 'block'){
+		formTable.style.display = 'none';
+	}else{
+		formTable.style.display = 'block';
+	}
+};
+function createTable(){
+	var formTable=document.getElementById('formTable');
+	formTable.style.display = 'none';
+	var element = document.getElementById("dxy");
+	var tableName= document.getElementById('tableName')
+	var nameField=tableName.value
+	var newElement = '<table id='+id+'><tr><th>'+nameField+'</th></tr> <tr><td>_id:xxxxxxxxxxxxxxx</td></tr></table>'
+	element.insertAdjacentHTML('beforeend',newElement);
+	id +=1
+}	
 var offX;
 var offY;
 
