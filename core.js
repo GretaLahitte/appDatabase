@@ -46,26 +46,26 @@ function db_facade(nom, file_url){
 /**
 * chargment d'un fichier sql decrivant une base
 */
-db_facade.prototype.load_from_file(file_url){
+db_facade.prototype.load_from_file = function(file_url){
 
 }
 /**
 * ajout d'une table dans la base
 */
-db_facade.prototype.add_table(nom, fields){
+db_facade.prototype.add_table= function(nom, fields){
 
 };
-db_facade.prototype.delete_table(nom){
+db_facade.prototype.delete_table= function(nom){
 
 };
-db_facade.prototype.update_table(nom, infos){
+db_facade.prototype.update_table= function(nom, infos){
 
 };
-db_facade.prototype.add_field(id_table, field){
+db_facade.prototype.add_field= function(id_table, field){
 
 
 };
-db_facade.prototype.update_field(id_table, field){
+db_facade.prototype.update_field= function(id_table, field){
 
 };
 
