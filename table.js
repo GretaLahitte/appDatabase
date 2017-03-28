@@ -16,28 +16,65 @@ function createTable(){
 	var element = document.getElementById("dxy");
 	var tableName= document.getElementById('tableName')
 	var nameField=tableName.value
-	var newElement = '<table id='+id+'><tr><th>'+nameField+'</th></tr> <tr><td>_id:xxxxxxxxxxxxxxx</td></tr></table>'
-	element.insertAdjacentHTML('beforeend',newElement);
+	
+	//debug etst //////////////
+	var table = document.createElement("div");
+	table.className = "table";
+	table.setAttribute("id",id);
+	
+	var head = document.createElement("div");
+	head.className="head";
+	head.textContent = nameField;
+	head.addEventListener("mousedown",onStartDrag);
+	//...
+	
+	table.appendChild(head);
+	
+	
+	head = document.createElement("div");
+	head.textContent = "Add new Field";
+	head.addEventListener("mousedown",addNewField);
+	table.appendChild(head);
+	//...
+	
+	element.appendChild(table); 
+	
+	
+	//////////////
+	//element.insertAdjacentHTML('beforeend',newElement);
 	id +=1
 }	
 var offX;
 var offY;
 
+
+function onStartDrag(event){
+	console.log("star draggin",event);
+}
+function addNewField(event){
+		console.log("add new ",event);
+}
 //Move element
 function addListeners(){
-    document.getElementById('dxy').addEventListener('mousedown', mouseDown, false);
-    window.addEventListener('mouseup', mouseUp, false);
+    /*document.getElementById('dxy').addEventListener('mousedown', mouseDown, false);
+    window.addEventListener('mouseup', mouseUp, false);*/
 
 }
 
-function mouseUp()
-{
+function mouseUp(e){
+	
+	console.log("hello");
+		if(e.target.className=='table'){
+		var div = document.getElementById(e.srcElement.parentNode.id);
+		div.style.zIndex=0
+	}
     window.removeEventListener('mousemove', divMove, true);
 }
 
 function mouseDown(e){
-	if(e.srcElement.offsetParent.id){
-		var div = document.getElementById(e.srcElement.offsetParent.id);
+	console.log(e)
+	if(e.target.className=='table'){
+		var div = document.getElementById(e.srcElement.parentNode.id);
 		offY= e.clientY-parseInt(div.offsetTop);
 		offX= e.clientX-parseInt(div.offsetLeft);
 		window.addEventListener('mousemove', divMove, true);
@@ -45,11 +82,12 @@ function mouseDown(e){
 }
 
 function divMove(e){
-	if(e.srcElement.offsetParent.id){
-		var div = document.getElementById(e.srcElement.offsetParent.id);
+	if(e.target.className=='table'){
+		var div = document.getElementById(e.srcElement.parentNode.id);
 		div.style.position = 'absolute';
 		div.style.top = (e.clientY-offY) + 'px';
 		div.style.left = (e.clientX-offX) + 'px';
+		div.style.zIndex=1000
 	}
 }
 window.onload = addListeners();

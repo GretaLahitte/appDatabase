@@ -5,6 +5,7 @@ body{height:100%}
 #formTable{
 	display:none
 }
+.head{border-bottom:1px solid black}
 #hover-me{
     text-align: center;
 	background-color:#000;
@@ -15,6 +16,7 @@ body{height:100%}
 }
 #hover-content {
     display:none;
+    text-align:center;
 }
 a:hover{cursor:pointer}
 #hover-me:hover #hover-content {
@@ -28,7 +30,11 @@ li{	margin-left:auto;margin-right:auto;
 	display:inline;
 	
 	}
-table {
+.table {
+	cursor:pointer;
+	user-select:none;
+	text-align:center;
+	width:20%;
 	border: 1px solid #a95454;
 	border-radius: 12px;
 	padding: 5px;
