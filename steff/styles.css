@@ -1,0 +1,14 @@
+html{
+    margin:0;
+    padding:0;
+    font-family: 'Poiret One', cursive;
+}
+header{
+
+}
+header > h1 {
+    margin-bottom: 2px;
+}
+header > h2 {
+    margin: 0;
+}
