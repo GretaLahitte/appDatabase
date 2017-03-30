@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+</head>
+<body>
+	<form id="formTable" action="javascript:;" onSubmit="dragMe()">
+	Nom:<input id="tableName" type="text">
+	<input type="submit" value="Submit">
+
+</form>
+<script>
+	
+
+var mousePosition;
+var offset = [0,0];
+var div;
+var isDown = false;
+var _id=0;
+function dragMe(){
+	div = document.createElement("div");
+	div.id=_id;
+	
+	//div = document.getElementById(_id);
+	div.style.position = "absolute";
+	div.style.left = "0px";
+	div.style.top = "0px";
+	div.style.width = "100px";
+	div.style.height = "100px";
+	div.style.background = "red";
+	div.style.color = "blue";
+	div.style.textContent="Plop";
+	document.body.appendChild(div);
+	divId= document.getElementById(_id);
+	_id++;
+
+	divId.addEventListener('mousedown', function(e) {
+		isDown = true;
+		offset = [
+			divId.offsetLeft - e.clientX,
+			divId.offsetTop - e.clientY
+		];
+	}, true);
+
+	divId.addEventListener('mouseup', function() {
+		isDown = false;
+	}, true);
+
+	divId.addEventListener('mousemove', function(event) {
+		event.preventDefault();
+		if (isDown) {
+			mousePosition = {
+		
+				x : event.clientX,
+				y : event.clientY
+		
+			};
+			div.style.left = (mousePosition.x + offset[0]) + 'px';
+			div.style.top  = (mousePosition.y + offset[1]) + 'px';
+		}
+	}, true);
+}
+//window.onload=dragMe();
+</script>
+
+</body>
+</html>
