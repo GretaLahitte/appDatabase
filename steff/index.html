@@ -9,9 +9,37 @@
         
     </head>
     <body data-context="myContext">
+
+        <div data-role="presenters">
+            <div data-role="presenter" id="db_recap">
+                
+                    
+                    <div class="recap">url:<strong>
+                            <span>{binding from:db_type}</span>://
+                            <span>{binding from:login}</span>:
+                            <span>{binding from:passwrd}</span>@
+                            <span>{binding from:host}</span>:
+                            <span>{binding from:db_port}</span>/
+                            <span>{binding from:db_name}</span>
+                            </strong>
+                    </div>
+                
+            </div>
+            <div data-role="presenter" id="no_connection">
+                <div>
+                    Connection form a la base...
+                </div>
+            </div>
+        </div>
+
+
+
         <header>
             <h1>{binding from:app_name}</h1>
             <h2>{binding from:app_slogan}</h2>
+            
+            <div>{binding from:db presenter:db_recap fallback:no_connection}</div>
+            
         </header>
         <content>
 
