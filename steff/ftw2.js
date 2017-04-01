@@ -111,7 +111,7 @@ var defineBindObject = function(obj){
 				//note, context itou?
 				//notifyDatasetChanged(this.__uuid__+":"+obj_k);
 				var key = this.__uuid__+":"+name;
-                                //("search for "+key);
+                                // console.log("search for "+key);
 				if (key in BINDINGS) {
 					////("OK");
                                         //("notify from setter");
@@ -637,20 +637,22 @@ __prop_binding.prototype.convert_value=function(value, context){
                             
                         if (cp[0]=='$'){
                             key = cp.slice(1);
-
-                            v = context;
-                            keys = key.split('.');
-                            if (keys[0] == "global") {
-                                v = CONTEXT;//passe en context global
-                                keys = keys.slice(1);//et supprime global de la liste
-                            }
-                            
-                            for (var k = 0, e=keys.length; k<e;k++){
-                                k=keys[k];
-                                if (k in v) v= v[k];
-                                else {
-                                    v = null;
-                                    break;
+                            if(key == "this") v = context;
+                            else {
+                                v = context;
+                                keys = key.split('.');
+                                if (keys[0] == "global") {
+                                    v = CONTEXT;//passe en context global
+                                    keys = keys.slice(1);//et supprime global de la liste
+                                }
+                                
+                                for (var k = 0, e=keys.length; k<e;k++){
+                                    k=keys[k];
+                                    if (k in v) v= v[k];
+                                    else {
+                                        v = null;
+                                        break;
+                                    }
                                 }
                             }
                             p.push(v);//ajoute la valeur trouvée!
@@ -663,8 +665,8 @@ __prop_binding.prototype.convert_value=function(value, context){
                     if (cp[0]=='$'){
 
                         key = cp.slice(1);
-
-                        if(key in context){
+                        if(key == "this") p = context;
+                        else if(key in context){
                             p = context[key];//recupere la valeur actuelle, mais doit se tenir informé des modifs
                         }
                     }else {p=cp;}
@@ -1656,7 +1658,8 @@ __model_binding.prototype.populate = function(value, parent, extra){
         */
         
 }  
-    ;//--require property_binding
+    
+;//--require property_binding
 
 /*
   ----------------------------------------------------------------------------
@@ -1704,8 +1707,8 @@ function __command_binding(infos){
                 if (bind.command_params[cpi][0]=="$"){
                     //recupere le nom de la prop
                     var prop = bind.command_params[cpi].substr(1);
-
-                    if (prop in bind.context) params.push(bind.context[prop]);//par valeur
+                    if(prop == "this") params.push(bind.context);//le context lui meme
+                    else if (prop in bind.context) params.push(bind.context[prop]);//par valeur
                     else params.push('null');
                 }
                 else params.push(bind.command_params[cpi]);

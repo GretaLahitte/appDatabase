@@ -1,17 +1,164 @@
-html{
+.invert{
+    
+    background-color: #3E3E3E;
+    color: #E3E3E3;
+}
+.shadowed {
+    -webkit-box-shadow: 0px 0px 27px -5px rgba(0,0,0,0.75);
+-moz-box-shadow: 0px 0px 27px -5px rgba(0,0,0,0.75);
+box-shadow: 0px 0px 27px -5px rgba(0,0,0,0.75);
+}
+
+h1,h2,h3,h4{
+    margin: 0;
+    padding: 0;
+}
+h3{
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+body{
     margin:0;
     padding:0;
     font-family: 'Poiret One', cursive;
+    min-height: 100vh;
+    background-color: #E3E3E3;
 }
-header{
+body > header{
+        position: absolute;
+    top: -68px;
+    left:0;
+    right:0;
+    padding-bottom: 5px;
+    box-sizing: border-box;
+    z-index: 9999;
 
+    transition: top 0.5s ease;
 }
-header > h1 {
+body > header:hover {
+    top: 0;
+}
+
+
+
+body >header > h1 {
     margin-bottom: 2px;
 }
-header > h2 {
+body >header > h2 {
     margin: 0;
 }
-header  .recap  span {
+body >header  .recap  span {
     font-size: 1.1em;
+}
+body > content{
+    /*fait lui prendre toute la place dispo*/
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+body > content > div {
+    margin-top: 1.8em;
+}
+
+.main {
+    /* la zone graphique */
+    position: relative;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.main > .table > div {
+    position: absolute;
+    border: 1px solid #3E3E3E;
+    background-color: #fbfbfb;
+    display: flex;
+    flex-direction: column;
+    min-width: 50px;
+    min-height: 50px;
+    border-radius: 5px;
+    z-index: 1;
+    /*transition: transform 0.1s ease;*/
+}
+.selected {
+    z-index: 1000!important;
+}
+.main > .table > div .header{
+    display: inline;
+    padding: 5px;
+    font-size: 1.3em;
+    font-weight: bold;
+    cursor: move;
+}
+
+.main > .table > div .header > a{
+    position: relative;
+    top: 5px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+.main > .table > div .header > a:hover{
+    /*ripple effect*/
+    position: relative;
+    top: 5px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+.main > .table > div > content {
+    padding: 5px;
+}
+.main > .table > div > content > *{
+    position: relative;
+    border: none;
+    border-bottom: 1px dashed #3E3E3E;
+}
+.main > .table > div > content > *:last-child{
+    border: none;
+}
+
+.main_menu{
+    min-width: 50px;
+    min-height: 50px;
+}
+.visible{
+    display: block;
+}
+.invisible{
+    display: none;
+}
+/* DEBUG ONLY: affiche les connectors histoire d'y voir qqchose...*/
+.connector{
+   width: 1px;
+    height: 1px;
+    border: 1px solid black;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+}
+/* pour les links, on defini 2 classes top et bottom PREMIER JET*/
+.top-link {
+    position:absolute;
+    top: 0;
+    left: 0;
+    width: 1px;
+    height: 1px;
+    border: none;
+    border-top-right-radius: 10px;
+    border-top: 1px dashed #3E3E3E;
+    border-right: 1px dashed #3E3E3E;
+}
+.bottom-link {
+    position:absolute;
+    top: 0;
+    left: 0;
+    width: 1px;
+    height: 1px;
+    border: none;
+    border-bottom-left-radius: 10px;
+    border-left: 1px dashed #3E3E3E;
+    border-bottom: 1px dashed #3E3E3E;
 }

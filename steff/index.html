@@ -11,6 +11,63 @@
     <body data-context="myContext">
 
         <div data-role="presenters">
+            <!-- Affichage de la zone graphiques  -->
+            <div data-role="presenter" id="db_tables">
+                <div class="main">  
+                    <div class="table">{binding from:tables presenter:tables fallback:no_table}</div>
+                </div>
+            </div>
+            <div data-role="presenter" id="no_table">
+                <h3>Pas de tables a afficher</h3>
+            </div>
+
+            <!-- affichage des tables -->
+            <div data-role="presenter" id="tables">
+                <div data-binded-class="shadowed {binding from:selected converter:setTableSelectedConverter}" data-binded-style="{binding from:coords converter:coords_to_translate}">
+                    <div class="header invert"
+                    data-binded-mousedown="{binding command:start_drag command_params:$this}"
+                    draggable><span>{binding from:name}</span>
+                    <a data-binded-mousedown="{binding command:show_menu command_params:$this}"><i class="material-icons">menu</i></a></div>
+                    <content>{binding from:fields presenter:field_presenter empty:no_field_fallback}</content>
+                    <footer>
+
+                    </footer>
+                </div>
+            </div>
+
+            <!-- affichage des champs -->
+            <div data-role="presenter" id="field_presenter">
+                <div>
+                    
+                    <h3>{binding from:name}</h3>
+                    
+                </div>
+            </div>
+             <div data-role="presenter" id="no_field_fallback">
+                <div>
+                    <h3>Rien a afficher</h3>
+                </div>
+            </div>
+
+
+            <!-- affichage des relations entre les tables -->
+            <div data-role="presenter" id="relations">
+                <div>
+                    <div class="main">{binding from:relations presenter:relation_item_presenter}</div>
+                </div>
+            </div>
+            <div data-role="presenter" id="relation_item_presenter">
+                <div class="relation">
+                        <div data-binded-id="{binding from:id}">
+                            <div id="top" class="top-link" 
+                                data-binded-style="{binding from:top converter:coords_to_position converter_params:[$this,from]}"></div>
+                            <div id="bottom" class="bottom-link" 
+                                data-binded-style="{binding from:bottom converter:coords_to_position converter_params:[$this,to]}"></div>
+                        </div>
+                </div>
+            </div>
+
+            <!-- Affichage des infos du header -->
             <div data-role="presenter" id="db_recap">
                 
                     
@@ -34,15 +91,23 @@
 
 
 
-        <header>
+
+        <!-- main de l'application -->
+        <header class="invert">
             <h1>{binding from:app_name}</h1>
             <h2>{binding from:app_slogan}</h2>
             
             <div>{binding from:db presenter:db_recap fallback:no_connection}</div>
             
         </header>
-        <content>
-
+        <content data-binded-contextmenu="{binding command:showMainMenu}"
+        data-binded-click="{binding command:showMainMenu command_params:false}">
+            <div id="main_menu" data-binded-class="main-menu invert {binding from:show_main_menu converter:ftw2:is_true converter_params:['visible','invisible']}">
+                hello menu!
+            </div>
+            
+            <div>{binding from:db presenter:db_tables}</div>
+            <div>{binding from:db presenter:relations}</div>
         </content>
         <footer>
 
