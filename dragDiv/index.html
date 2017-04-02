@@ -2,66 +2,67 @@
 <html>
 <head>
 	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="style.css" media="all">
+	<link rel="stylesheet" type="text/css" href="form.css" media="all">
+	  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
 </head>
-<body>
-	<form id="formTable" action="javascript:;" onSubmit="dragMe()">
-	Nom:<input id="tableName" type="text">
-	<input type="submit" value="Submit">
+<body oncontextmenu="return false"class="task">
+	<div id="svgContainer" style="margin: 50px 50px;">
+    <svg id="svg1" width="0" height="0" >
+        <path
+            id="path1"
+            d="M0 0"         
+            stroke="#a95454" 
+            fill="none" 
+            stroke-width="4px";/>
+    </svg>
+</div>
+<nav class="panel">
+	<ul>
+		<li>
+		<span>Menu</span>
+			<ul>
+				<li><a onclick="retrieveLink()">Link</a></li>
+				<li><a>Open</a></li>
+				<li><a>Export</a></li>
+				<li><a>About</a></li>
+			</ul>
+		</li>	
+	</ul>
+</nav>
 
-</form>
-<script>
-	
-
-var mousePosition;
-var offset = [0,0];
-var div;
-var isDown = false;
-var _id=0;
-function dragMe(){
-	div = document.createElement("div");
-	div.id=_id;
-	
-	//div = document.getElementById(_id);
-	div.style.position = "absolute";
-	div.style.left = "0px";
-	div.style.top = "0px";
-	div.style.width = "100px";
-	div.style.height = "100px";
-	div.style.background = "red";
-	div.style.color = "blue";
-	div.style.textContent="Plop";
-	document.body.appendChild(div);
-	divId= document.getElementById(_id);
-	_id++;
-
-	divId.addEventListener('mousedown', function(e) {
-		isDown = true;
-		offset = [
-			divId.offsetLeft - e.clientX,
-			divId.offsetTop - e.clientY
-		];
-	}, true);
-
-	divId.addEventListener('mouseup', function() {
-		isDown = false;
-	}, true);
-
-	divId.addEventListener('mousemove', function(event) {
-		event.preventDefault();
-		if (isDown) {
-			mousePosition = {
-		
-				x : event.clientX,
-				y : event.clientY
-		
-			};
-			div.style.left = (mousePosition.x + offset[0]) + 'px';
-			div.style.top  = (mousePosition.y + offset[1]) + 'px';
-		}
-	}, true);
-}
-//window.onload=dragMe();
-</script>
-
+<nav class="context-menu" id="nav">
+		<ul class="context-menu__items">
+			<li class="context-menu__item" onclick='formField()'>Creer une table</li>	    
+		</ul>
+	</nav>
+	<!-- The Modal -->
+<div id="myModalTable" class="modal">
+	<div id="caption">
+		<form id="formTable" action="javascript:;" onSubmit="launch(document.getElementById('tableName').value)">
+			<span class="close">×</span>
+			Nom de la table: <input id="tableName" type="text" name="tableName"><br>
+			<input class="submit" type="submit" value="Submit" >
+		</form>
+	</div>
+</div>
+<div id="myModalTableField" class="modal">
+	<div id="caption">
+		<form id="formField" action="javascript:;" onSubmit="function(){console.log('submit')}">
+			<span class="close">×</span>
+			Nom de l'entrée: <input id="nameField" type="text" name="nameField">
+			<SELECT name="nom" size="1">
+				<OPTION>VARCHAR</OPTION>OPTION>
+				<OPTION>INTEGER</OPTION>
+				<OPTION>DATE</OPTION>
+			</SELECT>
+			<input class="submit" type="submit" value="Submit" >
+		</form>
+	</div>
+</div>
+<script src="table.js"></script>
+<script src="contextMenu.js"></script>
+<script src="svgDraw.js"></script>
 </body>
 </html>
