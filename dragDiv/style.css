@@ -72,7 +72,7 @@ border:1px solid black;
 border-radius:12px;
 background-color:#000;
 color:#FFF;
-    position:absolute;
+    position:relative;
     left:0;
     top:19px;
     z-index:1;
@@ -92,3 +92,4 @@ color:#FFF;
 ul{list-style:none}
 span{position:absolute;left:7px}
 .addField{border-bottom:1px solid black}
+.field{border-bottom: 1px dashed black}
