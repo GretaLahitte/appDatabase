@@ -48,6 +48,12 @@ body >header > h1 {
 body >header > h2 {
     margin: 0;
 }
+body > header .recap {
+    overflow: hidden;
+    /* word-wrap: normal; */
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
 body >header  .recap  span {
     font-size: 1.1em;
 }
@@ -65,7 +71,7 @@ body > content > div {
 
 .main {
     /* la zone graphique */
-    position: relative;
+    position: absolute;
     top: 0;
     left: 0;
     right: 0;
@@ -134,7 +140,7 @@ body > content > div {
 .connector{
    width: 1px;
     height: 1px;
-    border: 1px solid black;
+    /*border: 1px solid black;*/
     position: absolute;
     top: 50%;
     left: 50%;
@@ -150,6 +156,8 @@ body > content > div {
     border-top-right-radius: 10px;
     border-top: 1px dashed #3E3E3E;
     border-right: 1px dashed #3E3E3E;
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;
 }
 .bottom-link {
     position:absolute;
@@ -161,4 +169,104 @@ body > content > div {
     border-bottom-left-radius: 10px;
     border-left: 1px dashed #3E3E3E;
     border-bottom: 1px dashed #3E3E3E;
+     -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;
+}
+
+
+
+
+/* un effet ripple sur les boutons de menus */
+/* YOUR CUSTOM STYLES */
+.container > *{
+    margin-top: 20px;
+}
+
+
+@-moz-keyframes ripple {
+  5%, 100% {
+    opacity: 0;
+  }
+  5% {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes ripple {
+  5%, 100% {
+    opacity: 0;
+  }
+  5% {
+    opacity: 1;
+  }
+}
+@keyframes ripple {
+  5%, 100% {
+    opacity: 0;
+  }
+  5% {
+    opacity: 1;
+  }
+}
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+.rippler {
+  position: relative;
+  cursor: pointer;
+  /*margin: 30px;
+  padding-left: 28px;*/
+}
+
+.rippler:before, .rippler:after{
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  -moz-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+/*
+.rippler:before, .rippler:after{
+    border-radius: 5%;
+}
+.rippler:before{
+  top: 0;
+  left: 0;
+  width: 18px;
+  height: 18px;
+  background: #1565C0;
+  -moz-box-shadow: inset 0 0 0 18px #F2F2F2;
+  -webkit-box-shadow: inset 0 0 0 18px #F2F2F2;
+  box-shadow: inset 0 0 0 18px #F2F2F2;
+}*/
+.rippler:after {
+  top: 49%;
+  left: 12px;
+  width: 54px;
+  height: 54px;
+  opacity: 0;
+  background: rgba(22, 167, 243, 0.5);
+  -moz-transform: translate(-50%, -50%) scale(0);
+  -ms-transform: translate(-50%, -50%) scale(0);
+  -webkit-transform: translate(-50%, -50%) scale(0);
+  transform: translate(-50%, -50%) scale(0);
+}
+/*
+.rippler:hover:before {
+  -moz-box-shadow: inset 0 0 0 4px #F2F2F2;
+  -webkit-box-shadow: inset 0 0 0 4px #F2F2F2;
+  box-shadow: inset 0 0 0 4px #F2F2F2;
+}*/
+.rippler:hover:after {
+  -moz-transform: translate(-50%, -50%) scale(1);
+  -ms-transform: translate(-50%, -50%) scale(1);
+  -webkit-transform: translate(-50%, -50%) scale(1);
+  transform: translate(-50%, -50%) scale(1);
+  -moz-animation: ripple 1s ease-out;
+  -webkit-animation: ripple 1s ease-out;
+  animation: ripple 1s ease-out;
 }

@@ -5,7 +5,7 @@ var myContext = (function (){
 
     
 
-    //GESTION DRAG AND DROP DES TABLES -------------
+    //GESTION DRAG AND DROP DES TABLES ---------------------------------------------------------
 
     var __shift_top = 0;//pour positionner suivant le click de la souris
     var __shift_left = 0;
@@ -24,7 +24,7 @@ var myContext = (function (){
         document.addEventListener("mouseup",stop_drag);
     }
     /**
-     * Permet de supprimer les differents events mis en place
+     * Permet de supprimer les differents events mis en place sur le document
      * PRIVATE
      */
     function __releaseEvent(){
@@ -54,6 +54,9 @@ var myContext = (function (){
         __captureEvents();
        
     }
+
+
+    //var timer;//pour les events throttling
     /**
      * Event au mousemove si une table est selectionnée 
      * @param evt:MouseMoveEvent
@@ -61,19 +64,29 @@ var myContext = (function (){
     function drag(evt){
         evt.preventDefault();
         //console.log("hello")
+        // if(!timer) {
+            
+        //     timer = window.setTimeout(function() {
+                // actual callback
         if(__cible){
             __cible.coords = {x:evt.clientX + __shift_left,
-                              y:evt.clientY + __shift_top};
+                            y:evt.clientY + __shift_top};
             //met a jour les relations pour cette table...
+            //test: bypass le moteur de rendu 
             
             let tt = __cible.relations.length;
             for(var i=0;i<tt;i++){
+                
                 var r = __cible.relations[i];
-                r.notifyDatasetChanged("top");
-                r.notifyDatasetChanged("bottom");
+                //r.notifyDatasetChanged("id");
+                r.id = {};
             }
             
         }
+                
+            // }, 50);
+        //}
+        
     }
     /**
      * Event au mouse up: supprime les events au documnt et 
@@ -82,17 +95,30 @@ var myContext = (function (){
      */
     function stop_drag(evt){
         if(__cible){
-            console.log("release event");
+           
             __cible.selected = false;
-            console.log(__cible);
+            //remet en place une derniere fois...
+            __cible.coords = {x:evt.clientX + __shift_left,
+                            y:evt.clientY + __shift_top};
+            //met a jour les relations pour cette table...
+            
+            let tt = __cible.relations.length;
+            for(var i=0;i<tt;i++){
+                var r = __cible.relations[i];
+                //r.notifyDatasetChanged("id");
+                r.id = {};
+            }
+                    
+                
             __cible = null;
             __releaseEvent();
         }
         
     }
-    // -----------------------------------------------
+    // ---------------------------------------------------------------------------------------
 
-    /* affichage du menu pour une table */
+    /* affichage du menu pour une table EN ATTENTE POUR L'instant
+    franchement, ne pas avoir le click droit pour debugger, c'est un peu lourd... */
     function show_menu (evt, elem){
         evt.preventDefault();
         evt.stopPropagation();
@@ -112,50 +138,46 @@ var myContext = (function (){
 
 
     //TEST ONLY: convertie les datas d'une relation en affichage des divs --------------------
+    
     /**
-     * place les divs pour affichage des relations entre les données
+     * place les polyline pour affichage des relations entre les données
      * 
-     * Probleme: scales negatifs!!!
+     * 
      * @param v: la relation a representer... 
      */
-    function createLink(v, relation){
-        
-       // console.log("Creation de la relation: ",relation, v);
-        //recup les coords des tables 
-        var r = relation[1];
-        var obj = relation[0];
+    
 
-        
-
-        var transform = "";
-        if(obj == 'from'){
-            var t1 = r.from.table.coords;
-            var t2=r.to.table.coords;
-            //le field demandé 
-            var findex =43 + 33 * (r.from.index+0.5);            
-            var tindex = 43 + 33 * (r.to.index+0.5);
-
-            var hw = (t2.x - t1.x)/2;
-            var hl = ((t2.y + tindex) - (t1.y + findex))/2;
-
-            
-            transform = "transform: translate("+t1.x+"px,"+(t1.y+findex)
-                        +"px); width:"+hw+"px; height:"+hl+"px;";
-        } else {
-            
-            var t1 = r.to.table.coords;
-            var t2=r.from.table.coords;
-            var findex =43 + 33 * (r.from.index+0.5);            
-            var tindex = 43 + 33 * (r.to.index+0.5);
-
-            var hw = (t1.x - t2.x)/2;
-            var hl = ((t1.y + tindex) - (t2.y+findex))/2;
-
-            transform = "transform: translate("+(t1.x - hw)+"px,"+(t1.y  + tindex - hl)+"px); width:"+hw+"px; height:"+hl+"px;";
+    function createSVGLink(v, relation){
+        //calcule les coords des points du link 
+        var r = relation;
+        //recup les infos de position
+        var fromElem = r.from._link;
+        var toElem = r.to._link;
+        var scrollX = window.scrollX;
+        var scrollY = window.scrollY;
+        //la premiere fois, ne connait pas les elements....
+        if(!r.from._link){
+            //bon, il me le faut...
+            fromElem = r.from._link = document.getElementById(r.from.field.id);
+            toElem = r.to._link = document.getElementById(r.to.field.id);
         }
-        //console.log("obj",obj,transform);
-        return transform;
+
+        //calcule les coords actuelles
+        var t1 = fromElem.getBoundingClientRect(); //r.from.table.coords;
+        var t2= toElem.getBoundingClientRect();//r.to.table.coords;
         
+        //calcul les centres des fields 
+        var cfx = t1.left + scrollX + t1.width/2;
+        var ctx = t2.left +scrollX + t2.width/2;
+        var cfy = t1.top - 28.8 +scrollY +t1.height/2;
+        var cty = t2.top - 28.8 +scrollY + t2.height/2;
+
+        //les positions relatives des divs
+        var hw = (ctx - cfx)/2  + cfx;
+        var hl = (cty - cfy)/2 + cfy;
+
+
+        return cfx+","+cfy+" "+hw+","+cfy+" "+hw+" "+cty+" "+ctx+","+cty;
     }
 
 
@@ -178,12 +200,16 @@ var myContext = (function (){
                         id:"uuid2",
                         name:"id_client"
     };
-    //FK de la table 3
+    //FK de la table 3 (vers table1 et table2)
     var t3_fk = {
                         id:"uuid52",
                         name:"other_commande"
                     };
-    //les tables de la base
+    var t4_fk = {
+        id:"uuid53",
+        name:"other_again"
+    }
+    //les tables de la base (ayant des relations)
     var table1 = {
                 id:"anId",//identifiant unique de la tables
                 name:'FirstTable',//nom de la table 
@@ -227,7 +253,7 @@ var myContext = (function (){
     var table3 = {
                 id:"anId5",//identifiant unique de la tables
                 name:'OtherTable',//nom de la table 
-                coords:{x:600,y:500},
+                coords:{x:578,y:316},
                 selected: false,
                 fields:[
                     {
@@ -235,7 +261,7 @@ var myContext = (function (){
                         name:"id"
                     },
                     t3_fk,
-                    
+                    t4_fk
                     //et le reste....
                     
                 ],
@@ -259,12 +285,12 @@ var myContext = (function (){
                 from:{
                     table: table1,
                     field: t1_id,
-                    index: 0
+                    _link: null //ca, c'est vraiement pas beau....
                 },
                 to:{
                     table: table2,
                     field: t2_fk,
-                    index: 1
+                    _link: null
                 }
     };
     table1.relations.push(relation);
@@ -284,16 +310,55 @@ var myContext = (function (){
                 from:{
                     table: table1,
                     field: t1_id,
-                    index: 0
+                    _link: null //ca, c'est vraiement pas beau....
                 },
                 to:{
                     table: table3,
                     field: t3_fk,
-                    index: 1
+                    _link: null //ca, c'est vraiement pas beau....
                 }
     };
     table1.relations.push(relation2);
     table3.relations.push(relation2);
+    //et la derniere, on pense toujours a l'inscrire dans la table...
+    var relation3 = {
+        id:"link3",
+                top:{
+                    x: 20,
+                    y: 30,
+                },
+                bottom: {
+                    x: 400,
+                    y: 350
+                },
+                from:{
+                    table: table2,
+                    field: t2_fk,
+                    _link: null //ca, c'est vraiement pas beau....
+                },
+                to:{
+                    table: table3,
+                    field: t4_fk,
+                    _link: null //ca, c'est vraiement pas beau....
+                }
+    }
+    table2.relations.push(relation3);
+    table3.relations.push(relation3);
+    
+    
+    //les relations entre les differentes tables de la base,
+    //pour me simplifier la vie, elles sont aussi globales (voir a changer ca plus tard...)
+    var relations = [
+            //decrit une relation (pas de 1 à n pour l'instant ou de truc comme ca...)
+            //entre 2 tables
+            relation,
+            relation2,
+            relation3
+        ];
+    
+    
+    
+    //Les données relatives a la base : connection, tables, relations...
     var db = {
         //qqs infos d'ordre generales sur la base elle meme et l'utilisateur
         file_url:'a/path',//chemin vers le fichier sql/dump ou enregistrer
@@ -324,18 +389,17 @@ var myContext = (function (){
 
         ],
         //desciption des relations entre les tables
-        relations:[
-            //decrit une relation (pas de 1 à n pour l'instant ou de truc comme ca...)
-            //entre 2 tables
-            relation,
-            relation2
-        ]
+        //voir plus bas le pourquoi du hack...
+        relations:null
     }
 
 
 
     
-
+    /**
+     * Le context de données global retourné par mon module
+     * c'est lui qui est accessible pour le moteur de rendu
+     */
     var CONTEXT =  {
         app_name : "GRETA SQL Tool",
         app_slogan : "a sql tool that is super cool!",
@@ -356,10 +420,22 @@ var myContext = (function (){
         setTableSelectedConverter: function(v){
             return v ? "selected" : "";
         },
-        coords_to_position:createLink
-        
+        relation_to_points_converter: createSVGLink
 
     };
+
+    //HACK:comme j'ai besoin d'avoir les elements HTML pour pouvoir faire les dessins,
+    //je demande a charger les relations 100ms apres le reste, ca laisse le temps
+    //pour les affichages...
+    //MAIS: uniquement du au fait que les données soient en dur dans le javascript,
+    //ne devrait :) pas poser de probleme avec les loading de fichiers...
+    window.addEventListener("load", function(){
+       window.setTimeout(function(){
+            CONTEXT.db.relations = relations;//force le 1er paint
+        },100);
+    });
+
+
 
     return CONTEXT;
 })();

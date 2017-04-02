@@ -1,4 +1,4 @@
-(function (root, factory) {
+var ftw2 = (function (root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module unless amdModuleId is set
     define([], function () {
@@ -10,7 +10,7 @@
     // like Node.
     module.exports = factory();
   } else {
-    factory();
+    return factory();
   }
 }(this, function () {
 
@@ -3122,12 +3122,16 @@ function AppInit(){
         notifyDatasetChanged();
 
         CONTEXT.end_init = true;//notifie la fin du chargement...
+        
 }
 
 
 //lance au chargement...
 window.addEventListener("load",AppInit);
         
-        
+        return {
+                notifyDatasetChanged : notifyDatasetChanged,
+                generateUUID : generateUUID
+        }
 
 }));
