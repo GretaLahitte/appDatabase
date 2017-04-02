@@ -111,7 +111,9 @@ function Table(head){
 	};
 	//METHODE: ajout d'une entrée à la div
 	this.addfield=function(e){
+		
 		conteneur =document.getElementById(e.target.offsetParent.id);
+		console.log('addFiel: ',conteneur);
 		modalField.style.display="block";
 		span1.onclick = function() { 
 			modalField.style.display = "none";
