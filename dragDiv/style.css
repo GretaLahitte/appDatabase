@@ -62,28 +62,26 @@ border:1px solid black;
 	}
 
 .panel li ul { 
-height:120px;
- list-style: none;
- text-align: center;
-
+	height:120px;
+	list-style: none;
+	text-align: center;
 	font-family: "Roboto", sans-serif;
-
-border:1px solid black;
-border-radius:12px;
-background-color:#000;
-color:#FFF;
-    position:relative;
-    left:0;
-    top:19px;
-    z-index:1;
-    max-height:0;
-    overflow:hidden;
-    -webkit-transform:perspective(400) rotate3d(1,0,0,-90deg);
-    -webkit-transform-origin:50% 0;
-    -webkit-transition:350ms;
-    -moz-transition:350ms;
-    -o-transition:350ms;
-    transition:350ms;
+	border:1px solid black;
+	border-radius:12px;
+	background-color:#000;
+	color:#FFF;
+	position:relative;
+	left:0;
+	top:19px;
+	z-index:1;
+	max-height:0;
+	overflow:hidden;
+	-webkit-transform:perspective(400) rotate3d(1,0,0,-90deg);
+	-webkit-transform-origin:50% 0;
+	-webkit-transition:350ms;
+	-moz-transition:350ms;
+	-o-transition:350ms;
+	transition:350ms;
 }
 .panel ul > li:hover ul {
     max-height:1000px;

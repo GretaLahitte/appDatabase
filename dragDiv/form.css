@@ -61,8 +61,9 @@ form{margin:20px}
 
 /* The Close Button */
 .close {
+	position:relative;
 	float:right;
-    top: -28px;
+    
     color: #f1f1f1;
     font-size: 40px;
     font-weight: bold;

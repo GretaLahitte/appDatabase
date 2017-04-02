@@ -32,8 +32,8 @@ function Table(head){
 		div.id=this.head;
 		
 		div.style.position = "absolute";
-		div.style.top = "50px";
-		div.style.left = "20px";
+		div.style.top = "100px";
+		div.style.left = "200px";
 		div.style.width = "20%";
 		div.style.height = "auto";
 		div.className='table';
