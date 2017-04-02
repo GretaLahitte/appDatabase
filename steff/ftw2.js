@@ -1020,8 +1020,6 @@ __model_binding.prototype._populate_model = function(context, mroot,type, deep){
         var item_type = type || context.constructor.name || "defaut";
         var p_type = mroot || this.presenter;
 
-
-        
         var frag =null;
         var current_keys = [];//les clés crées pour ce model
         var deep_binding = deep || this.deep || true;//pour savoir si rend accessible les données internes au binding
@@ -1059,26 +1057,48 @@ __model_binding.prototype._populate_model = function(context, mroot,type, deep){
                 this._ftw2_type = p_type+"_empty";}
         }
         else{
-                while (proto != null){
-                        var presenter_type = p_type+"_" + proto.constructor.name;
+                //test un type donné 
+                if(context._data_type){
+                        var presenter_type = p_type+"_" + context._data_type;
+                        console.log(p_type,presenter_type,MODELS)
                         if (presenter_type in MODELS){
-
-                                var item_type = proto.constructor.name;
-                                /*bindings = MODELS[presenter_type] ;
-                                model = this._cache_types[item_type];//root_model.querySelector("[data-type='"+item_type+"']");*/
+                                console.log("gottcha");
+                                var item_type = context._data_type;
                                 var md = MODELS[presenter_type];
-                                if(md){bindings = md.bindings;
-                                model = md.template;
-                                recycle = md.recycle;
-                                
-                                this._ftw2_type = presenter_type;
-                                break;}
+                                if(md){
+                                        bindings = md.bindings;
+                                        model = md.template;
+                                        recycle = md.recycle;
+                                        
+                                        this._ftw2_type = presenter_type;
+                                        
+                                }
                         }
-                        //sinon, suivant
-                        proto = proto.__proto__;
+                        //assume in  model for now...
+                        else throw "Unknown data-type model: "+context._data_type;
+                } 
+                else {
+                        while (proto != null){
+                                var presenter_type = p_type+"_" + proto.constructor.name;
+                                if (presenter_type in MODELS){
+
+                                        var item_type = proto.constructor.name;
+                                        /*bindings = MODELS[presenter_type] ;
+                                        model = this._cache_types[item_type];//root_model.querySelector("[data-type='"+item_type+"']");*/
+                                        var md = MODELS[presenter_type];
+                                        if(md){bindings = md.bindings;
+                                        model = md.template;
+                                        recycle = md.recycle;
+                                        
+                                        this._ftw2_type = presenter_type;
+                                        break;}
+                                }
+                                //sinon, suivant
+                                proto = proto.__proto__;
 
 
-                    }
+                        }
+                }
         }
             
         if (model == null){
@@ -1765,7 +1785,7 @@ __command_binding.prototype.init = function(ctx){
         if (this.command != null && this.to!=null){
                 
 
-            this._element.addEventListener(this.to,this.__process_event);
+            this._element.addEventListener(this.to,this.__process_event, true);
             //addCommandListener(this._element, this.to,this.__process_event);
             //this._element._cmd_binding = this;                                                                                  // memory leaks?????? TODO
         }
@@ -2324,7 +2344,7 @@ function check_radio_value(value, params){
 //@param params: un tableau de 2 valeurs possibles si false=>0, true=>1 
 //@return true/false ou params[0] si false, params[1] si true
 function is_true (value, params){
-      var res = value == true;
+      var res = value ;//== true;
       if (params && params.length >= 2) {
               res = res? params[1] : params[0];
       }

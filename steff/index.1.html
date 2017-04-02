@@ -4,6 +4,7 @@
         <meta charset="utf-8">
         <link href="https://fonts.googleapis.com/css?family=Poiret+One" rel="stylesheet">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        
         <link rel="stylesheet" href="styles.css">
         <title>GretaJS SQL tool</title>
         
@@ -27,7 +28,7 @@
                     <div class="header invert"
                     data-binded-mousedown="{binding command:start_drag command_params:$this}"
                     draggable><span>{binding from:name}</span>
-                    <a data-binded-mousedown="{binding command:show_menu command_params:$this}"><i class="material-icons rippler">menu</i></a></div>
+                    <a data-binded-click="{binding command:show_menu command_params:$this}"><i class="material-icons rippler">menu</i></a></div>
                     <content>{binding from:fields presenter:field_presenter empty:no_field_fallback}</content>
                     <footer>
 
@@ -82,6 +83,46 @@
                     Connection form a la base...
                 </div>
             </div>
+
+
+            <!-- affichage des menu -->
+            <div data-role="presenter" id="menu_item_presenter">
+                <div>
+                    <div class="menu-item" data-binded-click="{binding command:menu_action command_params:$action}"><i class="material-icons">{binding from:icon}</i><span>{binding from:label}</span></div>
+                </div>
+            </div>
+
+
+            <!-- affichage des boites de dialogues -->
+            <div data-role="presenter" id="dialog_presenter">
+                <div data-type="createTableDlg" class="modal-content  shadowed">
+                    <h2>Create a new Table</h2>
+                    <p>Create a new table in your database schema.</p>
+                    <content>
+                        <form>
+                            <label>Name:<input type="text" name="nom" placeholder="Name of the new table"></label>
+                        </form>
+                    </content>
+                    <div class="commands">
+                        <button type="button" class="invert" data-binded-click="{binding command:toggle_dlg}">Ok</button>
+                        <button type="button" class="invert" data-binded-click="{binding command:toggle_dlg}">Cancel</button>
+
+                    </div>
+                </div>
+                <div data-type="exportSQLDlg" class="modal-content  shadowed">
+                    <h2>Export to SQL</h2>
+                    <p>Modal text content to explain....</p>
+                    <content>
+                        sonething in the modal
+                    </content>
+                    <div class="commands">
+                        <button type="button" class="invert" data-binded-click="{binding command:toggle_dlg}">Ok</button>
+                        <button type="button" class="invert" data-binded-click="{binding command:toggle_dlg}">Cancel</button>
+
+                    </div>
+                </div>
+
+            </div>
         </div>
 
 
@@ -96,14 +137,28 @@
             
         </header>
         <content data-binded-contextmenu="{binding command:showMainMenu}"
-        data-binded-click="{binding command:showMainMenu command_params:false}">
-            <div id="main_menu" data-binded-class="main-menu invert {binding from:show_main_menu converter:ftw2:is_true converter_params:['visible','invisible']}">
-                hello menu!
-            </div>
+        data-binded-click="{binding command:showMainMenu}">
+            
             
             <div>{binding from:db presenter:db_tables}</div>
             <div>{binding from:db presenter:relations}</div>
         </content>
+
+
+
+
+
+        <div id="main_menu" data-binded-class="main-menu invert shadowed {binding from:menu converter:ftw2:is_true converter_params:['visible','invisible']}"
+            data-binded-style="{binding from:menu_coords converter:coords_to_translate}">
+                {binding from:menu presenter:menu_item_presenter deep:false}
+        </div>
+
+        <!-- The Modal -->
+        <div id="myModal"
+         class="modal  {binding from:show_dlg converter:ftw2:is_true converter_params:['visible','invisible']}">{binding from:show_dlg presenter:dialog_presenter}</div>
+
+        </div>
+
         <footer>
 
         </footer>

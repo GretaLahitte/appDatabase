@@ -119,20 +119,134 @@ var myContext = (function (){
 
     /* affichage du menu pour une table EN ATTENTE POUR L'instant
     franchement, ne pas avoir le click droit pour debugger, c'est un peu lourd... */
+
+    //les differentes actions possibles 
+    var menu_actions = {
+        "new_table": function(evt, params){
+            //demande a afficher la dialog nouvelle table...
+            CONTEXT.show_dlg = dialogs.new_table;
+        },
+        "export_sql":function(evt,params){
+            CONTEXT.show_dlg = dialogs.export_sql;
+        }
+    };
+    //menu principal de l'appli (click droit)
+    var main_menu = [
+        {
+            action:"new_table",
+            icon:"insert_drive_file",
+            label:"New TABLE"
+        },
+        {
+            action:"save_schema",
+            icon:"save",
+            label:"Save SCHEMA"
+        },
+        {
+            action:"export_sql",
+            icon:"file_upload",
+            label:"Export SQL"
+        },
+        {
+            action:"new_base",
+            icon:"folder",
+            label:"New BASE"
+        },
+    ];
+    //menu contextuel pour les tables
+    var ctx_menu = [
+        {
+            action:"show_properties",
+            icon:"settings",
+            label:"Properties"
+        },
+        {
+            action:"add_field",
+            icon:"playlist_add",
+            label:"Add new Field"
+        },
+        {
+            action:"export_table",
+            icon:"file_upload",
+            label:"Export SQL"
+        },
+        {
+            action:"delete_table",
+            icon:"delete",
+            label:"Delete TABLE"
+        },
+    ]
+    //var event_processed = false;
     function show_menu (evt, elem){
         evt.preventDefault();
         evt.stopPropagation();
         //a voir...
+        // CONTEXT.show_ctx_menu = !CONTEXT.show_ctx_menu;
+        // if(CONTEXT.show_ctx_menu){
+        //     CONTEXT.menu_coords = {
+        //             x:evt.pageX ||evt.offsetX,
+        //             y:evt.pageY || evt.offsetY
+        //         };
+        // }
+        if(CONTEXT.menu == null) {
+            //dismiss menus
+            CONTEXT.menu = ctx_menu;
+             CONTEXT.menu_coords = {
+                        x:evt.pageX ||evt.offsetX,
+                        y:evt.pageY || evt.offsetY
+                    };
+        }
+        //event_processed = true;
     }
     function toggle_main_menu(evt, params){
         //un peu chiant lors du dev ca...
+
+        //1er event envoyé?
+        
+        ;
+        if(evt.button == 2){
+            //show main menu
+            evt.stopPropagation();
+            evt.preventDefault();
+            CONTEXT.menu = main_menu;
+            
+            CONTEXT.menu_coords = {
+                        x:evt.pageX ||evt.offsetX,
+                        y:evt.pageY || evt.offsetY
+                    };
+        } else if(CONTEXT.menu) {
+            //dismiss menus
+            evt.stopPropagation();
+            evt.preventDefault();
+           
+            CONTEXT.menu = null;
+        }
+        
+        // if(!event_processed && CONTEXT.show_ctx_menu){
+        //     //fait disparaitre
+        //     show_menu(evt,null);
+        //     return;//fini
+        // }
+        // event_processed = false;
         // evt.stopPropagation();
         // evt.preventDefault();
         // //si decide de forcer l'appartition...
-        // if(params && params.length > 0) CONTEXT.show_main_menu = params[0] === true;
+        // if(params && params.length > 0) {
+        //     CONTEXT.show_main_menu = params[0] === true;
+            
+        // }
         // //sinon, simple toggle
         // else CONTEXT.show_main_menu = !CONTEXT.show_main_menu;
         
+        // if(CONTEXT.show_main_menu){
+        //         //enregistre les coords du click
+               
+        //         CONTEXT.menu_coords = {
+        //             x:evt.pageX ||evt.offsetX,
+        //             y:evt.pageY || evt.offsetY
+        //         };
+                 
+        //     }
     }
 
 
@@ -159,6 +273,7 @@ var myContext = (function (){
         if(!r.from._link){
             //bon, il me le faut...
             fromElem = r.from._link = document.getElementById(r.from.field.id);
+            if(!fromElem) return;
             toElem = r.to._link = document.getElementById(r.to.field.id);
         }
 
@@ -179,6 +294,16 @@ var myContext = (function (){
 
         return cfx+","+cfy+" "+hw+","+cfy+" "+hw+" "+cty+" "+ctx+","+cty;
     }
+
+
+
+    // Dialogues modale (sur le meme principe que les menus) --------------------------------
+    // utilise une feinte pour faire croire que les objets sont differents en 
+    //en definissant un type (_data_type)...mouhahahahaha
+    var dialogs = {
+        "new_table":{_data_type:"createTableDlg"},
+        "export_sql":{_data_type:"exportSQLDlg"}  
+    };
 
 
     //Creation d'un jeu de données pour tester les renders -----------------------------------
@@ -355,10 +480,16 @@ var myContext = (function (){
             relation2,
             relation3
         ];
+    //END DUMMY DATAS
     
     
-    
-    //Les données relatives a la base : connection, tables, relations...
+   
+   
+   
+   
+   
+    //Les données relatives a la base : connection, tables, relations... -----------------------------
+    //c'est le coeur du programme!
     var db = {
         //qqs infos d'ordre generales sur la base elle meme et l'utilisateur
         file_url:'a/path',//chemin vers le fichier sql/dump ou enregistrer
@@ -397,22 +528,59 @@ var myContext = (function (){
 
     
     /**
-     * Le context de données global retourné par mon module
+     * Le context de données global retourné par mon module ------------------------------------------
      * c'est lui qui est accessible pour le moteur de rendu
      */
     var CONTEXT =  {
         app_name : "GRETA SQL Tool",
         app_slogan : "a sql tool that is super cool!",
-        show_main_menu: false,//affichage du click doit sur la zone de travail
+        
         db:db,//les données de l'application
+
+
+
 
         //events drag&drop simul pour les tables
         start_drag: start_drag,
         drag: drag,
         stop_drag:stop_drag,
+
+
+
+
+
+
+        // show_main_menu: false,//affichage du click doit sur la zone de travail
+        // show_ctx_menu: false,//affichage du click doit sur la zone de travail
+        menu_coords:{
+            x:0,
+            y:0
+        },//coords d'ou faire apparaitre le menu
+        menu: null,//le menu a afficher
         show_menu: show_menu,
         showMainMenu: toggle_main_menu,
+        menu_action:function(evt, params){
+            //appelle lors du click sur un menu
+            //d'abord, dismiss menu 
+            CONTEXT.menu = null; 
+            var action =  params[0] || "none";
 
+            if(menu_actions[action]){
+               menu_actions[action](evt,params);
+            }
+
+        },
+
+
+
+        // les boites de dialogue
+        show_dlg : null,
+        toggle_dlg: function(evt){CONTEXT.show_dlg = null;},
+        
+        
+        
+        
+        
         //qqs converters
         coords_to_translate:function(v) {
             return "transform: translate("+v.x+"px,"+v.y+"px);";
@@ -424,7 +592,7 @@ var myContext = (function (){
 
     };
 
-    //HACK:comme j'ai besoin d'avoir les elements HTML pour pouvoir faire les dessins,
+    //HACK:comme j'ai besoin d'avoir les elements HTML pour pouvoir faire les dessins,----------------
     //je demande a charger les relations 100ms apres le reste, ca laisse le temps
     //pour les affichages...
     //MAIS: uniquement du au fait que les données soient en dur dans le javascript,
