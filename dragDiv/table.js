@@ -9,6 +9,7 @@ var modalField = document.getElementById('myModalTableField');
 var span1 = document.getElementsByClassName("close")[1];
 var promptField;
 var liste=[];
+var dB={};
 var flagEvent=false;
 
 
@@ -19,8 +20,8 @@ function formField(){
     modal.style.display = "none";
 }
 	}
-/*Création de la classe Table (avec le nom de la table en argument):
- * elle contient les méthodes pour gérer le comportement des tables
+/*
+ * Création de la classe Table (avec le nom de la table en argument): 
  */ 
 function Table(head){
 	//nom d'entête de la table
@@ -37,7 +38,6 @@ function Table(head){
 		div.style.width = "20%";
 		div.style.height = "auto";
 		div.className='table';
-		
 		header=document.createElement('div');
 		header.className="header";
 		header.textContent=div.id.toUpperCase();
@@ -54,8 +54,10 @@ function Table(head){
 		console.log('La table \''+div.id+'\' a été crée.');
 		addField.addEventListener('click',this.addfield,true);
 	};
-	//METHODE: déplacement de la div et gestion des écoutes
-	this.drag=function(e){
+	
+}
+//METHODE: déplacement de la div et gestion des écoutes
+Table.prototype.drag=function(e){
 		if (e.target.className==header.className){
 			elem=document.getElementById(event.target.offsetParent.id);
 			isDown = true;
@@ -96,24 +98,23 @@ function Table(head){
 			window.addEventListener('mousemove',mV,true);
 			
 			function mU(e){
-			var el=document.getElementById(e.target.offsetParent.id);
-			event.preventDefault();
-			elem.style.boxShadow = null;
-			isDown = false;
-			elem.style.zIndex=0;
-			window.removeEventListener('mousedown',globalThis.drag, true);
-			window.removeEventListener('mousemove',mV, true);
-			window.removeEventListener('mouseup',mU,true);
-			console.log('La table \''+elem.id+'\' a été déplacée.')
+				var el=document.getElementById(e.target.offsetParent.id);
+				event.preventDefault();
+				elem.style.boxShadow = null;
+				isDown = false;
+				elem.style.zIndex=0;
+				window.removeEventListener('mousedown',globalThis.drag, true);
+				window.removeEventListener('mousemove',mV, true);
+				window.removeEventListener('mouseup',mU,true);
+				console.log('La table \''+elem.id+'\' a été déplacée.')
 			}
 			window.addEventListener('mouseup',mU , true);
 		}
 	};
-	//METHODE: ajout d'une entrée à la div
-	this.addfield=function(e){
-		
+//METHODE: ajout d'une entrée à la div
+Table.prototype.addfield=function(e){
+		event.preventDefault();
 		conteneur =document.getElementById(e.target.offsetParent.id);
-		console.log('addFiel: ',conteneur);
 		modalField.style.display="block";
 		span1.onclick = function() { 
 			modalField.style.display = "none";
@@ -127,23 +128,48 @@ function Table(head){
 			newField=document.createElement('div');
 			newField.className='field';
 			newField.textContent=val+' '+selectedType;
-			conteneur.insertBefore(newField,addField);
+			conteneur.insertBefore(newField,conteneur.lastchild);
 			modalField.style.display = "none";
 			window.removeEventListener('mousedown',globalThis.drag, true);
 		}
 	}
-}
 //Initialisation de la table
 function launch(name){
 	
-	console.log(liste.indexOf(name));
-	if(liste.indexOf(name)==-1){
-	liste.push(name);
-	console.log(liste);
-	var table =new Table(name);
-	table.div();
-    modal.style.display = "none";
-}else{alert('Cette table existe déjà')};
-		console.log(liste);
-
+	if(!dB[name]){
+		dB[name]={};
+		console.log('dB: ',dB);
+		var table=new Table(name);
+		table.div();
+		modal.style.display='none';
+		//console.log(dB)
+	//	w.postMessage('Nouvelle base:',dB)
+	}else{
+		alert('Cette table existe déjà');
+	}
 }
+	/*
+	//console.log(liste.indexOf(name));
+	if(liste.indexOf(name)==-1){
+		liste.push(name);
+		//console.log(liste);
+		var table =new Table(name);
+		table.div();
+		modal.style.display = "none";
+	}else{
+		alert('Cette table existe déjà')
+	};
+	*/
+
+//Web worker
+var w;
+
+function startWorker() {
+	w= new Worker('dbWorker.js');
+	w.onmessage=function(e){
+		console.log(e.data)
+	};
+	w.postMessage('hello worker')
+	
+}
+window.addEventListener('load',startWorker,false)

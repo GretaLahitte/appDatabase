@@ -31,7 +31,7 @@ function drawPath(svg, path, startX, startY, endX, endY) {
     }
     // draw tha pipe-like path
     // 1. move a bit down, 2. arch,  3. move a bit to the right, 4.arch, 5. move down to the end 
-    console.log('startX ',startX);
+    //console.log('startX ',startX);
     path.attr("d",  "M"  + startX + " " + startY +
                     " V" + (startY + delta) +
                     " A" + delta + " " +  delta + " 0 0 " + arc1 + " " + (startX + delta*signum(deltaX)) + " " + (startY + 2*delta) +
@@ -41,7 +41,7 @@ function drawPath(svg, path, startX, startY, endX, endY) {
 }
 
 function connectElements(svg, path, startElem, endElem) {
-	console.log('startElem: ',startElem)
+	//console.log('startElem: ',startElem)
     var svgContainer= document.getElementById("svgContainer");
 
   // if first element is lower than the second, swap!
@@ -74,7 +74,7 @@ function connectElements(svg, path, startElem, endElem) {
 
 function redraw(first,second){
 	iniT();
-	console.log('redraw');
+	//console.log('redraw');
 	var fromT =document.getElementById(first);
 	var toT =document.getElementById(second);
 	connectElements($("#svg1"), $("#path1"), fromT,toT);
@@ -83,7 +83,7 @@ function redraw(first,second){
 	
 function connectAll(e) {
     // connect all the paths you want!
-   console.log('connectAll: ',e);
+   //console.log('connectAll: ',e);
    if(e.target.offsetParent.className=='table'){
 	   var first= e.target.offsetParent.id;
 	   linkArray.push(first);
@@ -93,8 +93,11 @@ function connectAll(e) {
 		   var toTable=document.getElementById(linkArray[1]);
 		   
 		   connectElements($("#svg1"), $("#path1"), fromTable,toTable);
-		  	document.removeEventListener('click',connectAll,false)
+		  	document.removeEventListener('click',connectAll,false);
+		  	 //linkArray=[];
+
  }
+	
 	   }
    // connectElements($("#svg1"), $("#path1"), $("#toto"),   $("#lolo"));
     
@@ -102,7 +105,7 @@ function connectAll(e) {
 }
 function retrieveLink(){
 	var allTable =document.getElementsByClassName('table');
-	console.log('click: ',allTable);
+	//console.log('click: ',allTable);
 	document.addEventListener('click',connectAll,false)
 	}
 function iniT(){
