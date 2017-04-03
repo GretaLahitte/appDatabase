@@ -3160,10 +3160,15 @@ function AppInit(){
 
 //lance au chargement...
 window.addEventListener("load",AppInit);
-        
-        return {
-                notifyDatasetChanged : notifyDatasetChanged,
-                generateUUID : generateUUID
-        }
+
+//Return qqs methodes sympa...   
+return {
+        generateUUID : generateUUID
+}
+
+
+
+
+
 
 }));

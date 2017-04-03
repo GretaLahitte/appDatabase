@@ -25,7 +25,7 @@ var myContext = (function (){
     function Table (args){
         args = args || {};
         
-        this.id = args.id || "anId";
+        this.id = args.id || ftw2.generateUUID();
         this.name = args.name || "a name";
         this.coords = args.coords || {x:0,y:0};
         this.selected = args.selected || false;
@@ -34,18 +34,29 @@ var myContext = (function (){
 
     }
 
+    var FIELD_TYPES = [
+        "bigint","bigserial","bit","bit varying","boolean","box","bytea",
+        "charcacter varying","character","cidr","circle","date","double precision",
+        "inet","integer","interval","line","lseg","macaddr","money","numeric",
+        "path","point","polygon","real","smallint","serial","text","time","time with timezone",
+        "timestamp","timestamp (TZ)","tsquery","tsvector","txid_snapshot","uuid","xml"
+    ];
+    var COLUMN_CONSTRAINTS = [
+        "NOT NULL","NULL","CHECK","DEFAULT","UNIQUE","PRIMARY KEY","REFERENCES",
+    ]
     function Field(args){
         args = args || {};
 
-        this.id = args || id;
+        this.id = args.id || ftw2.generateUUID();
         this.name = args.name || 'un nom';
         //voir le reste, type, ....
-
+        this.type = args.type || 'text';
+        this.column_constraints = args.constraints || [];
     }
 
     function Relation(args){
         args = args || {};
-        this.id = args.id || 'anid';
+        this.id = args.id || ftw2.generateUUID();
 
         //va surement falloir recup les objets crées precedement...
         this.from = args.from || from;
