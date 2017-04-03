@@ -3,6 +3,55 @@
  */
 var myContext = (function (){
 
+    //Types de données pour l'application ------------------------------------------------------
+    function Base(args){
+        args = args || {};
+
+        this.file_url = args.file_url || 'a/path',//chemin vers le fichier sql/dump ou enregistrer
+        this.db_name = args.db_name || "nom_de_la_base",
+        this.db_type = args.db_type || "postgres",//ou mysql, mongo....
+        this.db_port = this.db_port || 5432,
+        this.host = args.host || "host",
+        this.login = args.login || "loginUtilisateur",
+        this.passwrd = args.passwrd || "passwordUtilisateur";
+
+        //a voir...
+        this.tables = args.tables || [];
+        this.relations = args.relations || [];
+
+    }
+    
+    
+    function Table (args){
+        args = args || {};
+        
+        this.id = args.id || "anId";
+        this.name = args.name || "a name";
+        this.coords = args.coords || {x:0,y:0};
+        this.selected = args.selected || false;
+        this.fields = args.fields || [];
+        this.relations = args.relations || [];
+
+    }
+
+    function Field(args){
+        args = args || {};
+
+        this.id = args || id;
+        this.name = args.name || 'un nom';
+        //voir le reste, type, ....
+
+    }
+
+    function Relation(args){
+        args = args || {};
+        this.id = args.id || 'anid';
+
+        //va surement falloir recup les objets crées precedement...
+        this.from = args.from || from;
+        this.to = args.to || to;
+
+    }
     
 
     //GESTION DRAG AND DROP DES TABLES ---------------------------------------------------------
@@ -124,10 +173,52 @@ var myContext = (function (){
     var menu_actions = {
         "new_table": function(evt, params){
             //demande a afficher la dialog nouvelle table...
+            var t = new Table();
+            t.coords = {x:evt.clientX, y:evt.clientY};
+            dialogs.new_table.content = t;
+            console.log("create table dialog", t);
             CONTEXT.show_dlg = dialogs.new_table;
         },
         "export_sql":function(evt,params){
+            dialogs.export_sql.content = {_data_type:"ExportSQLDlg"};
             CONTEXT.show_dlg = dialogs.export_sql;
+        },
+        "save_schema":function(evt,params){
+            //sauvegarde en localstorage;
+        },
+        "new_base":function(evt,params){
+            dialogs.export_sql.content = {_data_type:"ExportSQLDlg"};
+            CONTEXT.show_dlg = dialogs.export_sql;
+        },
+        "show_properties":function(evt,params){
+            dialogs.properties.content = selected_table;
+            CONTEXT.show_dlg = dialogs.properties;
+        },
+        "add_field":function(evt,params){
+            var t = new Field();
+            dialogs.add_field.content = t;
+            CONTEXT.show_dlg = dialogs.add_field;
+        },
+        "delete_table":function(evt,params){
+            CONTEXT.show_dlg = {
+                
+                "title":"Confirm",
+                "desc":"confirm deletion of table?",
+                content:{
+                    _data_type:"ConfirmDlg",
+                    question:"This action can not be undone! Are you fucking sure???"
+                },
+                commands:[
+                    {
+                        label:"OK",
+                        action:"delete_comfirmed"
+                    },
+                    {
+                        label:"No",
+                        action:"toggle_dlg"
+                    }
+                ]
+            };
         }
     };
     //menu principal de l'appli (click droit)
@@ -151,7 +242,7 @@ var myContext = (function (){
             action:"new_base",
             icon:"folder",
             label:"New BASE"
-        },
+        }
     ];
     //menu contextuel pour les tables
     var ctx_menu = [
@@ -166,17 +257,13 @@ var myContext = (function (){
             label:"Add new Field"
         },
         {
-            action:"export_table",
-            icon:"file_upload",
-            label:"Export SQL"
-        },
-        {
             action:"delete_table",
             icon:"delete",
             label:"Delete TABLE"
         },
     ]
     //var event_processed = false;
+    var selected_table = null;
     function show_menu (evt, elem){
         evt.preventDefault();
         evt.stopPropagation();
@@ -189,7 +276,8 @@ var myContext = (function (){
         //         };
         // }
         if(CONTEXT.menu == null) {
-            //dismiss menus
+            //menu de table
+            selected_table = elem[0];
             CONTEXT.menu = ctx_menu;
              CONTEXT.menu_coords = {
                         x:evt.pageX ||evt.offsetX,
@@ -280,7 +368,7 @@ var myContext = (function (){
         //calcule les coords actuelles
         var t1 = fromElem.getBoundingClientRect(); //r.from.table.coords;
         var t2= toElem.getBoundingClientRect();//r.to.table.coords;
-        
+        console.log(t1,t2);
         //calcul les centres des fields 
         var cfx = t1.left + scrollX + t1.width/2;
         var ctx = t2.left +scrollX + t2.width/2;
@@ -300,9 +388,190 @@ var myContext = (function (){
     // Dialogues modale (sur le meme principe que les menus) --------------------------------
     // utilise une feinte pour faire croire que les objets sont differents en 
     //en definissant un type (_data_type)...mouhahahahaha
+   
+    
+    var dialog_actions = {
+        "create_and_close": function(evt, params){
+            console.log("Create new table!!!!");
+            var db = CONTEXT.db;
+            if(db){
+                db.tables.push(params[1]);
+            }
+        },
+        "delete_comfirmed": function(evt,params){
+            //supprime la table, on verra apres les relations
+            console.log("Suppression de la table");
+            if(selected_table){
+                var ts =CONTEXT.db.tables;
+                
+                var i = 0;
+                for(;i<ts.length;i++){
+                    
+                    if(ts[i] == selected_table) break;
+                }
+                if(i>-1){
+                     ts.splice(i,1);
+                    //supprime les relations si existent 
+                    if(selected_table.relations.length != 0){
+                        for (let i=0;i<selected_table.relations.length;i++){
+                            //supprime
+                            var rel = selected_table.relations[i];
+                            //recherche dans les relations haut niveau 
+                            var id=rel.id;
+                            var from = rel.from.table;
+                            if(from.name == selected_table.name) from = rel.to.table;
+
+                            console.log("Suppression dans les autres tables....")
+                            for(var j=0;j<from.relations.length;j++){
+                                if(id==from.relations[j].id){
+                                    console.log("suppression!!!!",from.relations[j]);
+                                    from.relations.splice(j,1);
+                                    break;
+                                }
+                            }
+                            console.log("suppression globales")
+                            for(var j=0;j<CONTEXT.db.relations.length;j++){
+                                if(id==CONTEXT.db.relations[j].id){
+                                    console.log("suppression",CONTEXT.db.relations[j])
+                                    CONTEXT.db.relations.splice(j,1);
+                                    break;
+                                }
+                            }
+
+                            
+                        }
+                    }
+                
+            
+                }
+            }
+            
+            console.log(CONTEXT.db.relations)
+        },
+        "create_field": function(evt, params){
+            console.log("Creation d'un nouveau field");
+            var field = params[1];
+            //ajoute au selected 
+            if(selected_table) selected_table.fields.push(field);
+        },
+        "create_field_and_back": function(evt, params){
+             console.log("Creation d'un nouveau field");
+            var field = params[1];
+            //ajoute au selected 
+            if(selected_table) selected_table.fields.push(field);
+            if(CONTEXT.show_dlg) CONTEXT.show_dlg.content=new Field();
+
+            return true;
+        },
+        "create_table_and_field":function(evt,params){
+            var db = CONTEXT.db;
+            if(db){
+                db.tables.push(params[1]);
+                selected_table = params[1];
+                //lance la dialog de menu 
+                menu_actions.add_field(evt,params);
+                return true;//empeche la fermeture de la dialogue
+            }
+        },
+        "update_and_close":function(evt, params){
+
+        }
+    }
     var dialogs = {
-        "new_table":{_data_type:"createTableDlg"},
-        "export_sql":{_data_type:"exportSQLDlg"}  
+        "new_table":{
+            "title":"Create new table",
+            "desc":"create a new table for this db",
+            content:null,
+            commands:[
+                {
+                    label:"Create table & close",
+                    action:"create_and_close"
+                },
+                {
+                    label:"create table & add field",
+                    action:"create_table_and_field"
+                },
+                {
+                    label:"Cancel",
+                    action:"toggle_dlg"
+                }
+            ]
+        },
+        "export_sql":{
+            "title":"Export",
+            "desc":"Export schema to SQL",
+            content:null,
+            commands:[
+                {
+                    label:"Export to file",
+                    action:"toggle_dlg"
+                },
+                {
+                    label:"Export & create",
+                    action:"toggle_dlg"
+                },
+                {
+                    label:"Cancel",
+                    action:"toggle_dlg"
+                }
+            ]
+        }, 
+        "new_base":{
+            "title":"Create a new DB",
+            "desc":"Create a new DB",
+            content:null,
+            commands:[
+                {
+                    label:"Create",
+                    action:"toggle_dlg"
+                },
+                {
+                    label:"Cancel",
+                    action:"toggle_dlg"
+                }
+            ]
+        }, 
+        "field_properties":{
+            "title":"Field Properties",
+            "desc":"Update field property",
+            content:null,
+            commands:[
+                {
+                    label:"OK",
+                    action:"toggle_dlg"
+                }
+            ]
+        }, 
+        "add_field":{
+            "title":"Create new field",
+            "desc":"Create new field",
+            content:null,
+            commands:[
+                {
+                    label:"Create",
+                    action:"create_field"
+                },
+                {
+                    label:"Create & add new",
+                    action:"create_field_and_back"
+                },
+                {
+                    label:"Cancel",
+                    action:"toggle_dlg"
+                }
+            ]
+        }, 
+        "properties":{
+            "title":"Table Properties",
+            "desc":"update table properties",
+            content:null,
+            commands:[
+                {
+                    label:"Ok",
+                    action:"none"
+                }
+            ]
+        },
     };
 
 
@@ -316,75 +585,75 @@ var myContext = (function (){
     //d'edition des données n'est faite encore...
 
     //le field pour l'ID client de la table 1
-    var t1_id = {
+    var t1_id = new Field({
                         id:"uuid1",
                         name:"id"
-    };
+    });
     //la foregn_key de la table 2
-    var t2_fk = {
+    var t2_fk = new Field({
                         id:"uuid2",
                         name:"id_client"
-    };
+    });
     //FK de la table 3 (vers table1 et table2)
-    var t3_fk = {
+    var t3_fk = new Field({
                         id:"uuid52",
                         name:"other_commande"
-                    };
-    var t4_fk = {
+    });
+    var t4_fk =new Field({
         id:"uuid53",
         name:"other_again"
-    }
+    });
     //les tables de la base (ayant des relations)
-    var table1 = {
+    var table1 = new Table({
                 id:"anId",//identifiant unique de la tables
                 name:'FirstTable',//nom de la table 
                 coords:{x:90,y:120},
                 selected: false,
                 fields:[
                     t1_id,
-                    {
+                    new Field({
                         id:"uuid11",
                         name:"nom_client"
-                    },
-                    {
+                    }),
+                    new Field({
                         id:"uuid12",
                         name:"prenom_client"
-                    }
+                    })
                     //et le reste....
                 ],
                 relations: []
-            };
-    var table2 = {
+    });
+    var table2 = new Table({
                 id:"anId2",//identifiant unique de la tables
                 name:'SecondTable',//nom de la table 
                 coords:{x:400,y:500},
                 selected: false,
                 fields:[
-                    {
+                    new Field({
                         id:"uuid21",
                         name:"id"
-                    },
+                    }),
                     t2_fk,
-                    {
+                    new Field({
                         id:"uuid22",
                         name:"num_commande"
-                    }
+                    })
                     //et le reste....
                     
                 ],
                 //met a dispo les relations de cette table 
                 relations:[]
-            };
-    var table3 = {
+    });
+    var table3 = new Table({
                 id:"anId5",//identifiant unique de la tables
                 name:'OtherTable',//nom de la table 
                 coords:{x:578,y:316},
                 selected: false,
                 fields:[
-                    {
+                    new Field({
                         id:"uuid51",
                         name:"id"
-                    },
+                    }),
                     t3_fk,
                     t4_fk
                     //et le reste....
@@ -392,7 +661,7 @@ var myContext = (function (){
                 ],
                 //met a dispo les relations de cette table 
                 relations:[]
-            };
+    });
     
    
    
@@ -490,7 +759,7 @@ var myContext = (function (){
    
     //Les données relatives a la base : connection, tables, relations... -----------------------------
     //c'est le coeur du programme!
-    var db = {
+    var db = new Base({
         //qqs infos d'ordre generales sur la base elle meme et l'utilisateur
         file_url:'a/path',//chemin vers le fichier sql/dump ou enregistrer
         db_name:"nom_de_la_base",
@@ -504,25 +773,12 @@ var myContext = (function (){
         tables:[
             table1,
             table2,
-            table3,
-            {
-                id:"anId3",//identifiant unique de la tables
-                name:'ThirdTable',//nom de la table 
-                coords:{x:600,y:550},
-                selected: false,
-                fields:[
-                    
-                    //pas de fields ici pour les tests....
-                    
-                ],
-                relations:[]
-            }
-
+            table3
         ],
         //desciption des relations entre les tables
         //voir plus bas le pourquoi du hack...
         relations:null
-    }
+    });
 
 
 
@@ -536,8 +792,7 @@ var myContext = (function (){
         app_slogan : "a sql tool that is super cool!",
         
         db:db,//les données de l'application
-
-
+        
 
 
         //events drag&drop simul pour les tables
@@ -562,6 +817,10 @@ var myContext = (function (){
         menu_action:function(evt, params){
             //appelle lors du click sur un menu
             //d'abord, dismiss menu 
+            evt.preventDefault();
+            evt.stopPropagation();
+
+
             CONTEXT.menu = null; 
             var action =  params[0] || "none";
 
@@ -576,8 +835,24 @@ var myContext = (function (){
         // les boites de dialogue
         show_dlg : null,
         toggle_dlg: function(evt){CONTEXT.show_dlg = null;},
-        
-        
+        dlg_action: function(evt, params){
+            var action =  params[0] || "none";
+            var res = false;
+            if(dialog_actions[action]){
+                var content = CONTEXT.show_dlg.content;
+                params.push(content);
+               res = dialog_actions[action](evt,params);
+            }
+            //dismiss dialog
+            if(!res)CONTEXT.show_dlg = null;
+            //action todo
+        },
+        show_item_properties:function(event, params){
+            //affiche les properties du field 
+            console.log("show item", params[0]);
+            dialogs.field_properties.content = params[0];
+            CONTEXT.show_dlg = dialogs.field_properties;
+        },
         
         
         
@@ -588,7 +863,14 @@ var myContext = (function (){
         setTableSelectedConverter: function(v){
             return v ? "selected" : "";
         },
-        relation_to_points_converter: createSVGLink
+        relation_to_points_converter: createSVGLink,
+
+
+
+        //test methode 
+        test_change_name: function(){
+            CONTEXT.db.db_name = "masuperbasequelleestbien";
+        }
 
     };
 
@@ -599,6 +881,7 @@ var myContext = (function (){
     //ne devrait :) pas poser de probleme avec les loading de fichiers...
     window.addEventListener("load", function(){
        window.setTimeout(function(){
+           console.log("hello")
             CONTEXT.db.relations = relations;//force le 1er paint
         },100);
     });

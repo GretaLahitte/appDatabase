@@ -1078,15 +1078,22 @@ __model_binding.prototype._populate_model = function(context, mroot,type, deep){
                         else throw "Unknown data-type model: "+context._data_type;
                 } 
                 else {
+                        var pppp = proto.constructor.name;
+                        if(pppp=="Table") console.log("Search for type:",pppp,context,MODELS)
                         while (proto != null){
+
                                 var presenter_type = p_type+"_" + proto.constructor.name;
+                                if(pppp=="Table") console.log("Search for type:",presenter_type)
                                 if (presenter_type in MODELS){
 
                                         var item_type = proto.constructor.name;
                                         /*bindings = MODELS[presenter_type] ;
                                         model = this._cache_types[item_type];//root_model.querySelector("[data-type='"+item_type+"']");*/
                                         var md = MODELS[presenter_type];
-                                        if(md){bindings = md.bindings;
+                                        if(pppp=="Table") console.log("affiche model",md)
+                                        if(md){
+                                                if(pppp=="Table") console.log("mise en place")
+                                                bindings = md.bindings;
                                         model = md.template;
                                         recycle = md.recycle;
                                         
@@ -1121,94 +1128,96 @@ __model_binding.prototype._populate_model = function(context, mroot,type, deep){
         if (model == null ){
 
                 //this._element[this.to] = " unknown model! "+context;//pas de model, ne fait rien
+                console.log("NO MODEL FOR ",context)
                 return;
         }
 
         
         //("populate model: item type: "+this._ftw2_type);
-        if (recycle.length > 0){
-                //recupere la template et bindings associés
-                //("Recuperation d'un template dans recycle!");
-                var r = recycle.pop();
-                frag = r[0];
-                bindings = r[1];
-                //(bindings);
-                //enregistre les bindings
-                for(var key in bindings){
-                        //("clé:"+key);
+        // if (recycle.length > 0){
+        //         //recupere la template et bindings associés
+        //         //("Recuperation d'un template dans recycle!");
+        //         var r = recycle.pop();
+        //         frag = r[0];
+        //         bindings = r[1];
+        //         //(bindings);
+        //         //enregistre les bindings
+        //         for(var key in bindings){
+        //                 //("clé:"+key);
 
-                        var bd = [];
-                        var h=bindings[key].length;
-                        //("nbr de bindings: "+h);
-                        while(h--){
-                                var clone = bindings[key][h];
-                                //(clone);
-                                //copie les infos du binding
-                                /*var infos = {};
-                                var inf = bindings[key][h];
-                                for(var k in inf){
-                                        infos[k]=inf[k];
-                                }
+        //                 var bd = [];
+        //                 var h=bindings[key].length;
+        //                 //("nbr de bindings: "+h);
+        //                 while(h--){
+        //                         var clone = bindings[key][h];
+        //                         //(clone);
+        //                         //copie les infos du binding
+        //                         /*var infos = {};
+        //                         var inf = bindings[key][h];
+        //                         for(var k in inf){
+        //                                 infos[k]=inf[k];
+        //                         }
 
-                                //autorise le process event
-                                infos["process_event"] = true;
+        //                         //autorise le process event
+        //                         infos["process_event"] = true;
                                 
-                                infos._element = cpy_model;
-                                if (infos.path)	infos._element = cpy_model.querySelector(infos.path);
+        //                         infos._element = cpy_model;
+        //                         if (infos.path)	infos._element = cpy_model.querySelector(infos.path);
                                 
                                 
-                                var clone = __create_binding_from_infos(infos);//cree le binding, passe la valeur a binder pour determiner le type
-                                //("deep:"+deep_binding);
-                                //(context.__uuid__);*/
-                                if (context.__uuid__){
-                                        //gestion du 'alt' ------------------------------------------------
-                                        var keys =  clone.getBindingKeys();
-                                        var kk = keys.length;
-                                        while(kk--){
-                                        //enregistre les bindings
-                                            var n_key = keys[kk];
+        //                         var clone = __create_binding_from_infos(infos);//cree le binding, passe la valeur a binder pour determiner le type
+        //                         //("deep:"+deep_binding);
+        //                         //(context.__uuid__);*/
+        //                         if (context.__uuid__){
+        //                                 //gestion du 'alt' ------------------------------------------------
+        //                                 var keys =  clone.getBindingKeys();
+        //                                 var kk = keys.length;
+        //                                 while(kk--){
+        //                                 //enregistre les bindings
+        //                                     var n_key = keys[kk];
                                             
-                                            //si processinput, utilise UUID du contexte globale
-                                            var g_key =context.__uuid__+":"+n_key;
-                                            //("clé de binding: "+g_key);
-                                            if ( deep_binding === true){
-                                                    if (g_key in BINDINGS){
-                                                        //deja connu, ajoute simplement a la liste
-                                                        BINDINGS[g_key].push(clone);
-                                                    }
-                                                    else {
-                                                        //inconnu, cree une nouvelle entr�e
-                                                        BINDINGS[g_key]= [clone] ;
-                                                    }
-                                            }   
-                                            //enregistre pour pouvoir nettoyer plus tard....
-                                            if (g_key in current_keys){
-                                                //deja connu, ajoute simplement a la liste
+        //                                     //si processinput, utilise UUID du contexte globale
+        //                                     var g_key =context.__uuid__+":"+n_key;
+        //                                     //("clé de binding: "+g_key);
+        //                                     if ( deep_binding === true){
+        //                                             if (g_key in BINDINGS){
+        //                                                 //deja connu, ajoute simplement a la liste
+        //                                                 BINDINGS[g_key].push(clone);
+        //                                             }
+        //                                             else {
+        //                                                 //inconnu, cree une nouvelle entr�e
+        //                                                 BINDINGS[g_key]= [clone] ;
+        //                                             }
+        //                                     }   
+        //                                     //enregistre pour pouvoir nettoyer plus tard....
+        //                                     if (g_key in current_keys){
+        //                                         //deja connu, ajoute simplement a la liste
 
-                                                current_keys[g_key].push(clone);
-                                            }
-                                            else {
-                                                //inconnu, cree une nouvelle entr�e
+        //                                         current_keys[g_key].push(clone);
+        //                                     }
+        //                                     else {
+        //                                         //inconnu, cree une nouvelle entr�e
 
-                                                current_keys[g_key]= [clone] ;
-                                            }
+        //                                         current_keys[g_key]= [clone] ;
+        //                                     }
 
 
-                                        }
-                                }
+        //                                 }
+        //                         }
 
-                                //enregistre le binding
-                                bd.push(clone);
-                                //("notify recycle");
-                                clone.init(context);
+        //                         //enregistre le binding
+        //                         bd.push(clone);
+        //                         //("notify recycle");
+        //                         clone.init(context);
 
-                        }
+        //                 }
 
-                        __notifyDatasetChanged(context,bd, key);
-                }
-        }
-        else
-        {
+        //                 __notifyDatasetChanged(context,bd, key);
+        //         }
+        // }
+        // else
+        // {
+                if(pppp=="Table") console.log("creation d'un nouveau model")
                 //("Creation d'un nouveau model");
                 var cpy_model = model.cloneNode(true);
                 frag = cpy_model;
@@ -1286,7 +1295,7 @@ __model_binding.prototype._populate_model = function(context, mroot,type, deep){
                         __notifyDatasetChanged(context,bd, key);
                 }
 
-        }
+        //}
         //("nbr de clés de bindings global crées: ");
         //(current_keys);
         //doit ajouter a la fin du tableau...
@@ -1485,6 +1494,8 @@ __model_binding.prototype.populate_array = function (value, context, extra, frag
                     return;
                 }
                 case 'SPLICE':{
+
+                        console.log("SPLICE ARRAY")
                     //supprime ET ajoute
                     var index=extra.index;//probleme, si IE???
                     var howmany=extra.howmany;
@@ -1565,11 +1576,12 @@ __model_binding.prototype._populate_item = function(context, parent, extra){
     
         if (context == null ){
                 //modif, utilise le fallback comme data-type
+                console.log("null context")
                 return this._process_fallback();
         }
 
         //ajoute l'element d'un coup, pas besoin de fragment?
-        ////("populate item");
+        console.log("populate item",context);
         var child = this._populate_model(context);//le html generé
 
         this._key_uuid_ = context.__uuid__+":"+this.from;

@@ -94,7 +94,8 @@ body > content > div {
     z-index: 1000!important;
 }
 .main > .table > div .header{
-    display: inline;
+    display: flex;
+    justify-content: space-between;
     padding: 5px;
     font-size: 1.3em;
     font-weight: bold;
@@ -103,7 +104,6 @@ body > content > div {
 
 .main > .table > div .header > a{
     position: relative;
-    top: 5px;
     margin-left: 10px;
     cursor: pointer;
 }
@@ -125,7 +125,9 @@ body > content > div {
 .main > .table > div > content > *:last-child{
     border: none;
 }
-
+.main > .table > div content  h3{
+    cursor: pointer;
+}
 
 /*les menus*/
 
@@ -336,8 +338,11 @@ body > content > div {
 .modal-content > .commands {
     margin: 10px 0;
     text-align: center;
+    display: flex;
+    justify-content: space-around;
 }
-.modal-content > .commands > button {
+.modal-content > .commands  button {
+  width: 100%;
   min-width: 90px;
   cursor:pointer;
   -webkit-border-radius: 5;
@@ -352,7 +357,7 @@ body > content > div {
   text-transform: uppercase;
 }
 
-.modal-content > .commands > button:hover {
+.modal-content > .commands  button:hover {
   text-decoration: none;
 
 }

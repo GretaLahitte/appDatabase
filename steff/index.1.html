@@ -40,7 +40,7 @@
             <div data-role="presenter" id="field_presenter">
                 <div >
                     
-                    <h3 data-binded-id="{binding from:id}">{binding from:name}</h3>
+                    <h3 data-binded-id="{binding from:id}"><a data-binded-click="{binding command:show_item_properties command_params:$this}">{binding from:name}</a></h3>
                     
                 </div>
             </div>
@@ -95,33 +95,50 @@
 
             <!-- affichage des boites de dialogues -->
             <div data-role="presenter" id="dialog_presenter">
-                <div data-type="createTableDlg" class="modal-content  shadowed">
-                    <h2>Create a new Table</h2>
-                    <p>Create a new table in your database schema.</p>
-                    <content>
-                        <form>
-                            <label>Name:<input type="text" name="nom" placeholder="Name of the new table"></label>
-                        </form>
-                    </content>
-                    <div class="commands">
-                        <button type="button" class="invert" data-binded-click="{binding command:toggle_dlg}">Ok</button>
-                        <button type="button" class="invert" data-binded-click="{binding command:toggle_dlg}">Cancel</button>
+                <div class="modal-content  shadowed">
+                    <h2>{binding from:title}</h2>
+                    <p>{binding from:desc}</p>
+                    <content>{binding from:content presenter:dialog_content_presenter}</content>
+                    <div class="commands">{binding from:commands presenter:dialog_command_presenter}</div>
+                </div>
+                
+
+            </div>
+            <div data-role="presenter" id="dialog_content_presenter">
+                <div data-type="Table">
+                    <div>
+                        <label class="field-input">Table name:</label>
+                        <input type="text" data-binded-value="{binding from:name mode:2way}">
 
                     </div>
                 </div>
-                <div data-type="exportSQLDlg" class="modal-content  shadowed">
-                    <h2>Export to SQL</h2>
-                    <p>Modal text content to explain....</p>
-                    <content>
-                        sonething in the modal
-                    </content>
-                    <div class="commands">
-                        <button type="button" class="invert" data-binded-click="{binding command:toggle_dlg}">Ok</button>
-                        <button type="button" class="invert" data-binded-click="{binding command:toggle_dlg}">Cancel</button>
+                <div data-type="Field">
+                    <div>
+                        <label class="field-input">Field name:</label>
+                        <input type="text" data-binded-value="{binding from:name mode:2way}">
 
                     </div>
                 </div>
+                <div data-type="Base">
+                    <h1>Type Base</h1>
+                </div>
+                <div data-type="Relation">
+                    <h1>Type Relation</h1>
+                </div>
+                
+                <div data-type="ExportSQLDlg">
+                    Export SQL datas...
+                </div>
+                <div data-type="ConfirmDlg">
+                    <h3>{binding from:question}</h3>
+                </div>
+            </div>
 
+
+            <div data-role="presenter" id="dialog_command_presenter">
+                <div>
+                    <button data-binded-click="{binding command:dlg_action command_params:$action}" class="invert" type="button">{binding from:label}</button>
+                </div>
             </div>
         </div>
 
@@ -131,7 +148,7 @@
         <!-- main de l'application -->
         <header class="invert">
             <h1>{binding from:app_name}</h1>
-            <h2>{binding from:app_slogan}</h2>
+            <h2><a data-binded-click="{binding command:test_change_name}">change name</a></h2>
             
             <div>{binding from:db presenter:db_recap fallback:no_connection}</div>
             
