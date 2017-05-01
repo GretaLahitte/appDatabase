@@ -1,0 +1,25 @@
+
+<div class="shadowed element" [class.selected]="table.selected" [style]="table.coords | safeCSS" 
+                    (dragenter)="skip_evt($event)"
+                  (dragover)="skip_evt($event)"
+                  (dragleave)="skip_evt($event)"
+                  (drop)="doDrop($event)">
+                  
+    <div class="header invert"
+        (mousedown)="startDrag($event)"
+        >
+        <span>{{table.name}}</span>
+        <a (click)="showMenu($event)"><i class="material-icons rippler">menu</i></a>
+    </div>
+    <div class="comment" *ngIf="table.comment">
+        {{table.comment}}
+    </div>
+    <content>
+        <field-cmp *ngFor="let field of table.fields" [field]="field" [table]="table"></field-cmp>
+    </content>
+    <footer>
+
+    </footer>
+</div>
+
+

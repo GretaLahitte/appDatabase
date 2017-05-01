@@ -1,0 +1,34 @@
+<form #fieldForm="ngForm" (ngSubmit)="process_dialog_form()">
+    <content>
+        <label>Field name:</label>
+        <input type="text" name="field_name" [(ngModel)]="field.name" required>
+        <label>Field comment:</label>
+        <textarea name="field_comment" [(ngModel)]="field.comment"></textarea>
+        <label>Field type:</label>
+        <select name="field_type" [(ngModel)]="field.type" required>
+            <option *ngFor="let type of types" [value]="type">{{type}}</option>
+        </select>
+        <label>Default Value:</label>
+        <input type="text" name="field_default" [(ngModel)]="field.default_value">
+        <div class="check-group">
+            <label>
+                <input type="checkbox" [(ngModel)]="field.index" name="field_index">INDEX
+            </label>
+            <label>
+                <input type="checkbox" [(ngModel)]="field.not_null" name="field_null">NOT NULL
+            </label>
+            <label>
+                <input type="checkbox" [(ngModel)]="field.unique" name="field_index">UNIQUE
+            </label>
+        </div>
+        <label>Check Constraint:</label>
+        <input type="text" name="field_check" [(ngModel)]="field.check">
+
+    </content>
+    <p class="error" *ngIf="error">{{error}}</p>
+    <div class="commands" >
+        <button [disabled]="!fieldForm.form.valid"  class="invert" type="submit">Create Field</button> 
+        <button [disabled]="!fieldForm.form.valid"  (click)="addfield=true"  class="invert" type="submit">Create & add another</button> 
+        <button type="button" (click)="cancel()" class="invert">Cancel</button>      
+    </div>
+</form>

@@ -1,0 +1,145 @@
+.element{
+    position: absolute;
+    border: 1px solid #3E3E3E;
+    background-color: #fbfbfb;
+    display: flex;
+    flex-direction: column;
+    min-width: 50px;
+    min-height: 50px;
+    border-radius: 5px;
+    z-index: 1;
+
+    .header{
+        display: flex;
+        justify-content: space-between;
+        padding: 5px;
+        font-size: 1.3em;
+        font-weight: bold;
+        cursor: move;
+
+        a{
+            position: relative;
+            margin-left: 10px;
+            cursor: pointer;
+
+            &:hover{
+                /*ripple effect*/
+                position: relative;
+                // top: 5px;
+                margin-left: 10px;
+                cursor: pointer;
+            }
+            &:active{
+                -moz-animation: ripple 0.21s ease;
+                -webkit-animation: ripple 0.21s ease;
+                animation: ripple 0.21s ease;
+                
+            }
+        }
+        h3{
+            cursor: pointer;
+        }
+    }
+    .comment{
+      padding: 5px;
+    }
+    content {
+        padding: 5px;
+
+        
+    }
+}
+.selected {
+    z-index: 1000!important;
+}
+
+
+
+
+@-moz-keyframes ripple {
+  5%, 100% {
+    opacity: 0;
+  }
+  5% {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes ripple {
+  5%, 100% {
+    opacity: 0;
+  }
+  5% {
+    opacity: 1;
+  }
+}
+@keyframes ripple {
+  5%, 100% {
+    opacity: 0;
+  }
+  5% {
+    opacity: 1;
+  }
+}
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+.rippler {
+  position: relative;
+  cursor: pointer;
+  /*margin: 30px;
+  padding-left: 28px;*/
+}
+
+.rippler:before, .rippler:after{
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  -moz-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+/*
+.rippler:before, .rippler:after{
+    border-radius: 5%;
+}
+.rippler:before{
+  top: 0;
+  left: 0;
+  width: 18px;
+  height: 18px;
+  background: #1565C0;
+  -moz-box-shadow: inset 0 0 0 18px #F2F2F2;
+  -webkit-box-shadow: inset 0 0 0 18px #F2F2F2;
+  box-shadow: inset 0 0 0 18px #F2F2F2;
+}*/
+.rippler:after {
+  top: 49%;
+  left: 12px;
+  width: 54px;
+  height: 54px;
+  opacity: 0;
+  background: rgba(22, 167, 243, 0.5);
+  -moz-transform: translate(-50%, -50%) scale(0);
+  -ms-transform: translate(-50%, -50%) scale(0);
+  -webkit-transform: translate(-50%, -50%) scale(0);
+  transform: translate(-50%, -50%) scale(0);
+}
+/*
+.rippler:hover:before {
+  -moz-box-shadow: inset 0 0 0 4px #F2F2F2;
+  -webkit-box-shadow: inset 0 0 0 4px #F2F2F2;
+  box-shadow: inset 0 0 0 4px #F2F2F2;
+}*/
+.rippler:hover:after {
+  -moz-transform: translate(-50%, -50%) scale(1);
+  -ms-transform: translate(-50%, -50%) scale(1);
+  -webkit-transform: translate(-50%, -50%) scale(1);
+  transform: translate(-50%, -50%) scale(1);
+  -moz-animation: ripple 1s ease-out;
+  -webkit-animation: ripple 1s ease-out;
+  animation: ripple 1s ease-out;
+}

@@ -1,0 +1,60 @@
+header{
+        position: absolute;
+        top: -68px;
+        left:0;
+        right:0;
+        padding-bottom: 5px;
+        padding-left:5px;
+        box-sizing: border-box;
+        z-index: 9999;
+
+        transition: top 0.5s ease;
+
+        &:hover {
+            top: 0;
+        }
+
+        h1{
+            margin-bottom: 2px;
+        }
+        h2{
+            margin: 0;
+        }
+        .recap{
+             overflow: hidden;
+            /* word-wrap: normal; */
+            white-space: nowrap;
+            text-overflow: ellipsis;
+
+            span{
+                font-size: 1.1em;
+            }
+        }
+
+        
+        
+}
+content{
+            /*fait lui prendre toute la place dispo*/
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+
+            .main{
+                /* la zone graphique */
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+            }
+        }
+
+.relation{
+    stroke-linejoin: round;
+    stroke-dasharray: 5 5;
+    fill:none;
+     stroke:#3E3E3E; 
+}
