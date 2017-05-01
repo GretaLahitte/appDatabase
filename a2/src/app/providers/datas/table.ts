@@ -12,8 +12,10 @@ export class Table{
     coords:{x:number, y:number};//coordonnées sur la page
     selected: boolean;
     fields: Array<Field>;
-    relations: Array<Relation>;
+    //relations: Array<Relation>;
 
+    //les contraintes....
+    constraints:Array<any> = [];
     
     constructor(args){
         args = args || {};
@@ -23,7 +25,7 @@ export class Table{
         this.coords = args.coords || {x:0,y:0};
         this.selected = args.selected || false;
         this.fields = args.fields || [];
-        this.relations = args.relations || [];
+        //this.relations = args.relations || [];
     }
     get name(){return this.__name;}
     set name(v){

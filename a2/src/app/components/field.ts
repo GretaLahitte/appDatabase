@@ -31,7 +31,7 @@ export class FieldComponent{
         //event.stopPropagation();
         event.dataTransfer.effectAllowed = 'move';
         //transfert les données...
-        event.dataTransfer.setData("js/field", {table:this.table, field:this.field});
+        event.dataTransfer.setData("js/field", this.table.id+" "+this.field.id);
         // this.dragSrc = true;
         // this._app.onDragStarted(true);
     }

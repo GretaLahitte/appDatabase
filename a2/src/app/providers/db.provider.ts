@@ -157,8 +157,8 @@ export class DBProvider{
                         _link: null
                     }
         });
-        table1.relations.push(relation);
-        table2.relations.push(relation);
+        // table1.relations.push(relation);
+        // table2.relations.push(relation);
 
         //cree une autre relation 
         var relation2 = new Relation({
@@ -175,8 +175,8 @@ export class DBProvider{
                         _link: null //ca, c'est vraiement pas beau....
                     }
         });
-        table1.relations.push(relation2);
-        table3.relations.push(relation2);
+        // table1.relations.push(relation2);
+        // table3.relations.push(relation2);
         //et la derniere, on pense toujours a l'inscrire dans la table...
         var relation3 = new Relation({
             id:"link3",
@@ -199,8 +199,8 @@ export class DBProvider{
                         _link: null //ca, c'est vraiement pas beau....
                     }
         });
-        table2.relations.push(relation3);
-        table3.relations.push(relation3);
+        // table2.relations.push(relation3);
+        // table3.relations.push(relation3);
         
         
         //les relations entre les differentes tables de la base,
@@ -259,9 +259,17 @@ export class DBProvider{
         table.fields.push(field);
     }
 
+
+    getTableById(id):Table{
+        for (let t of this._db.tables){
+            if(t.id == id) return t;
+        }
+
+    }
+
     makeRelation(from, to_table){
         //crée un nouveau element dans la table ciblfr
-       
+       console.log(from);
         let cf = new Field({
             name:"id_"+from.table.name,
             type:from.field.type
@@ -278,8 +286,8 @@ export class DBProvider{
                     }
         });
         //ajoute aux differentes tables
-        to_table.relations.push(relation);
-        from.table.relations.push(relation);
+        // to_table.relations.push(relation);
+        // from.table.relations.push(relation);
         //ajoute au global pour le dessin
         this._db.relations.push(relation);
     }

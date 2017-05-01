@@ -60,21 +60,30 @@ export class TableComponent{
         this.skip_evt(event);
         //lance le move
         if(dt){
-            console.log("transferring:");
-            console.log(dt);
+            let ids = dt.split(" ");
+            //recupe la table
+            let table = this._db.getTableById(ids[0]);
+            if(!table || table==this.table) return;
 
-            //verifie que n'existe pas deja 
-            for(let f of this.table.fields){
-                if(f == dt.field){
-                    //annule le transfert
-                    console.log("d&d in same place!!!")
-                    return;
+
+            let field = null;
+            for (let f of table.fields){
+                if(f.id == ids[1]) {
+                    field = f;
+                    break;
                 }
             }
+            if(!field) return;
+
+
+            console.log("transferring:");
+            console.log(field);
+
+            
             //sinon, crée une nouvelle relation entre les tables
             //probleme, ai besoin de connaitre la table de depart...
             console.log("make relation")
-            this._db.makeRelation(dt,this.table);
+            this._db.makeRelation({table:table, field:field},this.table);
             
         }
     }
