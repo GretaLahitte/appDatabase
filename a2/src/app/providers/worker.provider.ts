@@ -1,33 +1,33 @@
 import {Injectable} from "@angular/core";
 import {Base} from "./datas/base";
 
-const Worker = require('worker!../../worker.test');
-const worker = new Worker();
-//connection au websocke pour creation du SQL
+///connection au websocke pour creation du SQL
 
 @Injectable()
 export class WorkerProvider{
 
    
-
+    worker:Worker;
     constructor(){
         //creation du worker
-        //this.worker = new Worker("worker.test.js");
+        this.worker = new Worker("./assets/worker.test.js");
         //les listeners
         
     }
 
     process_SQL(base:Base):Promise<string>{
         return new Promise<string>( (resolve,reject)=>{
-            worker.onmessage = function(e){
+            this.worker.onmessage = function(e){
                 //renvoie un resultat valide
+                console.log(e)
                 if(e) resolve(e.data);
                 else reject("No response from webworker");
             };
-            worker.onerror = function(e){
-                reject(e);
+            this.worker.onerror = function(e){
+                
+                reject(e.message);
             }
-            worker.postMessage(this.convertToJSON(base));
+            this.worker.postMessage(this.convertToJSON(base));
         });
         
     }
