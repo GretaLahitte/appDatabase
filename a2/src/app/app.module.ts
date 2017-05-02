@@ -8,11 +8,15 @@ import {TableComponent} from "./components/tables";
 import {FieldComponent} from "./components/field";
 // import {RelationComponent} from "./components/relation";
 import {MenuComponent} from "./components/menu";
+import {DialogComponent} from "./components/dialog";
+
 
 import {DBInfosPipe} from "./pipes/db.infos.pipe";
 import {BypassCSSPipe} from "./pipes/bypass.css.pipe";
 import {Relation2PointsPipe} from "./pipes/relation.to.points.pipe";
-import {DialogComponent} from "./components/dialog";
+import {HasPrimaryKeyPipe} from "./pipes/has.pk.pipe";
+
+
 
 import {DBProvider} from './providers/db.provider';
 import {DialogProvider} from "./providers/dialog.provider";
@@ -25,6 +29,7 @@ import DIALOGS from "./components/dialogs/dialogs";
     DBInfosPipe,
     BypassCSSPipe,
     Relation2PointsPipe,
+    HasPrimaryKeyPipe,
     ...DIALOGS,
     
     AppComponent,

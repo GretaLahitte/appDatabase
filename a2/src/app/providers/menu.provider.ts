@@ -99,6 +99,10 @@ export class MenuProvider{
                 this._dlg.pushAddFieldDialog(target);
                 break;
             }
+            case 'SHOW_PROPS':{
+                this._dlg.pushShowTableProperties(target);
+                break;
+            }
             case 'about':{
                 //affiche dialogue nouvelle table 
                 this._dlg.pushAboutDialog();

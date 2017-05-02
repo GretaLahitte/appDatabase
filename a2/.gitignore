@@ -1,8 +1,8 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
 # compiled output
-/a2/dist
-/a2/tmp
+a2/dist
+a2/tmp
 
 # dependencies
 /a2/node_modules
@@ -23,19 +23,18 @@
 !.vscode/extensions.json
 
 # misc
-/a2/.sass-cache
-/a2/connect.lock
-/a2/coverage/*
+a2/.sass-cache
+a2/connect.lock
+a2/coverage/*
 /libpeerconnection.log
 npm-debug.log
 testem.log
-/a2/typings
+a2/typings
 
 # e2e
-/a2/e2e/*.js
-/a2/e2e/*.map
+a2/e2e/*.js
+a2/e2e/*.map
 
 #System Files
 .DS_Store
 Thumbs.db
-*.log

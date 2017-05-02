@@ -3,9 +3,21 @@ import {Base} from "./datas/base";
 import {Table} from "./datas/table";
 import {Field} from "./datas/field";
 import {Relation} from "./datas/relation";
-
+import {Enumeration} from "./datas/enumeration";
 
 import {generateUUID} from "./datas/utils";
+
+export const FIELD_TYPES = [
+        "bigint","bigserial","bit","bit varying","boolean","box","bytea",
+        "charcacter varying","character","cidr","circle","date","double precision",
+        "inet","integer","interval","line","lseg","macaddr","money","numeric",
+        "path","point","polygon","real","smallint","serial","text","time","time with timezone",
+        "timestamp","timestamp (TZ)","tsquery","tsvector","txid_snapshot","uuid","xml"
+    ];
+export const COLUMN_CONSTRAINTS = [
+        "NOT NULL","UNIQUE","PRIMARY KEY",
+    ]
+
 
 @Injectable()
 export class DBProvider{
@@ -247,7 +259,23 @@ export class DBProvider{
         this._db.tables.push(table);
     }
 
+    addDataType(type:Enumeration){
 
+        if(!type.key) throw "Invalid: a custom type must have a name...";
+        //pas d'espaces authorisé
+        if(!/^[a-zA-Z_]{1}[a-zA-Z0-9_]+$/i.test(type.key)) throw "Invalid name: valid expression must be [a-zA-Z_]{1}[a-zA-Z0-9_]+";
+        if(!type.values) throw "Invalid type value: must provide comma sperated values";
+
+        
+        //verifie que n'existe pas deja
+        for(let en of this._db.enumerations){
+            if (en.key == type.key) throw "Invalid type, already exists";
+        }
+        //sinon, enregistrer
+        this._db.enumerations.push(type);
+        //ajoute aux types de données
+        FIELD_TYPES.push(type.key);
+    }
     addFieldTo(field:Field, table:Table){
         if(!field.name) throw "Invalid: a field must have a name...";
         //pas d'espaces authorisé

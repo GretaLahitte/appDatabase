@@ -6,6 +6,8 @@
         <dlg-addtable *ngSwitchCase="'ADD_TABLE'" [coords]="descriptor.coords"></dlg-addtable>
         <dlg-addfield *ngSwitchCase="'ADD_FIELD'" [table]="descriptor.target"></dlg-addfield>
         <dlg-about *ngSwitchCase="'ABOUT'"></dlg-about>
+        <dlg-tableprops *ngSwitchCase="'SHOW_TABLE'" [table]="descriptor.target"></dlg-tableprops>
+        <dlg-index *ngSwitchCase="'ADD_INDEX'" [table]="descriptor.target"></dlg-index>
         <div *ngSwitchDefault>
             Oups!
         </div>

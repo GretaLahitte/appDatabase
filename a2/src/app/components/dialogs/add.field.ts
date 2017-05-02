@@ -1,9 +1,12 @@
 import {Component, Input} from "@angular/core";
-import {DBProvider} from "../../providers/db.provider";
+import {DBProvider, FIELD_TYPES} from "../../providers/db.provider";
 import {DialogProvider} from "../../providers/dialog.provider";
 
 import {Table} from "../../providers/datas/table";
-import {Field, FIELD_TYPES} from "../../providers/datas/field";
+import {Field} from "../../providers/datas/field";
+import {Enumeration} from "../../providers/datas/enumeration";
+
+
 
 @Component({
     selector:"dlg-addfield",
@@ -18,6 +21,10 @@ export class AddFieldDialog{
 
     types = FIELD_TYPES;//les types de field possibles....
 
+
+    custom_type:Enumeration = new Enumeration();
+    make_custom:boolean = false;
+
     constructor(private _db:DBProvider, private _dlg:DialogProvider){}
 
     ngOnInit(){
@@ -29,12 +36,22 @@ export class AddFieldDialog{
         //suivant le submit...
         this.error = "";
         try{
+
+            if(this.make_custom){
+                //cree un nouveau type 
+                //verifie les noms et validité
+                //si ok, cree un nouveau type
+                this._db.addDataType (this.custom_type);//si erreur, youpi...
+                this.field.type = this.custom_type.key;//enregistre
+
+            }
             this._db.addFieldTo(this.field, this.table);
             if(this.addfield){
                 this.addfield = false;
                 //affiche autre boite de dialog
                 console.log("add new field");
                 this.field = new Field({});
+                this.custom_type = new Enumeration();
 
 
             } else  this._dlg.clearDialogs();

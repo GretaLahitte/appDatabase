@@ -11,14 +11,29 @@ import {Table} from "../providers/datas/table";
 export class DialogProvider{
 
     dlg:Subject<any> = new Subject<any>();
-
+    _history:Array<any> = [];
 
     getDialogObservable():Observable<any>{
         return this.dlg.asObservable();
     }
 
     clearDialogs(){
+        this._history = [];//vide l'historique
         this.dlg.next(null);
+    }
+    back(){
+        let last = null;
+        if(this._history.length > 1){
+            //pop les 2 derniers
+            this._history.pop();//actuel
+            last = this._history[this._history.length -1];
+        }
+        this.dlg.next(last);
+    }
+    next(dlg:any){
+        this._history.push(dlg);
+         this.dlg.next(dlg);
+
     }
     pushDummyDialog(){
         let desc = {
@@ -31,7 +46,7 @@ export class DialogProvider{
                 }
             ]
         };
-        this.dlg.next(desc);
+        this.next(desc);
     }
 
     pushAddTableDialog(coords={x:0,y:0}){
@@ -51,7 +66,16 @@ export class DialogProvider{
                 }
             ]
         };
-        this.dlg.next(desc);
+        this.next(desc);
+    }
+    pushShowTableProperties(target:Table){
+        let desc = {
+            title:"Table Properties",
+            texte:"table properties...",
+            type:"SHOW_TABLE",
+            target: target
+        };
+        this.next(desc);
     }
      pushAddFieldDialog(target:Table){
         let desc = {
@@ -61,7 +85,7 @@ export class DialogProvider{
             target:target,
             
         };
-        this.dlg.next(desc);
+        this.next(desc);
     }
     pushAboutDialog(){
         let desc = {
@@ -69,6 +93,16 @@ export class DialogProvider{
             texte:"Greta SQLTool v1.0",
             type:"ABOUT",
         };
-        this.dlg.next(desc);
+        this.next(desc);
+    }
+    pushIndexDialog(target:Table){
+        let desc = {
+            title:"Add Index",
+            texte:"Add an index to the table",
+            type:"ADD_INDEX",
+            target:target
+            
+        };
+        this.next(desc);
     }
 }

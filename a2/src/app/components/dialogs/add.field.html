@@ -5,14 +5,29 @@
         <label>Field comment:</label>
         <textarea name="field_comment" [(ngModel)]="field.comment"></textarea>
         <label>Field type:</label>
-        <select name="field_type" [(ngModel)]="field.type" required>
+        <select name="field_type" [disabled]="newType.checked" [(ngModel)]="field.type" required>
             <option *ngFor="let type of types" [value]="type">{{type}}</option>
         </select>
+        <label>
+            <input type="checkbox" [(ngModel)]="make_custom" #newType name="new_type">Create custom ENUM
+        </label>
+        <div class="enum-group">
+            <label>Type name:</label>
+            <input [disabled]="!newType.checked" type="text" name="enum_name" [(ngModel)]="custom_type.key" required>
+            <label>Type values (comma separated):</label>
+            <textarea [disabled]="!newType.checked" name="enum_vals" [(ngModel)]="custom_type.value" required></textarea>
+        </div>
         <label>Default Value:</label>
         <input type="text" name="field_default" [(ngModel)]="field.default_value">
+        
+        
+
         <div class="check-group">
+            <label [ngClass]="table | has_PK">
+                <input type="checkbox"   [(ngModel)]="field.primary_key" name="field_pk">Primary Key
+            </label>
             <label>
-                <input type="checkbox" [(ngModel)]="field.index" name="field_index">INDEX
+                <input type="checkbox"  [(ngModel)]="field.index" name="field_index">INDEX
             </label>
             <label>
                 <input type="checkbox" [(ngModel)]="field.not_null" name="field_null">NOT NULL

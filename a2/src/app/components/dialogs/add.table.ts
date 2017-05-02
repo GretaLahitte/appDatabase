@@ -30,7 +30,7 @@ export class AddTableDialog {
         this.table.coords = this.coords;
         try{
             this._db.add_table(this.table);
-            if(this.add_primary) this._db.addFieldTo(new Field({name:"id"}), this.table);
+            if(this.add_primary) this._db.addFieldTo(new Field({name:"id","primary_key":true}), this.table);
             if(this.addfield){
                 //affiche autre boite de dialog
                 console.log("add new table and field");

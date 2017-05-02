@@ -2,18 +2,6 @@ import {generateUUID} from "./utils";
 
 
 
-export const FIELD_TYPES = [
-        "bigint","bigserial","bit","bit varying","boolean","box","bytea",
-        "charcacter varying","character","cidr","circle","date","double precision",
-        "inet","integer","interval","line","lseg","macaddr","money","numeric",
-        "path","point","polygon","real","smallint","serial","text","time","time with timezone",
-        "timestamp","timestamp (TZ)","tsquery","tsvector","txid_snapshot","uuid","xml"
-    ];
-export const COLUMN_CONSTRAINTS = [
-        "NOT NULL","UNIQUE","PRIMARY KEY",
-    ]
-
-
 export class Field{
     id:string;
     name:string;
@@ -21,6 +9,7 @@ export class Field{
     type:string;
     
     //les contraintes possibles pour un field:
+    primary_key:boolean = false;
     index:boolean  = false; //doit creer un index
     not_null:boolean = false;//ne peut pas etre null
     unique: boolean = false;//doit etre unique 
@@ -37,6 +26,6 @@ export class Field{
         this.comment = args.comment;
         //voir le reste, type, ....
         this.type = args.type || 'text';
-        
+        this.primary_key = args.primary_key || false;
     }
 }

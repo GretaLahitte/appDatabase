@@ -3,6 +3,8 @@
  */
 import {Table} from "./table";
 import {Relation} from "./relation";
+import {Enumeration} from "./enumeration";
+
 
 export class Base{
 
@@ -15,6 +17,7 @@ export class Base{
     login: string;
     passwrd: string;
 
+    enumerations:Array<Enumeration> = [];
     tables:Array<Table>;
     relations: Array<Relation>;
 
