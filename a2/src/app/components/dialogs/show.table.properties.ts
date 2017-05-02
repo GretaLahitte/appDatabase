@@ -1,6 +1,10 @@
 import {Component, Input} from "@angular/core";
 import {Table} from "../../providers/datas/table";
 import {Field} from "../../providers/datas/field";
+import {Index} from "../../providers/datas/index";
+import {Enumeration} from "../../providers/datas/enumeration";
+
+
 import {DialogProvider} from '../../providers/dialog.provider';
 import {DBProvider} from "../../providers/db.provider";
 
@@ -33,12 +37,32 @@ export class ShowTableProperties{
     }
 
     newConstraint(){
-
+        this._dlg.pushConstraintDialog(this.table);
     }
     newIndex(){
         this._dlg.pushIndexDialog(this.table);
     }
     newPK(){
+        this._dlg.pushPKDialog(this.table);
+    }
+
+    updateIndex(index:Index){
+
+    }
+    deleteIndex(index:Index){
+
+    }
+
+    updateConstraint(c:Enumeration){
+
+    }
+    deleteConstraint(c:Enumeration){
+
+    }
+    updatePK(c:Enumeration){
+
+    }
+    deletePK(c:Enumeration){
 
     }
 }

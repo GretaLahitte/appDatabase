@@ -1,0 +1,17 @@
+<form #constraintForm="ngForm" (ngSubmit)="process_dialog_form()">
+        <content>
+            <label>Constraint name:</label>
+            <input type="text" name="c_name" [(ngModel)]="constraint.key" required>
+            
+            <!-- les cles primaires depend si en a deja une ou pas... 
+            <input type="checkbox" name="add_primary">Add auto-increment primary key (name: id)-->
+            <label>Check Expression:</label>
+            <textarea name="c_value" [(ngModel)]="constraint.value" required></textarea>
+            
+        </content>
+        <p class="error" *ngIf="error">{{error}}</p>
+        <div class="commands" >
+            <button [disabled]="!constraintForm.form.valid"  class="invert" type="submit">Add Constraint</button> 
+            <button type="button" (click)="cancel()" class="invert">Cancel</button>      
+        </div>
+    </form>

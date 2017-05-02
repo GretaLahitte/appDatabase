@@ -3,7 +3,7 @@ import {generateUUID} from "./utils";
 import {Field} from "./field";
 import {Relation} from "./relation";
 import {Index} from "./index";
-
+import {Enumeration} from "./enumeration";
 
 
 export class Table{
@@ -18,10 +18,11 @@ export class Table{
     //relations: Array<Relation>;
 
     //les contraintes....
-    constraints:Array<any> = [];
+    constraints:Array<Enumeration> = [];
     //les clés indexs
     indexes:Array<Index> = []
-    
+    pk:Index;
+
     constructor(args){
         args = args || {};
         this.id = args.id || generateUUID();
@@ -43,8 +44,33 @@ export class Table{
 
     addIndex(index:Index){
         //verifications....
+        let n = index.name;
+        for(let t of this.indexes){
+            if(t.name == n) throw "Invalid name: index must be unique in table!";
+        }
         this.indexes.push(index);
     }
+    addConstraint(c:Enumeration){
+        let n = c.key;
+        for(let t of this.constraints){
+            if(t.key == n) throw "Invalid name: constraint must be unique in table!";
+        }
+        this.constraints.push(c);
+    }
+    addCompositePK(index:Index){
+        if(!index.name){
+            //genere la clé?
+            index.name = index.fields.map(el=>{
+                return el.name;
+            }).join('_');
+        }
+        //marque les clés ???
+
+        this.pk = index;
+    }
+
+
+    
     hasPK():boolean{
         for(let field of this.fields){            
             if(field.primary_key === true) return true;

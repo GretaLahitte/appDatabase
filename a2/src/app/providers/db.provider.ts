@@ -3,6 +3,7 @@ import {Base} from "./datas/base";
 import {Table} from "./datas/table";
 import {Field} from "./datas/field";
 import {Relation} from "./datas/relation";
+import {Index} from "./datas/index";
 import {Enumeration} from "./datas/enumeration";
 
 import {generateUUID} from "./datas/utils";
@@ -277,6 +278,11 @@ export class DBProvider{
         FIELD_TYPES.push(type.key);
     }
     addFieldTo(field:Field, table:Table){
+
+        if(field.primary_key){
+            field.primary_key = false;
+            return this.addPKFieldTo(field, table);
+        }
         if(!field.name) throw "Invalid: a field must have a name...";
         //pas d'espaces authorisé
         if(!/^[a-zA-Z_]{1}[a-zA-Z0-9_]+$/i.test(field.name)) throw "Invalid name: valid expression must be [a-zA-Z_]{1}[a-zA-Z0-9_]+";
@@ -285,8 +291,23 @@ export class DBProvider{
             if(t.name == field.name) throw "Invalid name: a field name must be unique in a table!";
         }
         table.fields.push(field);
-    }
 
+        //if is pk
+
+    }
+    addPKFieldTo(field:Field, table:Table){
+        this.addFieldTo(field,table);
+        let p = new Index();
+        p.fields=[field];
+        p.name = field.name;
+        //p.is_unique = true;
+        p.method = "btree";
+        table.pk = p;//enregistrer
+        //comme le field est la clé, on en profite 
+        field.primary_key = true;
+        field.unique = true;
+        
+    }
 
     getTableById(id):Table{
         for (let t of this._db.tables){

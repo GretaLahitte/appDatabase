@@ -7,8 +7,14 @@
 
         <!-- les cles primaires depend si en a deja une ou pas... -->
         <label class="group">Primary Key:
-        <span>name</span><span>value</span>
-        <button class="invert" type="button" (click)="newPK()">Add a Primary Key</button>
+            <div class="index-infos" *ngIf="table.pk">
+                <span>{{table.pk.name}}</span>
+                <div>
+                    <a (click)="updateIndex(index)"><i class="material-icons rippler">mode_edit</i></a>
+                    <a (click)="deleteIndex(index)"><i class="material-icons rippler">delete_forever</i></a>
+                </div>     
+            </div>
+            <button *ngIf="!table.pk" class="invert" type="button" (click)="newPK()">Add a Primary Key</button>
          </label >
 
 
@@ -16,7 +22,11 @@
         <label class="group">Indexes:
         <div *ngFor="let index of table.indexes">
             <div class="index-infos">
-                <span class="name">{{index.name}}</span>(<span *ngFor="let i of index.fields" class="values">{{i.name}},</span>)                
+                <span class="name">{{index.name}}</span>(<span *ngFor="let i of index.fields" class="values">{{i.name}},</span>)
+                <div>
+                    <a (click)="updateIndex(index)"><i class="material-icons rippler">mode_edit</i></a>
+                    <a (click)="deleteIndex(index)"><i class="material-icons rippler">delete_forever</i></a>
+                </div>                
             </div>
         </div>
         
@@ -27,10 +37,13 @@
 
         <!-- les contraintes de la table -->
         <label class="group">Table Constraints:
-        <div *ngFor="let index of indexes">
-            <div>
-                <span>{{index.name}}</span>(<span *ngFor="let i of index.fields">{{i.name}},</span>)
-                
+        <div *ngFor="let index of table.constraints">
+            <div  class="index-infos">
+                <span  class="name">{{index.key}}</span>(<span >{{index.value}}</span>)
+                <div>
+                    <a (click)="updateConstraint(index)"><i class="material-icons rippler">mode_edit</i></a>
+                    <a (click)="deleteConstraint(index)"><i class="material-icons rippler">delete_forever</i></a>
+                </div>  
             </div>
         </div>
         

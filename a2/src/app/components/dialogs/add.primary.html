@@ -1,0 +1,21 @@
+<form #pkForm="ngForm" (ngSubmit)="process_dialog_form(pkForm)">
+        <content>
+            <label>PK name:</label>
+            <input type="text" name="index_name" [(ngModel)]="index.name">
+            
+            <!-- les cles primaires depend si en a deja une ou pas... 
+            <input type="checkbox" name="add_primary">Add auto-increment primary key (name: id)-->
+            <label>Select fields for primary key:</label>
+            <label *ngFor="let field of table.fields; let i = index">
+                <input type="checkbox" [name]="'field_'+i" [value]="field.id" 
+                [checked]="index.fields.indexOf(field)>=0"
+                (change)="updateCheckedOptions(field, $event)">{{field.name}}
+            </label>
+            
+        </content>
+        <p class="error" *ngIf="error">{{error}}</p>
+        <div class="commands" >
+            <button [disabled]="!pkForm.form.valid || index.fields.length==0"  class="invert" type="submit">Create Primary Key</button> 
+            <button type="button" (click)="cancel()" class="invert">Cancel</button>      
+        </div>
+    </form>

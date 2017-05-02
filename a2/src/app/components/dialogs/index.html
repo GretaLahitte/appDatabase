@@ -11,7 +11,15 @@
                 [checked]="index.fields.indexOf(field)>=0"
                 (change)="updateCheckedOptions(field, $event)">{{field.name}}
             </label>
-
+            <label>Method:</label>
+            <select [(ngModel)]="index.method" name="index_method" required>
+                <option value="btree">btree</option>
+                <option value="hash">hash</option>
+                <option value="gist">gist</option>
+                <option value="gin">gin</option>
+            </select>
+            <input type="checkbox" [(ngModel)]="index.is_unique" name="index_unique">Set index as unique
+            
         </content>
         <p class="error" *ngIf="error">{{error}}</p>
         <div class="commands" >

@@ -35,6 +35,11 @@ export class MenuProvider{
                     action:"ADD_PROPS"
                 },
                 {
+                    label:"Add Index",
+                    icon:"playlist_add",
+                    action:"ADD_INDEX"
+                },
+                {
                     label:"Add Constraint",
                     icon:"report",
                     action:"ADD_CONSTRAINT"
@@ -97,6 +102,16 @@ export class MenuProvider{
             case 'ADD_PROPS':{
                 //affiche dialogue nouvelle table 
                 this._dlg.pushAddFieldDialog(target);
+                break;
+            }
+            case 'ADD_INDEX':{
+                //affiche dialogue nouvelle table 
+                this._dlg.pushIndexDialog(target);
+                break;
+            }
+            case 'ADD_CONSTRAINT':{
+                //affiche dialogue nouvelle table 
+                this._dlg.pushConstraintDialog(target);
                 break;
             }
             case 'SHOW_PROPS':{

@@ -105,4 +105,24 @@ export class DialogProvider{
         };
         this.next(desc);
     }
+    pushConstraintDialog(target:Table){
+        let desc = {
+            title:"Add Constraint",
+            texte:"Add a constraint to the table",
+            type:"ADD_CONSTRAINT",
+            target:target
+            
+        };
+        this.next(desc);
+    }
+    pushPKDialog(target:Table){
+        let desc = {
+            title:"Add Primary Key",
+            texte:"Add a primary key to the table",
+            type:"ADD_PK",
+            target:target
+            
+        };
+        this.next(desc);
+    }
 }
