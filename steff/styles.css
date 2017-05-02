@@ -335,13 +335,13 @@ body > content > div {
 .modal-content > content {
     margin: 10px 0;
 }
-.modal-content > .commands {
+.modal-content  .commands {
     margin: 10px 0;
     text-align: center;
     display: flex;
     justify-content: space-around;
 }
-.modal-content > .commands  button {
+.modal-content  .commands  button {
   width: 100%;
   min-width: 90px;
   cursor:pointer;

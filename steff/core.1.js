@@ -26,14 +26,25 @@ var myContext = (function (){
         args = args || {};
         
         this.id = args.id || ftw2.generateUUID();
-        this.name = args.name || "a name";
+        this._name = args.name || "TableName";
         this.coords = args.coords || {x:0,y:0};
         this.selected = args.selected || false;
         this.fields = args.fields || [];
         this.relations = args.relations || [];
-
+        Object.defineProperty(this,"name",{
+            get :function(){
+                return this._name;
+            },
+            set:function(v){
+                //valide
+                console.log("set item value: ",v)
+                if(v=='a name') throw {message:"Not a name!"};
+                this._name = v;
+            }
+        });
+        
     }
-
+    
     var FIELD_TYPES = [
         "bigint","bigserial","bit","bit varying","boolean","box","bytea",
         "charcacter varying","character","cidr","circle","date","double precision",
@@ -847,6 +858,7 @@ var myContext = (function (){
         show_dlg : null,
         toggle_dlg: function(evt){CONTEXT.show_dlg = null;},
         dlg_action: function(evt, params){
+            evt.preventDefault();
             var action =  params[0] || "none";
             var res = false;
             if(dialog_actions[action]){
@@ -857,6 +869,10 @@ var myContext = (function (){
             //dismiss dialog
             if(!res)CONTEXT.show_dlg = null;
             //action todo
+        },
+        dlg_submit:function(evt){
+            evt.preventDefault();
+            console.log(evt);
         },
         show_item_properties:function(event, params){
             //affiche les properties du field 

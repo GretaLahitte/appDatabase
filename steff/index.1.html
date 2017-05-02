@@ -96,10 +96,12 @@
             <!-- affichage des boites de dialogues -->
             <div data-role="presenter" id="dialog_presenter">
                 <div class="modal-content  shadowed">
-                    <h2>{binding from:title}</h2>
-                    <p>{binding from:desc}</p>
-                    <content>{binding from:content presenter:dialog_content_presenter}</content>
-                    <div class="commands">{binding from:commands presenter:dialog_command_presenter}</div>
+                    <form data-binded-submit="{binding command:dlg_submit}">
+                        <h2>{binding from:title}</h2>
+                        <p>{binding from:desc}</p>
+                        <content>{binding from:content presenter:dialog_content_presenter}</content>
+                        <div class="commands">{binding from:commands presenter:dialog_command_presenter}</div>
+                    </form>
                 </div>
                 
 
@@ -137,7 +139,7 @@
 
             <div data-role="presenter" id="dialog_command_presenter">
                 <div>
-                    <button data-binded-click="{binding command:dlg_action command_params:$action}" class="invert" type="button">{binding from:label}</button>
+                    <button  class="invert" data-binded-name="{binding from:action}" type="submit">{binding from:label}</button>
                 </div>
             </div>
         </div>
