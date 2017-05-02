@@ -1,0 +1,6 @@
+<div #fieldElem class="field"  draggable="true" (dragstart)="doStartDrag($event)" (dragend)="doStopDrag($event)">                    
+    <h3 [id]="field.id"  >
+        <a (click)="showItemProperty($event)" >{{field.name}}</a>
+    </h3>
+    <p *ngIf="field.comment">{{field.comment}}</p>    
+</div>

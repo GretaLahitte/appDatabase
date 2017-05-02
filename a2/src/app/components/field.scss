@@ -1,0 +1,13 @@
+.field{
+    position: relative;
+    border: none;
+    border-bottom: 1px dashed #3E3E3E;
+    cursor: move;
+    p{
+        margin: 1px;
+        text-align: right;
+    }
+}
+:host:last-child .field{
+    border:none!important;
+}

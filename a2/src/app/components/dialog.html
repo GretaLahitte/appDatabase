@@ -1,0 +1,14 @@
+<div class="modal" (contextmenu)="skip($event)">
+    <div class="modal-content  shadowed">
+    <h2>{{descriptor.title}}</h2>
+    <p>{{descriptor.texte}}</p>
+    <div [ngSwitch]="descriptor.type">
+        <dlg-addtable *ngSwitchCase="'ADD_TABLE'" [coords]="descriptor.coords"></dlg-addtable>
+        <dlg-addfield *ngSwitchCase="'ADD_FIELD'" [table]="descriptor.target"></dlg-addfield>
+        <dlg-about *ngSwitchCase="'ABOUT'"></dlg-about>
+        <div *ngSwitchDefault>
+            Oups!
+        </div>
+    </div>
+</div>
+</div>

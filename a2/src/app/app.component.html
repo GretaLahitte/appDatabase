@@ -1,0 +1,25 @@
+<header class="invert">
+    <h1>{{title}}</h1>
+    <h2>{{slogan}}</h2>
+    <div>{{database | dbinfos }}</div>
+    
+    
+</header>
+<content (mousemove)="drag($event)" (mouseup)="stop_drag($event)" (click)="clearMenu()" (contextmenu)="showContextMenu($event)">   
+    
+    <div class="main">
+        <table-cmp *ngFor="let table of database?.tables" [table]="table" (onSelectedTable)="setSelectedTable($event)"></table-cmp>
+
+        <menu-cmp *ngIf="descriptor" [descriptor]="descriptor"></menu-cmp>
+        
+    </div>
+    <svg width="100%" height="100%">
+        
+        <svg:g *ngFor="let relation of database?.relations" >            
+            <polyline class="relation" [attr.points]="relation | relation2points"/>
+        </svg:g>
+        
+    </svg>
+    <dlg-cmp *ngIf="dlgDescriptor" [descriptor]="dlgDescriptor"></dlg-cmp>
+    
+</content>

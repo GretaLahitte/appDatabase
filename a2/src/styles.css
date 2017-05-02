@@ -1,0 +1,30 @@
+/* You can add global styles to this file, and also import other style files */
+@import url("https://fonts.googleapis.com/css?family=Poiret+One");
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+
+.invert{
+    
+    background-color: #3E3E3E;
+    color: #E3E3E3;
+}
+.shadowed {
+    -webkit-box-shadow: 0px 0px 27px -5px rgba(0,0,0,0.75);
+-moz-box-shadow: 0px 0px 27px -5px rgba(0,0,0,0.75);
+box-shadow: 0px 0px 27px -5px rgba(0,0,0,0.75);
+}
+
+h1,h2,h3,h4{
+    margin: 0;
+    padding: 0;
+}
+h3{
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+body{
+    margin:0;
+    padding:0;
+    font-family: 'Poiret One', cursive;
+    min-height: 100vh;
+    background-color: #E3E3E3;
+}
