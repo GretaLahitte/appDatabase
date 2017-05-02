@@ -21,6 +21,8 @@ import {HasPrimaryKeyPipe} from "./pipes/has.pk.pipe";
 import {DBProvider} from './providers/db.provider';
 import {DialogProvider} from "./providers/dialog.provider";
 import {MenuProvider} from './providers/menu.provider';
+import {WorkerProvider} from "./providers/worker.provider";
+
 
 import DIALOGS from "./components/dialogs/dialogs";
 
@@ -44,7 +46,7 @@ import DIALOGS from "./components/dialogs/dialogs";
     FormsModule,
     HttpModule
   ],
-  providers: [DBProvider,DialogProvider, MenuProvider],
+  providers: [DBProvider,DialogProvider, MenuProvider, WorkerProvider],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

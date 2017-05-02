@@ -1,0 +1,10 @@
+<content>
+    <h4>SQL</h4>
+    <textarea *ngIf="sql_datas" [(ngModel)]="sql_datas"></textarea>
+    <p *ngIf="!error && !sql_datas">Loading sql, please wait...</p>
+    <p class="error" *ngIf="error">{{error}}</p>
+    <div class="commands" >
+            <button [disabled]="!sql_datas"  class="invert" type="button">what to do?</button> 
+            <button type="button" (click)="cancel()" class="invert">Cancel</button>      
+        </div>
+</content>

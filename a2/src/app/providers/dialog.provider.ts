@@ -125,4 +125,13 @@ export class DialogProvider{
         };
         this.next(desc);
     }
+    pushExportDialog(){
+        let desc = {
+            title:"Export your base",
+            texte:"Export your base to  SQL",
+            type:"EXPORT"
+            
+        };
+        this.next(desc);
+    }
 }

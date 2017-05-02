@@ -109,6 +109,10 @@ export class MenuProvider{
                 this._dlg.pushIndexDialog(target);
                 break;
             }
+            case 'export_sql':{
+                this._dlg.pushExportDialog();
+                break;
+            }
             case 'ADD_CONSTRAINT':{
                 //affiche dialogue nouvelle table 
                 this._dlg.pushConstraintDialog(target);

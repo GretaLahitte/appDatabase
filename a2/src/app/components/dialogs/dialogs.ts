@@ -5,9 +5,10 @@ import {ShowTableProperties} from "./show.table.properties";
 import {IndexDialog} from "./index";
 import {ConstraintDialog} from "./constraint";
 import {PKDialog} from "./add.primary";
+import {ExportDialog} from "./export";
 
 //toutes les dialogs sont la...
 const DIALOGS = [ AddTableDialog, AboutDialog, AddFieldDialog, ShowTableProperties, IndexDialog, ConstraintDialog
-,PKDialog ];
+,PKDialog, ExportDialog ];
 
 export default DIALOGS; 
