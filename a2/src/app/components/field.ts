@@ -27,6 +27,7 @@ export class FieldComponent{
 
     doStartDrag(event){
         event.stopPropagation();
+        if(!this.field.unique || !this.field.primary_key) return;
         //event.preventDefault();
         //event.stopPropagation();
         event.dataTransfer.effectAllowed = 'move';

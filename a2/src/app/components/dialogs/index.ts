@@ -20,7 +20,7 @@ export class IndexDialog {
 
 
     process_dialog_form(form){
-        this.index.index = true;
+        this.index.index = true;        
         this.table.addIndex(this.index);
         this._dlg.back();
     }

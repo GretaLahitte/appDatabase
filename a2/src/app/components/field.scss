@@ -3,6 +3,10 @@
     border: none;
     border-bottom: 1px dashed #3E3E3E;
     cursor: move;
+
+    &.not-draggable{
+        cursor: pointer;
+    }
     p{
         margin: 1px;
         text-align: right;

@@ -59,6 +59,7 @@ export class TableComponent{
         event.stopPropagation();
         this.skip_evt(event);
         //lance le move
+        console.log("data-transfert",dt)
         if(dt){
             
             let ids = dt.split(" ");

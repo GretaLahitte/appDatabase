@@ -309,7 +309,7 @@ export class DBProvider{
         
     }
 
-    getTableById(id):Table{
+    getTableById(id:any):Table{
         for (let t of this._db.tables){
             if(t.id == id) return t;
         }

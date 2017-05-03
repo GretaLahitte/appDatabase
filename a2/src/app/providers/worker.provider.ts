@@ -73,7 +73,8 @@ export class WorkerProvider{
                     not_null:field.not_null,
                     unique: field.unique,
                     default_value: field.default_value,
-                    check: field.check
+                    check: field.check,
+                    type: field.type
                 };
                 if((<Index>field).fields){
                     //un index ou clé composite...

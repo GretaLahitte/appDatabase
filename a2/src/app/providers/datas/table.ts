@@ -46,6 +46,9 @@ export class Table{
         if(index.fields.length == 1){
             let fi:Field = index.fields[0];
             fi.index = true;
+            fi.unique = index.unique;
+
+            
             //this.fields.push(fi);
         } else {
             //verifications....
