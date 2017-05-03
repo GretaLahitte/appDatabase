@@ -1,5 +1,6 @@
 onmessage = function(evt){
     console.log("youhou, something to do....");
-    console.log(evt);
+    var base = JSON.parse(evt.data);
+    console.log(base)
     postMessage("some SQL datas....");
 }

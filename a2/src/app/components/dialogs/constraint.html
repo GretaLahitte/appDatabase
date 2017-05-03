@@ -6,7 +6,7 @@
             <!-- les cles primaires depend si en a deja une ou pas... 
             <input type="checkbox" name="add_primary">Add auto-increment primary key (name: id)-->
             <label>Check Expression:</label>
-            <textarea name="c_value" [(ngModel)]="constraint.value" required></textarea>
+            <textarea name="c_value" [(ngModel)]="constraint.values" required></textarea>
             
         </content>
         <p class="error" *ngIf="error">{{error}}</p>
