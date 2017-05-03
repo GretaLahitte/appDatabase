@@ -4,8 +4,8 @@
     border-bottom: 1px dashed #3E3E3E;
     cursor: move;
 
-    &.not-draggable{
-        cursor: pointer;
+    &.notDraggable{
+        cursor: default;
     }
     p{
         margin: 1px;

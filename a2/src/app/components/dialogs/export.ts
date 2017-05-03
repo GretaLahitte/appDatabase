@@ -17,14 +17,21 @@ export class ExportDialog{
 
     sql_datas: string;//le resultat de la requete
     error:string;
-
+    name : string;//le nom de la base
 
     constructor(private _db:DBProvider, private _dlg:DialogProvider, private _worker:WorkerProvider){}
     ngOnInit(){
         //lance le loading...
         let db = this._db._db;
+        this.name = db.db_name;
+        
         this._worker.process_SQL(db).then((sql:string)=>this.sql_datas = sql)
                                     .catch(err=>this.error = err);
+
+    }
+
+    download_as_file(){
+        //permet le download as file du fichier...
 
     }
     cancel(){

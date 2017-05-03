@@ -18,8 +18,9 @@
                 <option value="gist">gist</option>
                 <option value="gin">gin</option>
             </select>
-            <input type="checkbox" [(ngModel)]="index.unique" name="index_unique">Set index as unique
-            
+            <div><input type="checkbox" [(ngModel)]="index.unique" name="index_unique">Set index as unique</div>
+            <input type="checkbox" #indexNull [(ngModel)]="index.index_null" name="index_index_null">Index NULL values
+            <input type="checkbox" [disabled]="!indexNull.checked" [(ngModel)]="index.null_first" name="index_null_first">Sort NULL values first (unchecked: sort last)
         </content>
         <p class="error" *ngIf="error">{{error}}</p>
         <div class="commands" >

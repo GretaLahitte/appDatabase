@@ -1,5 +1,5 @@
 <div >
-    <div #fieldElem class="field"  [draggable]="field.unique ==true || field.primary_key ==true" (dragstart)="doStartDrag($event)" (dragend)="doStopDrag($event)">                    
+    <div #fieldElem class="field" [class.notDraggable]="field.unique !=true && field.primary_key !=true"  [draggable]="field.unique ==true || field.primary_key ==true" (dragstart)="doStartDrag($event)" (dragend)="doStopDrag($event)">                    
         <h3 [id]="field.id"  >
             <a (click)="showItemProperty($event)" >{{field.name}}</a>
             <i class="material-icons" *ngIf="field.primary_key">vpn_key</i>

@@ -4,7 +4,8 @@
     <p *ngIf="!error && !sql_datas">Loading sql, please wait...</p>
     <p class="error" *ngIf="error">{{error}}</p>
     <div class="commands" >
-            <button [disabled]="!sql_datas"  class="invert" type="button">what to do?</button> 
-            <button type="button" (click)="cancel()" class="invert">Cancel</button>      
+            <a [hidden]="!sql_datas" [download]="name+'.sql'" [href]="sql_datas | file_download"  class="invert">Download file?</a> 
+            <button type="button" (click)="cancel()" class="invert">Close</button>      
         </div>
+        
 </content>
