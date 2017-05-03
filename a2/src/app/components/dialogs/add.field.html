@@ -15,7 +15,7 @@
             <label>Type name:</label>
             <input [disabled]="!newType.checked" type="text" name="enum_name" [(ngModel)]="custom_type.key" required>
             <label>Type values (comma separated):</label>
-            <textarea [disabled]="!newType.checked" name="enum_vals" [(ngModel)]="custom_type.value" required></textarea>
+            <textarea [disabled]="!newType.checked" name="enum_vals" [(ngModel)]="custom_type.values" required></textarea>
         </div>
         <label>Default Value:</label>
         <input type="text" name="field_default" [(ngModel)]="field.default_value">

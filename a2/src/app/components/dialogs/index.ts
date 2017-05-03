@@ -14,12 +14,13 @@ import {Index} from "../../providers/datas/index";
 export class IndexDialog {
 
     @Input() table:Table;
-    index:Index = new Index();
+    index:Index = new Index({});
 
     constructor(private _db:DBProvider, private _dlg:DialogProvider){}
 
 
     process_dialog_form(form){
+        this.index.index = true;
         this.table.addIndex(this.index);
         this._dlg.back();
     }

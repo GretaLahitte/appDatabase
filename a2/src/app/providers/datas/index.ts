@@ -1,8 +1,11 @@
 import {Field} from "./field";
 
-export class Index{
-    name:string ;
-    fields: Array<Field> = [];
-    is_unique:boolean = false;
+export class Index extends Field{
+    
+    fields: Array<Field> = [];    
     method:string = "btree";
+
+    constructor(args){
+        super(args);
+    }
 }

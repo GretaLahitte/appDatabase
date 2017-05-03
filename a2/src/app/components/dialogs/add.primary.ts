@@ -13,12 +13,13 @@ import {Index} from "../../providers/datas/index";
 })
 export class PKDialog{
     @Input() table:Table;
-    index:Index = new Index();
+    index:Index = new Index({});
 
     constructor(private _db:DBProvider, private _dlg:DialogProvider){}
 
 
     process_dialog_form(form){
+        this.index.primary_key = true;
         this.table.addCompositePK(this.index);
         this._dlg.back();
     }

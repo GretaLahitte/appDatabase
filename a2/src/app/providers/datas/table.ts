@@ -20,7 +20,7 @@ export class Table{
     //les contraintes....
     constraints:Array<Enumeration> = [];
     //les clés indexs
-    indexes:Array<Index> = []
+    //indexes:Array<Index> = []
     pk:Index;
 
     constructor(args){
@@ -43,12 +43,21 @@ export class Table{
     }
 
     addIndex(index:Index){
-        //verifications....
-        let n = index.name;
-        for(let t of this.indexes){
-            if(t.name == n) throw "Invalid name: index must be unique in table!";
+        if(index.fields.length == 1){
+            let fi:Field = index.fields[0];
+            fi.index = true;
+            //this.fields.push(fi);
+        } else {
+            //verifications....
+            let n = index.name;
+            for(let t of this.fields){
+                if(t.name == n) throw "Invalid name: index must be unique in table!";
+            }
+            index.index = true;
+            this.fields.push(index);
         }
-        this.indexes.push(index);
+        
+        //this.indexes.push(index);
     }
     addConstraint(c:Enumeration){
         let n = c.key;
@@ -57,12 +66,23 @@ export class Table{
         }
         this.constraints.push(c);
     }
-    addCompositePK(index:Index){
-        if(!index.name){
-            //genere la clé?
-            index.name = index.fields.map(el=>{
-                return el.name;
-            }).join('_');
+    addCompositePK(index:any){
+
+        if(index.fields.length == 1){
+            //un seul field, pas de création d'index
+            index = index.fields[0];
+            index.primary_key = true;
+        }
+        else {
+            //plusieurs clés, cree un nouvel element
+            if(!index.name){
+                //genere la clé?
+                index.name = index.fields.map(el=>{
+                    return el.name;
+                }).join('_');
+            }
+            index.primary_key = true;
+            this.fields.push(index);
         }
         //marque les clés ???
 

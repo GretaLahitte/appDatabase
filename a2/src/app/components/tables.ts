@@ -60,6 +60,7 @@ export class TableComponent{
         this.skip_evt(event);
         //lance le move
         if(dt){
+            
             let ids = dt.split(" ");
             //recupe la table
             let table = this._db.getTableById(ids[0]);
@@ -73,6 +74,15 @@ export class TableComponent{
                     break;
                 }
             }
+            // //teste les indexs
+            // if(!field) {
+            //     for (let f of table.indexes){
+            //         if(f.id == ids[1]) {
+            //             field = f;
+            //             break;
+            //         }
+            //     }
+            // }
             if(!field) return;
 
 

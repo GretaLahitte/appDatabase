@@ -297,7 +297,7 @@ export class DBProvider{
     }
     addPKFieldTo(field:Field, table:Table){
         this.addFieldTo(field,table);
-        let p = new Index();
+        let p = new Index({});
         p.fields=[field];
         p.name = field.name;
         //p.is_unique = true;
@@ -320,7 +320,7 @@ export class DBProvider{
         //crée un nouveau element dans la table ciblfr
        console.log(from);
         let cf = new Field({
-            name:"id_"+from.table.name,
+            name:from.field.name+"_"+from.table.name,
             type:from.field.type
         });
         this.addFieldTo(cf, to_table);
@@ -341,14 +341,5 @@ export class DBProvider{
         this._db.relations.push(relation);
     }
 
-    /**
-     * methodes d'export et import en JSON
-     */
-    prepareForJson():any{
-
-    }
-    loadFromJson(datas:any){
-
-    }
-
+    
 }
