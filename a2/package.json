@@ -21,6 +21,7 @@
     "@angular/platform-browser-dynamic": "^4.0.0",
     "@angular/router": "^4.0.0",
     "core-js": "^2.4.1",
+    "es6-shim": "^0.35.3",
     "immutable": "^3.8.1",
     "rxjs": "^5.1.0",
     "worker-loader": "^0.8.0",
