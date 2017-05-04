@@ -23,6 +23,9 @@ export class AppComponent {
   slogan = "a sql tool that's super cool!";
 
   database:Base;
+  databaseObservable: Observable<Base>;
+
+
 
   selectedTable: Table = null;
   shift_left: number = 0;
@@ -47,10 +50,9 @@ export class AppComponent {
     this.DLGoBS.subscribe( (mn)=>{
         this.dlgDescriptor = mn;
     });
-
-    this._db.loadDummyBase().then( (db:Base)=>{
-      this.database = db;
-    });
+    this.databaseObservable = this._db.db_subject.asObservable();
+    this.databaseObservable.subscribe( (b:Base)=> this.database = b);
+    this._db.loadDummyBase();
   }
 
   setSelectedTable(el:any){

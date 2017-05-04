@@ -134,4 +134,24 @@ export class DialogProvider{
         };
         this.next(desc);
     }
+    pushNewBaseDialog(){
+        let desc = {
+            title:"Create a new Base",
+            texte:"Create a new base",
+            type:"CREATE_BASE",
+            
+        };
+        this.next(desc);
+    }
+    pushConfirmDialog(title:string, message:string,target:any, next:any){
+        let desc = {
+            title:title,
+            texte:message,
+            type:"CONFIRM",
+            //action a realiser...
+            target: target,
+            next: next
+        };
+        this.next(desc);
+    }
 }

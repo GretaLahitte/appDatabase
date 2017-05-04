@@ -11,6 +11,8 @@
         <dlg-constraint *ngSwitchCase="'ADD_CONSTRAINT'" [table]="descriptor.target"></dlg-constraint>
         <dlg-pk *ngSwitchCase="'ADD_PK'" [table]="descriptor.target"></dlg-pk>
         <dlg-export *ngSwitchCase="'EXPORT'"></dlg-export>
+        <dlg-newbase *ngSwitchCase="'CREATE_BASE'"></dlg-newbase>
+        <dlg-confirm *ngSwitchCase="'CONFIRM'" [next]="descriptor.next" [target]="descriptor.target"></dlg-confirm>
         <div *ngSwitchDefault>
             Oups!
         </div>

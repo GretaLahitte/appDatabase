@@ -5,7 +5,8 @@ import {Field} from "./datas/field";
 import {Relation} from "./datas/relation";
 import {Index} from "./datas/index";
 import {Enumeration} from "./datas/enumeration";
-
+import {Subject} from "rxjs/Subject";
+import {Observable} from "rxjs/Observable";
 import {generateUUID} from "./datas/utils";
 
 export const FIELD_TYPES = [
@@ -24,9 +25,9 @@ export const COLUMN_CONSTRAINTS = [
 export class DBProvider{
 
     _db:Base;
+    db_subject:Subject<Base> = new Subject();
 
-
-    loadDummyBase():Promise<Base>{
+    loadDummyBase(){
         //cree une base toute simple pour les tests...
         //le field pour l'ID client de la table 1
          let _db = new Base({
@@ -236,8 +237,14 @@ export class DBProvider{
 
         //ajoute les liens 
 
-        return Promise.resolve(this._db);
+        this._db = _db;
+        this.db_subject.next(_db);
 
+    }
+    setCurrentBase(base:Base){
+        //validation de la base...
+        this._db = base;//previent?
+        this.db_subject.next(base);
     }
 
     createEmptyTable(){
@@ -259,7 +266,11 @@ export class DBProvider{
         }
         this._db.tables.push(table);
     }
-
+    removeTable(table:Table){
+        //supprime les relations en premiers
+        console.log("deleting table: ", table)
+        //supprime ta table
+    }
     addDataType(type:Enumeration){
 
         if(!type.key) throw "Invalid: a custom type must have a name...";

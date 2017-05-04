@@ -2,7 +2,7 @@ import {Injectable} from "@angular/core";
 import {Subject} from "rxjs/Subject";
 import {Observable} from "rxjs/Observable";
 import {DialogProvider} from "../providers/dialog.provider";
-
+import {DBProvider} from "../providers/db.provider";
 /**
  * Chargée de créer les descripteurs de menus pour l'application
  */
@@ -10,7 +10,7 @@ import {DialogProvider} from "../providers/dialog.provider";
 export class MenuProvider{
 
     menu:Subject<any> = new Subject<any>();
-    constructor(private _dlg:DialogProvider){}
+    constructor(private _dlg:DialogProvider,  private _db:DBProvider){}
 
     getMenuObservable():Observable<any>{
         return this.menu.asObservable();
@@ -47,7 +47,13 @@ export class MenuProvider{
                 {
                     label:"Delete Table",
                     icon:"delete",
-                    action:"DELETE"
+                    action:"DELETE",
+                    
+                        title:"Confirm table Deletion?",
+                        message:"Deleting this table blablablab blablabla",
+                        next:this._db.removeTable,
+                        
+                    
                 }
             ]
         };
@@ -92,8 +98,8 @@ export class MenuProvider{
     }
 
 
-    process_menu(action, target, coords){
-        switch(action){
+    process_menu(item, target, coords){
+        switch(item.action){
             case 'new_table':{
                 //affiche dialogue nouvelle table 
                 this._dlg.pushAddTableDialog(coords);
@@ -125,6 +131,15 @@ export class MenuProvider{
             case 'about':{
                 //affiche dialogue nouvelle table 
                 this._dlg.pushAboutDialog();
+                break;
+            }
+            case "new_base":{
+                this._dlg.pushNewBaseDialog();
+                break;
+            }
+            case 'DELETE':{
+                console.log(item)
+                this._dlg.pushConfirmDialog(item.title, item.message,target, item.next);
                 break;
             }
         }

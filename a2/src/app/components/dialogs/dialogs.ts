@@ -6,9 +6,11 @@ import {IndexDialog} from "./index";
 import {ConstraintDialog} from "./constraint";
 import {PKDialog} from "./add.primary";
 import {ExportDialog} from "./export";
+import {NewBaseDialog} from "./new.base";
+import {ConfirmDialog} from "./confirm";
 
 //toutes les dialogs sont la...
 const DIALOGS = [ AddTableDialog, AboutDialog, AddFieldDialog, ShowTableProperties, IndexDialog, ConstraintDialog
-,PKDialog, ExportDialog ];
+,PKDialog, ExportDialog, NewBaseDialog, ConfirmDialog ];
 
 export default DIALOGS; 
