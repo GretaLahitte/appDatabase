@@ -41,9 +41,13 @@
 
     </content>
     <p class="error" *ngIf="error">{{error}}</p>
-    <div class="commands" >
-        <button [disabled]="!fieldForm.form.valid"  class="invert" type="submit">Create Field</button> 
+    <div class="commands" *ngIf="!field.id" >
+        <button [disabled]="!fieldForm.form.valid"  class="invert" type="submit">Create new field</button> 
         <button [disabled]="!fieldForm.form.valid"  (click)="addfield=true"  class="invert" type="submit">Create & add another</button> 
+        <button type="button" (click)="cancel()" class="invert">Cancel</button>      
+    </div>
+    <div class="commands" *ngIf="field.id" >
+        <button [disabled]="!fieldForm.form.valid"  class="invert" type="submit">Update field</button> 
         <button type="button" (click)="cancel()" class="invert">Cancel</button>      
     </div>
 </form>

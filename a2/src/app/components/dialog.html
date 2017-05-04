@@ -4,7 +4,7 @@
     <p>{{descriptor.texte}}</p>
     <div [ngSwitch]="descriptor.type">
         <dlg-addtable *ngSwitchCase="'ADD_TABLE'" [coords]="descriptor.coords"></dlg-addtable>
-        <dlg-addfield *ngSwitchCase="'ADD_FIELD'" [table]="descriptor.target"></dlg-addfield>
+        <dlg-addfield *ngSwitchCase="'ADD_FIELD'" [table]="descriptor.target" [field]="descriptor.field"></dlg-addfield>
         <dlg-about *ngSwitchCase="'ABOUT'"></dlg-about>
         <dlg-tableprops *ngSwitchCase="'SHOW_TABLE'" [table]="descriptor.target"></dlg-tableprops>
         <dlg-index *ngSwitchCase="'ADD_INDEX'" [table]="descriptor.target"></dlg-index>

@@ -21,7 +21,7 @@ export class Field{
     
     constructor (args){
         args=args || {};
-        this.id = args.id || generateUUID();
+        this.id = args.id === undefined ? generateUUID() : args.id;
         this.name = args.name;
         this.comment = args.comment;
         //voir le reste, type, ....

@@ -3,6 +3,8 @@ import {Subject} from "rxjs/Subject";
 import {Observable} from "rxjs/Observable";
 
 import {Table} from "../providers/datas/table";
+import {Field} from "../providers/datas/field";
+
 
 /**
  * Chargée de créer les descripteurs de dialogues pour l'application
@@ -77,14 +79,29 @@ export class DialogProvider{
         };
         this.next(desc);
     }
-     pushAddFieldDialog(target:Table){
-        let desc = {
-            title:"Add Field",
-            texte:"Add a new Field to the table",
-            type:"ADD_FIELD",
-            target:target,
-            
-        };
+    pushAddFieldDialog(target:Table, field?:Field){
+
+        
+        let desc =null;
+        if(field){
+            desc = {
+                title:"Edit Field",
+                texte:"Edit field datas",
+                type:"ADD_FIELD",
+                target:target,
+                field:field
+                
+            };
+        }else {
+            desc = {
+                title:"Add Field",
+                texte:"Add a new Field to the table",
+                type:"ADD_FIELD",
+                target:target,
+                
+            };
+        }
+
         this.next(desc);
     }
     pushAboutDialog(){

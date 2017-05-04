@@ -15,3 +15,9 @@
 :host:last-child .field{
     border:none!important;
 }
+.floater{
+    display: float;
+    float:right;
+    position:relative;
+    right: 0;
+}

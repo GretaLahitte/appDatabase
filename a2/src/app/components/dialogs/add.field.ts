@@ -15,7 +15,7 @@ import {Enumeration} from "../../providers/datas/enumeration";
 })
 export class AddFieldDialog{
     @Input () table:Table;
-    field:Field;
+    @Input () field:Field;
     addfield:boolean = false;//pour savoir quel submit je veut
     error:string = "";
 
@@ -28,13 +28,19 @@ export class AddFieldDialog{
     constructor(private _db:DBProvider, private _dlg:DialogProvider){}
 
     ngOnInit(){
-        this.field = new Field({});
+        
+    }
+    ngOnChanges(dt){
+        if(!this.field) this.field = new Field({id:null});
     }
 
     process_dialog_form(){
         //cree la nouvelle table et ajoute
         //suivant le submit...
         this.error = "";
+
+
+        //mise a jour???
         try{
 
             if(this.make_custom){
@@ -45,16 +51,21 @@ export class AddFieldDialog{
                 this.field.type = this.custom_type.key;//enregistre
 
             }
-            this._db.addFieldTo(this.field, this.table);
-            if(this.addfield){
-                this.addfield = false;
-                //affiche autre boite de dialog
-                console.log("add new field");
-                this.field = new Field({});
-                this.custom_type = new Enumeration();
+            console.log("Ajoute un champs?")
+            if(!this.field.id) {
+                //sinon, ajoute le nouveau field...
+                this._db.addFieldTo(this.field, this.table);
+                if(this.addfield){
+                    this.addfield = false;
+                    //affiche autre boite de dialog
+                    console.log("add new field");
+                    this.field = new Field({id:null});
+                    this.custom_type = new Enumeration();
+                    return;
 
-
-            } else  this._dlg.clearDialogs();
+                }   
+            }
+            this._dlg.clearDialogs();
         } catch(err){
             this.error = err;
             this.addfield = false;//remet par defaut

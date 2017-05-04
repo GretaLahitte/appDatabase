@@ -5,7 +5,16 @@
             <i class="material-icons" *ngIf="field.primary_key">vpn_key</i>
             <i class="material-icons" *ngIf="field.index" >explore</i>
             <i class="material-icons" *ngIf="field.unique">warning</i>
+            <div class=floater>
+                <a (click)="updateField()"><i class="material-icons rippler">mode_edit</i></a>
+                <a (click)="deleteField()"><i class="material-icons rippler">delete_forever</i></a>
+            </div> 
         </h3>
+        
+        
         <p *ngIf="field.comment">{{field.comment}}</p>    
+        <div *ngIf="field.fields">
+            <p>Composite</p>
+        </div>
     </div>
 </div>

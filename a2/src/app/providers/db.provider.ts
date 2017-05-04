@@ -233,8 +233,6 @@ export class DBProvider{
                 table3
             ];
         _db.relations = relations;
-        this._db = _db;
-
         //ajoute les liens 
 
         this._db = _db;
@@ -267,9 +265,34 @@ export class DBProvider{
         this._db.tables.push(table);
     }
     removeTable(table:Table){
+
+        
         //supprime les relations en premiers
-        console.log("deleting table: ", table)
+        //JEF Style looping
+        for (let i=this._db.relations.length; i--;){
+            let rel = this._db.relations[i];
+
+            if(rel.from.table == table){
+                //supprime les fields annexes dans to !!!!!!!!
+                this._db.relations.splice(i,1);
+                let t = rel.to.table;
+                let f = rel.to.field;
+
+                let j=t.fields.indexOf(f);
+                if(j>=0) t.fields.splice(j,1);
+                
+            } else if(rel.to.table == table){
+                //no need
+                this._db.relations.splice(i,1);
+                
+            } 
+        }
         //supprime ta table
+        let i = this._db.tables.indexOf(table);
+        if(i>=0) this._db.tables.splice(i,1);
+
+
+
     }
     addDataType(type:Enumeration){
 
@@ -289,7 +312,8 @@ export class DBProvider{
         FIELD_TYPES.push(type.key);
     }
     addFieldTo(field:Field, table:Table){
-
+        //ajoute un id
+        field.id = generateUUID();
         if(field.primary_key){
             field.primary_key = false;
             return this.addPKFieldTo(field, table);
@@ -304,6 +328,38 @@ export class DBProvider{
         table.fields.push(field);
 
         //if is pk
+
+    }
+    removeField(infos){
+        console.log("remove field");
+        let table = infos.table;
+        let field = infos.field;
+        
+        
+        //supprime les relations si existent
+        //JEF Style looping
+        for (let i=this._db.relations.length; i--;){
+            let rel = this._db.relations[i];
+
+            if(rel.from.field == field){
+                //supprime les fields annexes dans to !!!!!!!!
+                this._db.relations.splice(i,1);
+                let t = rel.to.table;
+                let f = rel.to.field;
+
+                let j=t.fields.indexOf(f);
+                if(j>=0) t.fields.splice(j,1);
+                
+            } else if(rel.to.field == field){
+                //no need
+                this._db.relations.splice(i,1);
+                
+            } 
+        }
+        //supprime ta table
+        let i = table.fields.indexOf(field);
+        if(i>=0) table.fields.splice(i,1);
+
 
     }
     addPKFieldTo(field:Field, table:Table){

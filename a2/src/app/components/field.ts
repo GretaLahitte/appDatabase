@@ -1,6 +1,8 @@
 import {Component, Input,ViewChild, ElementRef} from "@angular/core";
 import {Field} from "../providers/datas/field";
 import {Table} from "../providers/datas/table";
+import {DialogProvider} from "../providers/dialog.provider";
+import {DBProvider} from "../providers/db.provider";
 
 @Component({
     selector:"field-cmp",
@@ -13,7 +15,7 @@ export class FieldComponent{
 
 
     @ViewChild("fieldElem") fieldElem;
-    constructor(private _el:ElementRef){}
+    constructor(private _el:ElementRef, private _dlg:DialogProvider, private _db:DBProvider){}
     ngOnChanges(dt){
         if(dt.field){
             this.field.__elem = this.fieldElem;
@@ -40,5 +42,16 @@ export class FieldComponent{
     doStopDrag(evt){
         event.stopPropagation();
         event.preventDefault();
+    }
+
+    updateField(){
+        console.log("youhou")
+        this._dlg.pushAddFieldDialog(this.table, this.field);
+    }
+    deleteField(){
+        this._dlg.pushConfirmDialog("Confirm Field Deletion?",
+            "Deleting this field will blablabla and blablabla. Are you sure?",
+            {table:this.table, field:this.field},
+            this._db.removeField);
     }
 }
