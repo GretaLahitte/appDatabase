@@ -16,7 +16,7 @@ onmessage = function(evt){
 			tab.push('\n');
 			//console.log('	'+champs+'	'+base.tables[key].fields[champs].type);	
 		}
-		tab.push('\n);\n\n');
+		tab.push('\n);\n/*Generated with Greta SQLTool, because sometimes, I look at the stars and go like "Fuck it!"*/\n');
 		
 		
 	}
