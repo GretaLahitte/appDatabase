@@ -28,7 +28,7 @@ export class Base{
         this.db_name = args.db_name || "nom_de_la_base",
         this.db_type = args.db_type || "postgres",//ou mysql, mongo....
         this.db_port = this.db_port || 5432,
-        this.host = args.host || "host",
+        this.host = args.host || "127.0.0.1",
         this.login = args.login || "loginUtilisateur",
         this.passwrd = args.passwrd || "passwordUtilisateur";
 

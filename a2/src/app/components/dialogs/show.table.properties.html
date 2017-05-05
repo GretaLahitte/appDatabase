@@ -1,54 +1,31 @@
 <form #dlgForm="ngForm" (ngSubmit)="process_dialog_form()">
     <content>
         <label>Table name:</label>
-        <input type="text" name="table_name" [(ngModel)]="table.name" required>
-        <label>Comment:</label>
-        <textarea type="text" name="table_comment" [(ngModel)]="table.comment" ></textarea>
-
-        <!-- les cles primaires depend si en a deja une ou pas... -->
-        <label class="group">Primary Key:
-            <div class="index-infos" *ngIf="table.pk">
-                <span>{{table.pk.name}}</span>
-                <div>
-                    <a class="round" (click)="updateIndex(index)"><i class="material-icons rippler">mode_edit</i></a>
-                    <a class="round" (click)="deleteIndex(index)"><i class="material-icons rippler">delete_forever</i></a>
-                </div>     
-            </div>
-            <button *ngIf="!table.pk" class="invert" type="button" (click)="newPK()">Add a Primary Key</button>
-         </label >
-
-
-        <!-- les indexs sur la table -->
-        <label class="group">Indexes:
-        <div *ngFor="let index of table.indexes">
-            <div class="index-infos">
-                <span class="name">{{index.name}}</span>(<span *ngFor="let i of index.fields" class="values">{{i.name}},</span>)
-                <div>
-                    <a class="round" (click)="updateIndex(index)"><i class="material-icons rippler">mode_edit</i></a>
-                    <a class="round" (click)="deleteIndex(index)"><i class="material-icons rippler">delete_forever</i></a>
-                </div>                
-            </div>
+        <input type="text" #tname="ngModel" name="table_name" [(ngModel)]="table_cpy.name" required pattern="^[a-zA-Z_]+[a-zA-Z0-9_]+$">
+        <div [hidden]="tname.valid || tname.pristine"
+             class="error">
+                Name is required, and must match: ^[a-zA-Z_]+[a-zA-Z0-9_]+$
         </div>
+
+        <label>Comment:</label>
+        <textarea type="text" name="table_comment" [(ngModel)]="table_cpy.comment" ></textarea>
+
         
-        <button class="invert" type="button" (click)="newIndex()">Add new Composite Index</button>
-        </label>
-
-
 
         <!-- les contraintes de la table -->
-        <label class="group">Table Constraints:
-        <div *ngFor="let index of table.constraints">
+        <div class="group">Table Constraints:
+        <div *ngFor="let index of table_cpy.constraints">
             <div  class="index-infos">
-                <span  class="name">{{index.key}}</span>(<span >{{index.value}}</span>)
+                <span  class="name">{{index.key}}</span>(<span >{{index.values}}</span>)
                 <div>
-                    <a (click)="updateConstraint(index)"><i class="material-icons rippler">mode_edit</i></a>
-                    <a (click)="deleteConstraint(index)"><i class="material-icons rippler">delete_forever</i></a>
+                    <a class="round" (click)="updateConstraint(index)"><i class="material-icons rippler">mode_edit</i></a>
+                    <a class="round" (click)="deleteConstraint(index)"><i class="material-icons rippler">delete_forever</i></a>
                 </div>  
             </div>
         </div>
         
         <button class="invert" type="button" (click)="newConstraint()">Add new Table Constraint</button>
-        </label>
+        </div>
     </content>
     <p class="error" *ngIf="error">{{error}}</p>
     <div class="commands" >

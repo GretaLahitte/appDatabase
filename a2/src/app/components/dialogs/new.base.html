@@ -1,7 +1,13 @@
 <form #baseForm="ngForm" (ngSubmit)="process_dialog_form()">
         <content>
             <label>Base name:</label>
-            <input type="text" name="b_name" #bname [ngModel]="base.db_name" (blur)='setProp("db_name",bname)' required>
+            <input type="text" #bname="ngModel" name="b_name" [ngModel]="base.db_name" required pattern="^[a-zA-Z_]+[a-zA-Z0-9_]+$">
+            <div [hidden]="bname.valid || bname.pristine"
+             class="error">
+                Name is required, and must match: ^[a-zA-Z_]+[a-zA-Z0-9_]+$
+            </div>
+
+
             <label>Type:</label>
             <select [(ngModel)]="base.db_type" name="b_method" required>
                 <option value="postgres">PostgreSQL</option>
@@ -10,13 +16,22 @@
                 <option value="mongo">MongoDB</option>
             </select>
             <label>Port:</label>
-            <input type="text" name="b_port" [(ngModel)]="base.db_port" required>
+            <input type="number"  min="1" max="65535" step="1" name="b_port" [(ngModel)]="base.db_port" required>
             <label>Host:</label>
-            <input type="text" name="b_host" [(ngModel)]="base.host" required>
+            <input #host="ngModel" type="text" name="b_host" [(ngModel)]="base.host" required pattern="^([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])(\.([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]{0,61}[a-zA-Z0-9]))*$">
+            <div [hidden]="host.valid || host.pristine"
+             class="error">
+                Host is not valid...
+            </div>
             <label>login:</label>
-            <input type="text" name="b_log" [(ngModel)]="base.login" required>
+            <input type="text" #log="ngModel" name="b_log" [(ngModel)]="base.login" required>
+            <div [hidden]="log.valid || log.pristine"
+             class="error">
+                You must provide a login
+            </div>
             <label>Password:</label>
             <input type="text" name="b_pswd" [(ngModel)]="base.passwrd">
+            
             
         </content>
         <p class="error" *ngIf="error">{{error}}</p>

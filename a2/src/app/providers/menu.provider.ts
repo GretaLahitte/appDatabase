@@ -35,6 +35,11 @@ export class MenuProvider{
                     action:"ADD_PROPS"
                 },
                 {
+                    label:"Add Composite PK",
+                    icon:"vpn_key",
+                    action:"ADD_PK"
+                },
+                {
                     label:"Add Composite Index",
                     icon:"playlist_add",
                     action:"ADD_INDEX"
@@ -113,6 +118,11 @@ export class MenuProvider{
             case 'ADD_INDEX':{
                 //affiche dialogue nouvelle table 
                 this._dlg.pushIndexDialog(target);
+                break;
+            }
+            case 'ADD_PK':{
+                //affiche dialogue nouvelle table 
+                this._dlg.pushPKDialog(target);
                 break;
             }
             case 'export_sql':{

@@ -8,7 +8,7 @@
         <dlg-about *ngSwitchCase="'ABOUT'"></dlg-about>
         <dlg-tableprops *ngSwitchCase="'SHOW_TABLE'" [table]="descriptor.target"></dlg-tableprops>
         <dlg-index *ngSwitchCase="'ADD_INDEX'" [table]="descriptor.target"></dlg-index>
-        <dlg-constraint *ngSwitchCase="'ADD_CONSTRAINT'" [table]="descriptor.target"></dlg-constraint>
+        <dlg-constraint *ngSwitchCase="'ADD_CONSTRAINT'" [table]="descriptor.target" [cnt]="descriptor.constraint"></dlg-constraint>
         <dlg-pk *ngSwitchCase="'ADD_PK'" [table]="descriptor.target"></dlg-pk>
         <dlg-export *ngSwitchCase="'EXPORT'"></dlg-export>
         <dlg-newbase *ngSwitchCase="'CREATE_BASE'"></dlg-newbase>

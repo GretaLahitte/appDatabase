@@ -69,6 +69,10 @@ export class Table{
         }
         this.constraints.push(c);
     }
+    removeConstraint(c:Enumeration){
+        let i = this.constraints.indexOf(c);
+        if(i>=0) this.constraints.splice(i,1);
+    }
     addCompositePK(index:any){
 
         if(index.fields.length == 1){
@@ -91,8 +95,13 @@ export class Table{
 
         this.pk = index;
     }
-
-
+    copy(t:Table){
+        this.id = t.id;
+        this.name = t.name;
+        this.comment = t.comment;
+        this.constraints = t.constraints;
+    }
+    
     
     hasPK():boolean{
         for(let field of this.fields){            

@@ -80,6 +80,29 @@ export class AddFieldDialog{
                     return;
 
                 }   
+            } else {
+                //verifie si appartient a une relation           A VOIR?
+                let is_unique = this.field.unique ;
+                
+                let has_rel = false;
+                
+                console.log("Verifie les types dans les relations")
+                for(let rel of this._db._db.relations){
+                    let ff = rel.from.field;
+                    let tf = rel.to.field;
+
+                    if(ff == this.field){
+                        has_rel = true;
+                        console.log("change type")
+                        tf.type = this.field.type;
+
+                    } else if(tf == this.field){
+                        has_rel = true;
+                        console.log("change type")
+                        ff.type = this.field.type;
+                    }
+                }
+                if(!is_unique && has_rel) this.field.unique = true;//force it!
             }
             this._dlg.clearDialogs();
         } catch(err){

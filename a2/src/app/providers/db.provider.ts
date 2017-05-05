@@ -403,6 +403,8 @@ export class DBProvider{
             });
         }
         cf.index = true;//parceque
+        cf.is_reference = true; //parceque
+
         
         this.addFieldTo(cf, to_table);
         //cree les relations dans chaque table 
@@ -420,6 +422,19 @@ export class DBProvider{
         // from.table.relations.push(relation);
         //ajoute au global pour le dessin
         this._db.relations.push(relation);
+    }
+
+    dropConstraint(what){
+        let table = what.table;
+        let constraint = what.constraint;
+
+        //JEF Style looping
+        for (let i=table.constraints.length; i--;){
+            if(constraint == table.constraints[i]){
+                table.constraints.splice(i,1);
+                break;
+            }
+        }
     }
 
     

@@ -9,7 +9,7 @@
         <label>Field comment:</label>
         <textarea name="field_comment" [(ngModel)]="tmp.comment"></textarea>
         <label>Field type:</label>
-        <select name="field_type" #Ftype="ngModel" [disabled]="newType.checked" [(ngModel)]="tmp.type" required>
+        <select [disabled]="tmp.is_reference" name="field_type" #Ftype="ngModel" [disabled]="newType.checked" [(ngModel)]="tmp.type" required>
             <option *ngFor="let type of types" [value]="type">{{type}}</option>
         </select>
         <div [hidden]="Ftype.valid || Ftype.pristine"
@@ -18,7 +18,7 @@
         </div>
 
         <label>
-            <input type="checkbox" [(ngModel)]="make_custom" #newType name="new_type">Create custom ENUM
+            <input [disabled]="tmp.is_reference" type="checkbox" [(ngModel)]="make_custom" #newType name="new_type">Create custom ENUM
         </label>
         <div class="enum-group">
             <label>Type name:</label>
@@ -35,26 +35,26 @@
             </div>
         </div>
         <label>Default Value:</label>
-        <input type="text" name="field_default" [(ngModel)]="tmp.default_value">
+        <input [disabled]="tmp.is_reference" type="text" name="field_default" [(ngModel)]="tmp.default_value">
         
         
 
         <div class="check-group">
             <label [ngClass]="table | has_PK:tmp.primary_key">
-                <input type="checkbox"   [(ngModel)]="tmp.primary_key" name="field_pk">Primary Key
+                <input type="checkbox" [disabled]="tmp.is_reference"  [(ngModel)]="tmp.primary_key" name="field_pk">Primary Key
             </label>
             <label>
-                <input type="checkbox"  [(ngModel)]="tmp.index" name="field_index">INDEX
+                <input type="checkbox" [disabled]="tmp.is_reference" [(ngModel)]="tmp.index" name="field_index">INDEX
             </label>
             <label>
-                <input type="checkbox" [(ngModel)]="tmp.not_null" name="field_null">NOT NULL
+                <input type="checkbox"[disabled]="tmp.is_reference" [(ngModel)]="tmp.not_null" name="field_null">NOT NULL
             </label>
             <label>
-                <input type="checkbox" [(ngModel)]="tmp.unique" name="field_index">UNIQUE
+                <input type="checkbox"[disabled]="tmp.is_reference" [(ngModel)]="tmp.unique" name="field_index">UNIQUE
             </label>
         </div>
         <label>Check Constraint:</label>
-        <input type="text" name="field_check" [(ngModel)]="tmp.check">
+        <input type="text" [disabled]="tmp.is_reference" name="field_check" [(ngModel)]="tmp.check">
 
     </content>
     <p class="error" *ngIf="error">{{error}}</p>

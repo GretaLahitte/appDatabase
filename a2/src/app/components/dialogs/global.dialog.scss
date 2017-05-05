@@ -111,6 +111,21 @@ a{
         min-width: 0;
     padding: 0;
     color: #3E3E3E;
+
+        &:hover{
+                &:not([disabled]){
+                text-decoration: none;
+                background: transparent;
+                
+            }
+            &:disabled{
+                background-color : darken(#E3E3E3,10%);
+                &:hover{
+                    background-color : darken(#E3E3E3,10%);
+                }
+            }
+        }
+
     }
 }
 .error{

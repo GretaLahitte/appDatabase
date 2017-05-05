@@ -16,6 +16,7 @@ export class Field{
     default_value: string = "";//valeur si pas de données
     check:string = "";//check expression doit etre true
 
+    is_reference:boolean = false;//indique si est une reference ou un vrai champs
     __elem:any;
 
     
@@ -32,7 +33,7 @@ export class Field{
 
     copy(dt:any){
         for(let key of Object.keys(dt)){
-            this[key] = dt[key] ? dt[key] : this[key];
+            this[key] = dt[key] !== undefined ? dt[key] : this[key];
         }
     }
 }

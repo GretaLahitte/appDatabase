@@ -19,13 +19,13 @@ export class ConfirmDialog {
         //what to do???
         try{
             this.next.call(this._db,this.target);
-            this._dlg.clearDialogs();
+            this._dlg.back();
         } catch(err){
             console.error(err);
         }
     }
     cancel(){
-        this._dlg.clearDialogs();
+        this._dlg.back();
     }
    
 }

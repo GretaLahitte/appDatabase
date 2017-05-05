@@ -11,12 +11,32 @@ import {Enumeration} from "../../providers/datas/enumeration";
 })
 export class ConstraintDialog{
     @Input() table:Table;
+    @Input() cnt:Enumeration;
+
+
     constraint:Enumeration = new Enumeration();
+    error:string = null;
 
     constructor(private _db:DBProvider, private _dlg:DialogProvider){}
+
+    ngOnChanges(dt){
+        console.log(dt.cnt)
+        if(dt.cnt && dt.cnt.currentValue){
+            this.constraint = new Enumeration(dt.cnt.currentValue);//fait une copie
+        }
+    }
     process_dialog_form(form){
-        this.table.addConstraint(this.constraint);
-        this._dlg.back();
+
+        if(this.cnt){
+            this.table.removeConstraint(this.cnt);
+        }
+        try{
+            
+            this.table.addConstraint(this.constraint);
+            this._dlg.back();
+        }catch(err){
+            this.error = err;
+        }
     }
     cancel(){
         this._dlg.back();

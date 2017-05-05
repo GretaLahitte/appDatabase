@@ -4,7 +4,7 @@ import {Observable} from "rxjs/Observable";
 
 import {Table} from "../providers/datas/table";
 import {Field} from "../providers/datas/field";
-
+import {Enumeration} from "../providers/datas/enumeration";
 
 /**
  * Chargée de créer les descripteurs de dialogues pour l'application
@@ -25,7 +25,7 @@ export class DialogProvider{
     }
     back(){
         let last = null;
-        if(this._history.length > 1){
+        if(this._history.length > 0){
             //pop les 2 derniers
             this._history.pop();//actuel
             last = this._history[this._history.length -1];
@@ -122,12 +122,13 @@ export class DialogProvider{
         };
         this.next(desc);
     }
-    pushConstraintDialog(target:Table){
+    pushConstraintDialog(target:Table, constraint?:Enumeration){
         let desc = {
             title:"Add Constraint",
             texte:"Add a constraint to the table",
             type:"ADD_CONSTRAINT",
-            target:target
+            target:target,
+            constraint:constraint
             
         };
         this.next(desc);
