@@ -28,4 +28,11 @@ export class Field{
         this.type = args.type || 'text';
         this.primary_key = args.primary_key || false;
     }
+
+
+    copy(dt:any){
+        for(let key of Object.keys(dt)){
+            this[key] = dt[key] ? dt[key] : this[key];
+        }
+    }
 }

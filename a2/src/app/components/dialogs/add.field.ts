@@ -16,6 +16,8 @@ import {Enumeration} from "../../providers/datas/enumeration";
 export class AddFieldDialog{
     @Input () table:Table;
     @Input () field:Field;
+    tmp:Field;
+    
     addfield:boolean = false;//pour savoir quel submit je veut
     error:string = "";
 
@@ -28,10 +30,17 @@ export class AddFieldDialog{
     constructor(private _db:DBProvider, private _dlg:DialogProvider){}
 
     ngOnInit(){
-        
+        //this.tmp = new Field({id:null});
     }
     ngOnChanges(dt){
-        if(!this.field) this.field = new Field({id:null});
+        
+        if(dt.field && dt.field.currentValue){ 
+            //copy les données necessaires                   
+            this.tmp = new Field({});
+            this.tmp.copy(dt.field.currentValue)
+        } else {
+            this.tmp = new Field({id:null});
+        }
     }
 
     process_dialog_form(){
@@ -39,6 +48,11 @@ export class AddFieldDialog{
         //suivant le submit...
         this.error = "";
 
+        //copy les données du tmp dans le field courant...
+        if(!this.field) this.field = new Field({id:null});//genere un id
+        this.field.copy(this.tmp);
+
+        // console.log(this.field);
 
         //mise a jour???
         try{
@@ -51,15 +65,17 @@ export class AddFieldDialog{
                 this.field.type = this.custom_type.key;//enregistre
 
             }
-            console.log("Ajoute un champs?")
+            // console.log("Ajoute un champs?")
             if(!this.field.id) {
+                
                 //sinon, ajoute le nouveau field...
                 this._db.addFieldTo(this.field, this.table);
                 if(this.addfield){
                     this.addfield = false;
                     //affiche autre boite de dialog
-                    console.log("add new field");
-                    this.field = new Field({id:null});
+                    // console.log("add new field");
+                    this.field = null;
+                    this.tmp = new Field({id:null});
                     this.custom_type = new Enumeration();
                     return;
 
