@@ -46,16 +46,19 @@ export class FieldComponent{
     }
 
     updateField(){
+        this.show_fabs = false;
         console.log("youhou")
         this._dlg.pushAddFieldDialog(this.table, this.field);
     }
     deleteField(){
+        this.show_fabs = false;
         this._dlg.pushConfirmDialog("Confirm Field Deletion?",
             "Deleting this field will blablabla and blablabla. Are you sure?",
             {table:this.table, field:this.field},
             this._db.removeField);
     }
     updateComposite(){
+        this.show_fabs = false;
         console.log("youhou")
         //this._dlg.pushIndexDialog(this.table, this.field);
     }

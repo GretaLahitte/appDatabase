@@ -45,7 +45,7 @@ $fab-child-margin: ($fab-size - $fab-child-size) / 2 + $fab-margin;
 	border-radius: 50%;
 	text-align:center;
 	
-	// box-shadow:0px 0px 3px rgba(0,0,0,0.5),3px 3px 3px rgba(0,0,0,0.25);
+	
 	// position: fixed;
 	bottom: $fab-margin;
 	right: $fab-margin;
@@ -62,9 +62,11 @@ $fab-child-margin: ($fab-size - $fab-child-size) / 2 + $fab-margin;
 	// right: $fab-child-margin;
 	// width: $fab-child-size;
 	// height: $fab-child-size;
+    background: white;
+    box-shadow:0px 0px 3px rgba(0,0,0,0.5),3px 3px 3px rgba(0,0,0,0.25);
 	padding: 2px;
 	opacity: 0;
-    border: 1px solid #3E3E3E;
+    //border: 1px solid #3E3E3E;
     position: absolute;
     left: 0;
     top: 0px;
