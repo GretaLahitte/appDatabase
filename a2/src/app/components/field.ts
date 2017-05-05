@@ -13,6 +13,7 @@ export class FieldComponent{
     @Input() field:Field;
     @Input() table:Table;//la table parent
 
+    show_fabs:boolean = false;
 
     @ViewChild("fieldElem") fieldElem;
     constructor(private _el:ElementRef, private _dlg:DialogProvider, private _db:DBProvider){}

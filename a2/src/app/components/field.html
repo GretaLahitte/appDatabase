@@ -6,8 +6,9 @@
             <i class="material-icons" *ngIf="field.index" >explore</i>
             <i class="material-icons" *ngIf="field.unique">warning</i>
             <div *ngIf="!field.fields" class="floater">
-                <a (click)="updateField()"><i class="material-icons rippler">mode_edit</i></a>
-                <a (click)="deleteField()"><i class="material-icons rippler">delete_forever</i></a>
+                <a class="fab child" [class.first]="show_fabs" (click)="updateField()"><i class="material-icons rippler">mode_edit</i></a>
+                <a class="fab child" [class.second]="show_fabs" (click)="deleteField()"><i class="material-icons rippler">delete_forever</i></a>
+                <a class="fab" (click)="show_fabs=!show_fabs"><i class="material-icons rippler">keyboard_arrow_right</i></a>
             </div> 
             <div *ngIf="field.fields" class="floater">
                 <a (click)="updateComposite()"><i class="material-icons rippler">mode_edit</i></a>
