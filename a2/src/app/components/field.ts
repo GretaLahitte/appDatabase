@@ -54,4 +54,9 @@ export class FieldComponent{
             {table:this.table, field:this.field},
             this._db.removeField);
     }
+    updateComposite(){
+        console.log("youhou")
+        //this._dlg.pushIndexDialog(this.table, this.field);
+    }
+    
 }

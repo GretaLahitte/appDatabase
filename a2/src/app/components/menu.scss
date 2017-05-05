@@ -16,6 +16,18 @@
     padding: 5px;
     font-size: 1.2em;
     cursor: pointer;
+
+    a{
+        display: flex;
+        flex-direction: row;
+
+        span{
+            flex: 1 1 0;
+            display: inline-block;
+            
+        }
+    }
+    
 }
 .main-menu  .menu-item:hover{
     color: rgb(22, 167, 243);

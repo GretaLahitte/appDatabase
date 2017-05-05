@@ -35,12 +35,12 @@ export class MenuProvider{
                     action:"ADD_PROPS"
                 },
                 {
-                    label:"Add Index",
+                    label:"Add Composite Index",
                     icon:"playlist_add",
                     action:"ADD_INDEX"
                 },
                 {
-                    label:"Add Constraint",
+                    label:"Add Table Constraint",
                     icon:"report",
                     action:"ADD_CONSTRAINT"
                 },

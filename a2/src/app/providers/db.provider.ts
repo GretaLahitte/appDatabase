@@ -385,11 +385,25 @@ export class DBProvider{
 
     makeRelation(from, to_table){
         //crée un nouveau element dans la table ciblfr
-       console.log(from);
-        let cf = new Field({
-            name:from.field.name+"_"+from.table.name,
-            type:from.field.type
-        });
+        let cf = null;
+        console.log(from)
+        if(from.field.fields){
+            console.log("composite!!!!")
+            //un index composite, a voir....
+            cf = new Index({
+                name:from.field.name+"_"+from.table.name,
+                type:from.field.type, //???
+                fields: from.field.fields
+            });
+        } else {
+            //un champs simple
+            cf = new Field({
+                name:from.field.name+"_"+from.table.name,
+                type:from.field.type //???
+            });
+        }
+        cf.index = true;//parceque
+        
         this.addFieldTo(cf, to_table);
         //cree les relations dans chaque table 
         let relation = new Relation({

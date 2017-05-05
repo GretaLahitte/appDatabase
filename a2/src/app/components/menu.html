@@ -2,7 +2,7 @@
     <!-- les menus necessaires pour afficher les differentes options pour une table -->    
         <div class="menu-item" *ngFor="let item of descriptor.menus">
             <a (click)="onClick(item)"><i class="material-icons">{{item.icon}}</i>
-            {{item.label}}</a>
+            <span>{{item.label}}</span></a>
         </div>
         
 </div>

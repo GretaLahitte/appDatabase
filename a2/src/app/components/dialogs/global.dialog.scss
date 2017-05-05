@@ -106,6 +106,13 @@ button, a {
             
 
     }
+a{
+    &.round{
+        min-width: 0;
+    padding: 0;
+    color: #3E3E3E;
+    }
+}
 .error{
     background: #f59694;
     color: #400909;

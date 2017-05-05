@@ -9,5 +9,10 @@ export class Index extends Field{
     
     constructor(args){
         super(args);
+        this.type = "Composite";//par defaut?
+        this.fields = args.fields || [];
+        this.method = args.method || 'btree';
+        this.index_null = args.index_null || false;
+        this.null_first = args.null_first || false;
     }
 }
