@@ -28,6 +28,11 @@ body{
     min-height: 100vh;
     background-color: #E3E3E3;
 }
+@media print {
+  body{
+    background-color: white;
+  }
+}
 
 
 @-moz-keyframes ripple {
@@ -65,6 +70,9 @@ body{
   cursor: pointer;
   /*margin: 30px;
   padding-left: 28px;*/
+}
+@media print{
+  .rippler{display: none;}
 }
 
 .rippler:before, .rippler:after{
