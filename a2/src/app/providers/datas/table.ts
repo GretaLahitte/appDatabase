@@ -21,7 +21,9 @@ export class Table{
     constraints:Array<Enumeration> = [];
     //les clés indexs
     //indexes:Array<Index> = []
-    pk:Index;
+    pk:Index;//@deprecated
+
+     __elem:any;
 
     constructor(args){
         args = args || {};
@@ -89,6 +91,9 @@ export class Table{
                 }).join('_');
             }
             index.primary_key = true;
+            index.type="Composite";
+
+            
             this.fields.push(index);
         }
         //marque les clés ???

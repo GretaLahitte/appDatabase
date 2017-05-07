@@ -26,15 +26,17 @@ export class Relation2PointsPipe implements PipeTransform {
         
         let e1 = fromElem.__elem.nativeElement.getBoundingClientRect();
         let e2 = toElem.__elem.nativeElement.getBoundingClientRect();
+        var scrollX = window.scrollX;
+        var scrollY = window.scrollY;
 
         //calcule le centre des elements
         let t1 = {
-            x: e1.width/2 + e1.left,
-            y: e1.height/2 + e1.top
+            x: e1.width/2 + e1.left + scrollX,
+            y: e1.height/2 + e1.top + scrollY
         };
         let t2 = {
-            x: e2.width/2 + e2.left,
-            y: e2.height/2 + e2.top
+            x: e2.width/2 + e2.left + scrollX,
+            y: e2.height/2 + e2.top + scrollY
         }
         let cfx = (t2.x -t1.x)/2 +t1.x;
         let cfy = (t2.y - t1.y)/2 + t1.y;

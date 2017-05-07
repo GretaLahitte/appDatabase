@@ -44,11 +44,12 @@ $fab-child-margin: ($fab-size - $fab-child-size) / 2 + $fab-margin;
 	height: $fab-size;
 	border-radius: 50%;
 	text-align:center;
-	
-	
+	z-index: 3;
+	position: absolute;
+    left: 2px;
 	// position: fixed;
-	bottom: $fab-margin;
-	right: $fab-margin;
+	// bottom: $fab-margin;
+	// right: $fab-margin;
 	// font-size: 2.6667em;
 	display: inline-block;
 	cursor: default;
@@ -67,11 +68,12 @@ $fab-child-margin: ($fab-size - $fab-child-size) / 2 + $fab-margin;
 	padding: 2px;
 	opacity: 0;
     //border: 1px solid #3E3E3E;
-    position: absolute;
-    left: 0;
-    top: 0px;
+    
+    // left: 0;
+    // top: 0px;
 	//font-size: 2em;
     transition: left 0.2s ease, opacity 0.2s ease;
+    z-index: 0;
 }
 .first, .second{
     display: block!important;
@@ -80,9 +82,9 @@ $fab-child-margin: ($fab-size - $fab-child-size) / 2 + $fab-margin;
     z-index:9999;
 }
 .first{
-    left: 60px!important;
+    left: 30px!important;
 }
 .second{
     
-    left: 96px!important;
+    left: 66px!important;
 }

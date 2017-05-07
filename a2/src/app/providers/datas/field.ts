@@ -7,6 +7,7 @@ export class Field{
     name:string;
     comment:string;
     type:string;
+    type_extras: any = {};
     
     //les contraintes possibles pour un field:
     primary_key:boolean = false;

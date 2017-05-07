@@ -6,7 +6,7 @@
             <!-- les cles primaires depend si en a deja une ou pas... 
             <input type="checkbox" name="add_primary">Add auto-increment primary key (name: id)-->
             <label>Select fields for index:</label>
-            <label *ngFor="let field of table.fields; let i = index">
+            <label *ngFor="let field of table.fields | pure_fields; let i = index">
                 <input type="checkbox" [name]="'field_'+i" [value]="field.id" 
                 [checked]="index.fields.indexOf(field)>=0"
                 (change)="updateCheckedOptions(field, $event)">{{field.name}}
@@ -24,7 +24,7 @@
         </content>
         <p class="error" *ngIf="error">{{error}}</p>
         <div class="commands" >
-            <button [disabled]="!indexForm.form.valid || index.fields.length==0"  class="invert" type="submit">Add index</button> 
+            <button [disabled]="!indexForm.form.valid || index.fields.length<2"  class="invert" type="submit">Add index</button> 
             <button type="button" (click)="cancel()" class="invert">Cancel</button>      
         </div>
     </form>

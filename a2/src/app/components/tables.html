@@ -1,5 +1,5 @@
 
-<div class="shadowed element" [class.selected]="table.selected" [style]="table.coords | safeCSS" 
+<div #tableElem class="shadowed element" [class.selected]="table.selected" [style]="table.coords | safeCSS" 
                     (dragenter)="skip_evt($event)"
                   (dragover)="skip_evt($event)"
                   (dragleave)="skip_evt($event)"

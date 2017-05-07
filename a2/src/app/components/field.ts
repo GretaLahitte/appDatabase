@@ -1,5 +1,6 @@
 import {Component, Input,ViewChild, ElementRef} from "@angular/core";
 import {Field} from "../providers/datas/field";
+import {Index} from "../providers/datas/index";
 import {Table} from "../providers/datas/table";
 import {DialogProvider} from "../providers/dialog.provider";
 import {DBProvider} from "../providers/db.provider";
@@ -47,7 +48,6 @@ export class FieldComponent{
 
     updateField(){
         this.show_fabs = false;
-        console.log("youhou")
         this._dlg.pushAddFieldDialog(this.table, this.field);
     }
     deleteField(){
@@ -60,7 +60,8 @@ export class FieldComponent{
     updateComposite(){
         this.show_fabs = false;
         console.log("youhou")
-        //this._dlg.pushIndexDialog(this.table, this.field);
+        if(this.field.primary_key) this._dlg.pushPKDialog(this.table, <Index>this.field);
+        else this._dlg.pushIndexDialog(this.table, <Index>this.field);
     }
     
 }

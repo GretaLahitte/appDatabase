@@ -20,6 +20,7 @@ export class MenuProvider{
         this.menu.next(null);
     }
     pushTableContextMenu(target:any, coords){
+        
         let desc = {
             target: target,
             coords:coords,
@@ -37,11 +38,12 @@ export class MenuProvider{
                 {
                     label:"Add Composite PK",
                     icon:"vpn_key",
-                    action:"ADD_PK"
+                    action:"ADD_PK",
+                    enabled: target.hasPK()
                 },
                 {
                     label:"Add Composite Index",
-                    icon:"playlist_add",
+                    icon:"format_list_numbered",
                     action:"ADD_INDEX"
                 },
                 {
@@ -76,11 +78,11 @@ export class MenuProvider{
                     icon:"insert_drive_file",
                     label:"New TABLE"
                 },
-                {
-                    action:"save_schema",
-                    icon:"save",
-                    label:"Save SCHEMA"
-                },
+                // {
+                //     action:"save_schema",
+                //     icon:"save",
+                //     label:"Save SCHEMA"
+                // },
                 {
                     action:"export_sql",
                     icon:"file_upload",
@@ -122,7 +124,7 @@ export class MenuProvider{
             }
             case 'ADD_PK':{
                 //affiche dialogue nouvelle table 
-                this._dlg.pushPKDialog(target);
+                this._dlg.pushPKDialog(target, null);
                 break;
             }
             case 'export_sql':{

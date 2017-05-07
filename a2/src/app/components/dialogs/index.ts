@@ -14,14 +14,43 @@ import {Index} from "../../providers/datas/index";
 export class IndexDialog {
 
     @Input() table:Table;
-    index:Index = new Index({});
+    @Input () field:Index;//si edition
+    index:Index = new Index({id:null});
 
     constructor(private _db:DBProvider, private _dlg:DialogProvider){}
 
-
+    ngOnChanges(dt){
+        
+        if(dt.field && dt.field.currentValue){ 
+            //copy les données necessaires                   
+            this.index = new Index({id:null});
+            let f = dt.field.currentValue;
+            this.index.name = f.name;
+            this.index.unique = f.unique;
+            this.index.index_null = f.index_null;
+            this.index.null_first = f.null_first;
+            //la liste des composites
+            this.index.fields = f.fields;
+        } else {
+            this.index = new Index({id:null});
+        }
+    }
     process_dialog_form(form){
-        this.index.index = true;        
-        this.table.addIndex(this.index);
+        this.index.index = true; 
+        if(this.field){
+            console.log("mise a jour de l'index");
+            this.field.name = this.index.name;
+            this.field.unique = this.index.unique;
+            this.field.index_null = this.index.index_null;
+            this.field.null_first = this.index.null_first;
+            //la liste des composites
+            this.field.fields = this.index.fields;
+
+        }   else {
+            console.log("creation index");
+             this.table.addIndex(this.index);
+        }    
+       
         this._dlg.back();
     }
     cancel(){

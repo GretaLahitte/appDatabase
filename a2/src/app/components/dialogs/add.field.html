@@ -16,6 +16,20 @@
              class="error">
           You must select a data type.
         </div>
+        <div [ngSwitch]="tmp.type | extratype">
+            <div *ngSwitchCase="'LENGTH'">
+                <label>Size:</label>
+                <input type='number' min="0" [(ngModel)]="tmp.type_extras.length" name="ex_ty_length">
+            </div>
+            <div *ngSwitchCase="'MINMAX'">
+                <label>Min value:</label>
+                <input type='number' min="0" [(ngModel)]="tmp.type_extras.min" name="ex_ty_min">
+                <label>Max value:</label>
+                <input type='number' min="0" [(ngModel)]="tmp.type_extras.max" name="ex_ty_max">
+            </div>
+            
+
+        </div>
 
         <label>
             <input [disabled]="tmp.is_reference" type="checkbox" [(ngModel)]="make_custom" #newType name="new_type">Create custom ENUM
@@ -33,6 +47,8 @@
              class="error">
                 Values are required, and must match: ^([a-zA-Z0-9_],)*[a-zA-Z0-9_]+$
             </div>
+
+            
         </div>
         <label>Default Value:</label>
         <input [disabled]="tmp.is_reference" type="text" name="field_default" [(ngModel)]="tmp.default_value">

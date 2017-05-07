@@ -1,3 +1,4 @@
+<div id="main" [style]="database?.tables | widthHeight">
 <header class="invert">
     <h1>{{title}}</h1>
     <h2>{{slogan}}</h2>
@@ -5,6 +6,7 @@
     
     
 </header>
+<div id="wrapper" #wrapper>
 <content (mousemove)="drag($event)" (mouseup)="stop_drag($event)" (click)="clearMenu()" (contextmenu)="showContextMenu($event)">   
     
     <div class="main">
@@ -23,3 +25,5 @@
     <dlg-cmp *ngIf="dlgDescriptor" [descriptor]="dlgDescriptor"></dlg-cmp>
     
 </content>
+</div>
+</div>

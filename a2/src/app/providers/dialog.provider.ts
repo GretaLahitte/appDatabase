@@ -4,6 +4,7 @@ import {Observable} from "rxjs/Observable";
 
 import {Table} from "../providers/datas/table";
 import {Field} from "../providers/datas/field";
+import {Index} from "../providers/datas/index";
 import {Enumeration} from "../providers/datas/enumeration";
 
 /**
@@ -112,12 +113,15 @@ export class DialogProvider{
         };
         this.next(desc);
     }
-    pushIndexDialog(target:Table){
+    pushIndexDialog(target:Table, index?:Index){
         let desc = {
-            title:"Add Index",
-            texte:"Add an index to the table",
+            title:index ? "Edit Index" : "Add Index",
+            texte: index ? "Edit your index" : "Add an index to the table",
             type:"ADD_INDEX",
-            target:target
+            target:{
+                table: target,
+                index: index
+            }
             
         };
         this.next(desc);
@@ -133,12 +137,13 @@ export class DialogProvider{
         };
         this.next(desc);
     }
-    pushPKDialog(target:Table){
+    pushPKDialog(target:Table, pk?:Index){
         let desc = {
-            title:"Add Primary Key",
-            texte:"Add a primary key to the table",
+            title:pk? "Edit Primary Key" :"Add Primary Key",
+            texte:pk? "Edit primary key" : "Add a primary key to the table",
             type:"ADD_PK",
-            target:target
+            target:target,
+            pk: pk
             
         };
         this.next(desc);

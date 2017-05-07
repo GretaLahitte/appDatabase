@@ -16,6 +16,9 @@ import {BypassCSSPipe} from "./pipes/bypass.css.pipe";
 import {Relation2PointsPipe} from "./pipes/relation.to.points.pipe";
 import {HasPrimaryKeyPipe} from "./pipes/has.pk.pipe";
 import {FileDownloadPipe} from "./pipes/file.download";
+import {PureFieldyPipe} from "./pipes/pure.field.pipe";
+import {ExtraTypePipe} from "./pipes/extra.type.pipe";
+import {WidthHeightPipe} from "./pipes/width.height.pipe";
 
 
 import {DBProvider} from './providers/db.provider';
@@ -33,7 +36,9 @@ import DIALOGS from "./components/dialogs/dialogs";
     Relation2PointsPipe,
     HasPrimaryKeyPipe,
     FileDownloadPipe,
-
+    PureFieldyPipe,
+    ExtraTypePipe,
+    WidthHeightPipe,
     
     ...DIALOGS,
     
