@@ -1,0 +1,30 @@
+<form #indexForm="ngForm" (ngSubmit)="process_dialog_form(indexForm)">
+        <content>
+            <label>Index name:</label>
+            <input type="text" name="index_name" [(ngModel)]="index.name" required>
+            
+            <!-- les cles primaires depend si en a deja une ou pas... 
+            <input type="checkbox" name="add_primary">Add auto-increment primary key (name: id)-->
+            <label>Select fields for index:</label>
+            <label *ngFor="let field of table.fields | pure_fields; let i = index">
+                <input type="checkbox" [name]="'field_'+i" [value]="field.id" 
+                [checked]="index.fields.indexOf(field)>=0"
+                (change)="updateCheckedOptions(field, $event)">{{field.name}}
+            </label>
+            <label>Method:</label>
+            <select [(ngModel)]="index.method" name="index_method" required>
+                <option value="btree">btree</option>
+                <option value="hash">hash</option>
+                <option value="gist">gist</option>
+                <option value="gin">gin</option>
+            </select>
+            <div><input type="checkbox" [(ngModel)]="index.unique" name="index_unique">Set index as unique</div>
+            <input type="checkbox" #indexNull [(ngModel)]="index.index_null" name="index_index_null">Index NULL values
+            <input type="checkbox" [disabled]="!indexNull.checked" [(ngModel)]="index.null_first" name="index_null_first">Sort NULL values first (unchecked: sort last)
+        </content>
+        <p class="error" *ngIf="error">{{error}}</p>
+        <div class="commands" >
+            <button [disabled]="!indexForm.form.valid || index.fields.length<2"  class="invert" type="submit">Add index</button> 
+            <button type="button" (click)="cancel()" class="invert">Cancel</button>      
+        </div>
+    </form>

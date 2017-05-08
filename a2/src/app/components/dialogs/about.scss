@@ -1,0 +1,34 @@
+content{
+    display: flex;
+    flex-direction: row;
+    align-items: space-around;
+    padding: 10px 0;
+    border-top: 1px dashed #E3E3E3;
+    border-bottom: 1px dashed #E3E3E3;
+    .present{
+        flex: 1 1 0;
+        margin: 0 20px;
+        border-radius: 5px;
+        header{
+            display: flex;
+            flex-direction: row;
+            img{
+                width: 128px;
+                height: 128px;
+            }
+            .infos{
+                padding: 0 10px;
+                p{
+                    text-align: right;
+                }
+            }
+        }
+        a{
+            display: block;
+            text-align: right;
+        }
+        
+
+        
+    }
+}

@@ -1,0 +1,127 @@
+/* You can add global styles to this file, and also import other style files */
+@import url("https://fonts.googleapis.com/css?family=Poiret+One");
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+
+.invert{
+    
+    background-color: #3E3E3E;
+    color: #E3E3E3;
+}
+.shadowed {
+    -webkit-box-shadow: 0px 0px 27px -5px rgba(0,0,0,0.75);
+-moz-box-shadow: 0px 0px 27px -5px rgba(0,0,0,0.75);
+box-shadow: 0px 0px 27px -5px rgba(0,0,0,0.75);
+}
+
+h1,h2,h3,h4{
+    margin: 0;
+    padding: 0;
+}
+h3{
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+body{
+    margin:0;
+    padding:0;
+    font-family: 'Poiret One', cursive;
+    min-height: 100vh;
+    background-color: #E3E3E3;
+}
+@media print {
+  body{
+    background-color: white;
+  }
+}
+
+
+@-moz-keyframes ripple {
+  5%, 100% {
+    opacity: 0;
+  }
+  5% {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes ripple {
+  5%, 100% {
+    opacity: 0;
+  }
+  5% {
+    opacity: 1;
+  }
+}
+@keyframes ripple {
+  5%, 100% {
+    opacity: 0;
+  }
+  5% {
+    opacity: 1;
+  }
+}
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+.rippler {
+  position: relative;
+  cursor: pointer;
+  /*margin: 30px;
+  padding-left: 28px;*/
+}
+@media print{
+  .rippler{display: none;}
+}
+
+.rippler:before, .rippler:after{
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  -moz-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+/*
+.rippler:before, .rippler:after{
+    border-radius: 5%;
+}
+.rippler:before{
+  top: 0;
+  left: 0;
+  width: 18px;
+  height: 18px;
+  background: #1565C0;
+  -moz-box-shadow: inset 0 0 0 18px #F2F2F2;
+  -webkit-box-shadow: inset 0 0 0 18px #F2F2F2;
+  box-shadow: inset 0 0 0 18px #F2F2F2;
+}*/
+.rippler:after {
+  top: 49%;
+  left: 12px;
+  width: 54px;
+  height: 54px;
+  opacity: 0;
+  background: rgba(22, 167, 243, 0.5);
+  -moz-transform: translate(-50%, -50%) scale(0);
+  -ms-transform: translate(-50%, -50%) scale(0);
+  -webkit-transform: translate(-50%, -50%) scale(0);
+  transform: translate(-50%, -50%) scale(0);
+}
+/*
+.rippler:hover:before {
+  -moz-box-shadow: inset 0 0 0 4px #F2F2F2;
+  -webkit-box-shadow: inset 0 0 0 4px #F2F2F2;
+  box-shadow: inset 0 0 0 4px #F2F2F2;
+}*/
+.rippler:hover:after {
+  -moz-transform: translate(-50%, -50%) scale(1);
+  -ms-transform: translate(-50%, -50%) scale(1);
+  -webkit-transform: translate(-50%, -50%) scale(1);
+  transform: translate(-50%, -50%) scale(1);
+  -moz-animation: ripple 1s ease-out;
+  -webkit-animation: ripple 1s ease-out;
+  animation: ripple 1s ease-out;
+}

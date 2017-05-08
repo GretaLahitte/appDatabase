@@ -1,0 +1,21 @@
+<div class="modal" (contextmenu)="skip($event)">
+    <div class="modal-content  shadowed">
+    <h2>{{descriptor.title}}</h2>
+    <p>{{descriptor.texte}}</p>
+    <div [ngSwitch]="descriptor.type">
+        <dlg-addtable *ngSwitchCase="'ADD_TABLE'" [coords]="descriptor.coords"></dlg-addtable>
+        <dlg-addfield *ngSwitchCase="'ADD_FIELD'" [table]="descriptor.target" [field]="descriptor.field"></dlg-addfield>
+        <dlg-about *ngSwitchCase="'ABOUT'"></dlg-about>
+        <dlg-tableprops *ngSwitchCase="'SHOW_TABLE'" [table]="descriptor.target"></dlg-tableprops>
+        <dlg-index *ngSwitchCase="'ADD_INDEX'" [table]="descriptor.target.table" [field]="descriptor.target.index"></dlg-index>
+        <dlg-constraint *ngSwitchCase="'ADD_CONSTRAINT'" [table]="descriptor.target" [cnt]="descriptor.constraint"></dlg-constraint>
+        <dlg-pk *ngSwitchCase="'ADD_PK'" [table]="descriptor.target?.table || descriptor.target " [field]="descriptor.target?.pk"></dlg-pk>
+        <dlg-export *ngSwitchCase="'EXPORT'"></dlg-export>
+        <dlg-newbase *ngSwitchCase="'CREATE_BASE'"></dlg-newbase>
+        <dlg-confirm *ngSwitchCase="'CONFIRM'" [next]="descriptor.next" [target]="descriptor.target"></dlg-confirm>
+        <div *ngSwitchDefault>
+            Oups!
+        </div>
+    </div>
+</div>
+</div>

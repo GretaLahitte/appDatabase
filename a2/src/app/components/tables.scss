@@ -1,0 +1,58 @@
+.element{
+    position: absolute;
+    border: 1px solid #3E3E3E;
+    background-color: #fbfbfb;
+    display: flex;
+    flex-direction: column;
+    min-width: 50px;
+    min-height: 50px;
+    max-width: 400px;
+    border-radius: 5px;
+    z-index: 1;
+
+    .header{
+        display: flex;
+        justify-content: space-between;
+        padding: 5px;
+        font-size: 1.3em;
+        font-weight: bold;
+        cursor: move;
+
+        a{
+            position: relative;
+            margin-left: 10px;
+            cursor: pointer;
+
+            &:hover{
+                /*ripple effect*/
+                position: relative;
+                // top: 5px;
+                margin-left: 10px;
+                cursor: pointer;
+            }
+            &:active{
+                -moz-animation: ripple 0.21s ease;
+                -webkit-animation: ripple 0.21s ease;
+                animation: ripple 0.21s ease;
+                
+            }
+        }
+        h3{
+            cursor: pointer;
+        }
+    }
+    .comment{
+      padding: 5px;
+    }
+    content {
+        padding: 5px;
+
+        
+    }
+}
+.selected {
+    z-index: 1000!important;
+}
+
+
+

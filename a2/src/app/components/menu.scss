@@ -1,0 +1,49 @@
+
+.main-menu{
+    min-width: 50px;
+    min-height: 50px;
+    max-width: 200px;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    margin-top: 0;
+    padding: 5px;
+    border-radius: 10px;
+    transition: opacity 0.2s ease;
+    z-index: 9999;
+}
+.main-menu  .menu-item {
+    padding: 5px;
+    font-size: 1.2em;
+    cursor: pointer;
+
+    a{
+        display: flex;
+        flex-direction: row;
+
+        span{
+            flex: 1 1 0;
+            display: inline-block;
+            
+        }
+    }
+    
+}
+.main-menu  .menu-item:hover{
+    color: rgb(22, 167, 243);
+}
+.main-menu .material-icons{
+    position: relative;
+    top: 2px;
+    margin-right: 5px;
+}
+.visible{
+    display: block;
+    z-index: 9999;
+    opacity: 1;
+}
+.invisible{
+    display: none;
+    z-index:0;
+    opacity: 0;
+}

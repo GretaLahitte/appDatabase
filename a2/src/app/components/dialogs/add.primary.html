@@ -1,0 +1,26 @@
+<form #pkForm="ngForm" (ngSubmit)="process_dialog_form(pkForm)">
+        <content>
+            <label>PK name:</label>
+            <input type="text" #Fname="ngModel" name="index_name" [required]="index.fields.length!=1" [(ngModel)]="index.name" pattern="^[a-zA-Z_]+[a-zA-Z0-9_]+$">
+            <div [hidden]="Fname.valid || Fname.pristine"
+             class="error">
+                Name is required for composite key, and must match: ^[a-zA-Z_]+[a-zA-Z0-9_]+$
+            </div>
+
+
+            <!-- les cles primaires depend si en a deja une ou pas... 
+            <input type="checkbox" name="add_primary">Add auto-increment primary key (name: id)-->
+            <label>Select fields for primary key:</label>
+            <label *ngFor="let field of table.fields | pure_fields; let i = index">
+                <input type="checkbox" [name]="'field_'+i" [value]="field.id" 
+                [checked]="index.fields.indexOf(field)>=0"
+                (change)="updateCheckedOptions(field, $event)">{{field.name}}
+            </label>
+            
+        </content>
+        <p class="error" *ngIf="error">{{error}}</p>
+        <div class="commands" >
+            <button [disabled]="!pkForm.form.valid || index.fields.length < 2"  class="invert" type="submit">Create Primary Key</button> 
+            <button type="button" (click)="cancel()" class="invert">Cancel</button>      
+        </div>
+    </form>

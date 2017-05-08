@@ -1,0 +1,18 @@
+ <form #dlgForm="ngForm" (ngSubmit)="process_dialog_form()">
+        <content>
+            <label>Table name:</label>
+            <input type="text" name="table_name" [(ngModel)]="table.name" required>
+            <label>Comment:</label>
+            <textarea type="text" name="table_comment" [(ngModel)]="table.comment" ></textarea>
+
+            <!-- les cles primaires depend si en a deja une ou pas... -->
+            <input type="checkbox" name="add_primary" [(ngModel)]="add_primary">Add auto-increment primary key (name: id)
+
+        </content>
+        <p class="error" *ngIf="error">{{error}}</p>
+        <div class="commands" >
+            <button [disabled]="!dlgForm.form.valid"  class="invert" type="submit">Create Table</button> 
+            <button [disabled]="!dlgForm.form.valid"  (click)="addfield=true"  class="invert" type="submit">Create & add Field</button> 
+            <button type="button" (click)="cancel()" class="invert">Cancel</button>      
+        </div>
+    </form>
