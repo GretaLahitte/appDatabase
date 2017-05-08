@@ -21,7 +21,7 @@ export class Field{
     __elem:any;
 
     
-    constructor (args){
+    constructor (args?:any){
         args=args || {};
         this.id = args.id === undefined ? generateUUID() : args.id;
         this.name = args.name;

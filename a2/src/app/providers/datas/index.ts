@@ -7,7 +7,7 @@ export class Index extends Field{
     index_null:boolean = false;
     null_first:boolean = false;
     
-    constructor(args){
+    constructor(args?:any){
         super(args);
         this.type = "Composite";//par defaut?
         this.fields = args.fields || [];

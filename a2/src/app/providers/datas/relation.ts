@@ -6,7 +6,7 @@ export class Relation{
     from:any;
     to:any;
 
-    constructor(args){
+    constructor(args?:any){
         args = args || {};
         this.id = args.id || generateUUID();
 

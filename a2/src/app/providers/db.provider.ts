@@ -27,6 +27,10 @@ export class DBProvider{
     _db:Base;
     db_subject:Subject<Base> = new Subject();
 
+
+    constructor(){
+        
+    }
     loadDummyBase(){
         //cree une base toute simple pour les tests...
         //le field pour l'ID client de la table 1
@@ -397,6 +401,9 @@ export class DBProvider{
                 };
                 json.relations.push(r);
             }
+
+
+            
             resolve(JSON.stringify(json));
 
         });
@@ -405,8 +412,8 @@ export class DBProvider{
     /**
      * inverse d'au dessus, datas provennant du localstorage
      */
-    convertFromJSON(jstr):Promise<Base>{
-        return new Promise<Base>( (resolve,reject)=>{
+    convertFromJSON(jstr){
+        
             let desc = JSON.parse(jstr);
             //creation du bouzin....
 
@@ -426,14 +433,94 @@ export class DBProvider{
             }
 
             for(let table of Object.keys(desc.tables)){
+                let d = desc.tables[table];
+                let t = new Table();
 
+                //set infos id for later???
+                d["id"] = t.id;
+
+                t.name = d.name;
+                t.comment = d.comment;
+                t.coords = d.coords;
+                
+                //les fields
+                for (let fkey of Object.keys(d.fields)){
+                    let fd = d.fields[fkey];
+                    let f =null;
+
+                    if(fd.fields) {
+                        f = new Index();
+                        //index only datas 
+                        f.method = fd.method;
+                        f.index_null = fd.index_null;
+                        f.null_first = fd.null_first;
+
+                        //les fields references...
+                    }
+                    else  f = new Field();
+
+                    f.name = fd.name;
+                    f.comment = fd.comment;
+                    f.type = fd.type;
+                    f.type_extras = fd.type_extras;
+
+                    f.primary_key = fd.primary_key;
+                    f.index = fd.index;
+                    f.not_null = fd.not_null;
+                    f.unique = fd.unique;
+                    f.default_value = fd.default_value;
+                    f.check = fd.check;
+                    f.is_reference = fd.is_reference;
+
+                    //push 
+                    t.fields.push(f);
+
+
+                }
+
+                //push la table 
+                base.tables.push(t);
             }
+
+            //si des composites, a voir... 
+
 
             for(let rel of desc.relations){
-                
+                let r = new Relation();
+                //recupe les infos depuis from et to 
+                let ft = DBProvider.getTableByName(rel.from.table,base);
+                let ff = DBProvider.getFieldByName(rel.from.field, ft);
+                let tt = DBProvider.getTableByName(rel.to.table,base);
+                let tf = DBProvider.getFieldByName(rel.to.field, ft);
+                r.from = {
+                    table:ft,
+                    field:ff
+                };
+                r.to = {
+                    table:tt,
+                    field:tf
+                };
+
+                base.relations.push(r);
             }
 
+            this._db = base;
+            this.db_subject.next(base);//previent l'interface...
 
-        });
+        
+    }
+
+    //qqs helpers methods 
+    private static getTableByName(name:string, base:Base):Table{
+        for(let t of base.tables){
+            if(t.name == name) return t;
+        }
+        return null;
+    }
+    private static getFieldByName(name:string, table:Table):Field{
+        for(let t of table.fields){
+            if(t.name == name) return t;
+        }
+        return null;
     }
 }

@@ -25,7 +25,7 @@ export class Table{
 
      __elem:any;//le composant graphique, n'interresse que moi...
 
-    constructor(args){
+    constructor(args?:any){
         args = args || {};
         this.id = args.id || generateUUID();
         this.name = args.name;

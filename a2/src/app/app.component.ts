@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
 import {DBProvider} from './providers/db.provider';
 import {DialogProvider} from "./providers/dialog.provider";
 import {MenuProvider} from "./providers/menu.provider";
@@ -55,7 +55,12 @@ export class AppComponent {
     });
     this.databaseObservable = this._db.db_subject.asObservable();
     this.databaseObservable.subscribe( (b:Base)=> this.database = b);
-    this._db.loadDummyBase();
+
+    //tente de recup dans le LS
+    let jstr = window.localStorage.getItem("gretasql");
+    if(jstr){
+        this._db.convertFromJSON(jstr);
+    } else  this._db.loadDummyBase();
 
 
     
@@ -129,5 +134,14 @@ export class AppComponent {
             });
    
     }
+
+
+    //si l'application decide de quitter, tente de sauvegarder l'etat pour la prochaine fois
+  @HostListener('window:beforeunload', [ '$event' ])
+  beforeUnloadHander(event) {
+    // enregistre les datas du formulaire courant???
+     this._db.convertToJSON(this.database).then(jstr=>window.localStorage.setItem("gretasql",jstr));
+     
+  }
     
 }
