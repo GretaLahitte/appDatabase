@@ -29,6 +29,7 @@ export class Field{
         //voir le reste, type, ....
         this.type = args.type || 'text';
         this.primary_key = args.primary_key || false;
+        this.index = args.index || false;
     }
 
 

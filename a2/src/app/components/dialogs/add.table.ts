@@ -32,6 +32,8 @@ export class AddTableDialog {
             this._db.add_table(this.table);
             if(this.add_primary) {
                 let f=new Field({name:"id"});
+                f.primary_key = true;
+                f.type="bigserial";
                 this._db.addPKFieldTo(f, this.table);
                
             

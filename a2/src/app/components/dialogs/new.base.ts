@@ -30,13 +30,13 @@ export class NewBaseDialog {
 
     //met ajour, modifie au cas ou...
     //devoir faire ca partout va etre la merde...
-    setProp(name:string, inp){
-        try{
-            this.base[name] = inp.value;
-        } catch(err){
-            console.log(err);
-            inp.value = this.base[name];
-        }
-    }
+    // setProp(name:string, inp){
+    //     try{
+    //         this.base[name] = inp.value;
+    //     } catch(err){
+    //         console.log(err);
+    //         inp.value = this.base[name];
+    //     }
+    // }
     
 }

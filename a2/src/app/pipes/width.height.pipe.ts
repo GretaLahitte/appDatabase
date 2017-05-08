@@ -17,7 +17,11 @@ export class WidthHeightPipe {
        
         maxX = mx > maxX ? mx : maxX;
         maxY = my > maxY ? my : maxY;
+
+        
     }
+    maxX = maxX < window.innerWidth ? window.innerWidth : maxX;
+        maxY = maxY < window.innerHeight ? window.innerHeight : maxY;
     return this.sanitizer.bypassSecurityTrustStyle(`width:${maxX}px; height:${maxY}px;`);
   }
 }

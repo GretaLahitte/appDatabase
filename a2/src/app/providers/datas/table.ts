@@ -23,7 +23,7 @@ export class Table{
     //indexes:Array<Index> = []
     pk:Index;//@deprecated
 
-     __elem:any;
+     __elem:any;//le composant graphique, n'interresse que moi...
 
     constructor(args){
         args = args || {};

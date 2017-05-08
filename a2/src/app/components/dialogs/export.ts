@@ -25,8 +25,10 @@ export class ExportDialog{
         let db = this._db._db;
         this.name = db.db_name;
         
-        this._worker.process_SQL(db).then((sql:string)=>this.sql_datas = sql)
-                                    .catch(err=>this.error = err);
+        this._db.convertToJSON(db).then( (jstr)=>{
+            return this._worker.process_SQL(jstr);
+        }).then((sql:string)=>this.sql_datas = sql)
+        .catch(err=>this.error = err);
 
     }
 

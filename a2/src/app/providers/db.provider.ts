@@ -44,195 +44,39 @@ export class DBProvider{
         });
 
 
-
-        var t1_id = new Field({
-                            id:"uuid1",
-                            name:"id"
-        });
-        //la foregn_key de la table 2
-        var t2_fk = new Field({
-                            id:"uuid2",
-                            name:"id_client"
-        });
-        //FK de la table 3 (vers table1 et table2)
-        var t3_fk = new Field({
-                            id:"uuid52",
-                            name:"other_commande"
-        });
-        var t4_fk =new Field({
-            id:"uuid53",
-            name:"other_again"
-        });
-
-
-        let table1 = new Table({
-                id:"anId",//identifiant unique de la tables
-                // __db: _db,
-                name:'clients',//nom de la table 
-                coords:{x:90,y:120},
-                selected: false,
-                fields:[
-                    t1_id,
-                    new Field({
-                        id:"uuid11",
-                        name:"nom_client"
-                    }),
-                    new Field({
-                        id:"uuid12",
-                        name:"prenom_client"
-                    }),
-                    new Field({
-                        id:"uuid13",
-                        name:"email"
-                    }),
-                    //et le reste....
-                ],
-                relations: []
-        });
-        let table2 = new Table({
-                    id:"anId2",//identifiant unique de la tables
-                    //  __db: _db,
-                    name:'commandes',//nom de la table 
-                    coords:{x:400,y:500},
-                    selected: false,
-                    fields:[
-                        new Field({
-                            id:"uuid21",
-                            name:"id"
-                        }),
-                        
-                        new Field({
-                            id:"uuid22",
-                            name:"num_commande"
-                        }),
-                        t2_fk,
-                        new Field({
-                        id:"uuid23",
-                        name:"id_payement"
-                    }),
-                        //et le reste....
-                        
-                    ],
-                    //met a dispo les relations de cette table 
-                    relations:[]
-        });
-        let table3 = new Table({
-                    id:"anId5",//identifiant unique de la tables
-                    //  __db: _db,
-                    name:'produits',//nom de la table 
-                    coords:{x:578,y:316},
-                    selected: false,
-                    fields:[
-                        new Field({
-                            id:"uuid51",
-                            name:"id"
-                        }),
-                        new Field({
-                            id:"uuid52",
-                            name:"label"
-                        }),
-                        new Field({
-                            id:"uuid53",
-                            name:"description"
-                        }),
-                        new Field({
-                            id:"uuid54",
-                            name:"prix"
-                        }),
-                        t3_fk,
-                        t4_fk
-                        //et le reste....
-                        
-                    ],
-                    //met a dispo les relations de cette table 
-                    relations:[]
-        });
-
-        //les differentes relations entre les tables
-        //une relation entre 2 tables
-        var relation = new Relation({
-                    id:"link1",
-                    top:{
-                        x: 20,
-                        y: 30,
-                    },
-                    bottom: {
-                        x: 400,
-                        y: 350
-                    },
-                    from:{
-                        table: table1,
-                        field: t1_id,
-                        _link: null //ca, c'est vraiement pas beau....
-                    },
-                    to:{
-                        table: table2,
-                        field: t2_fk,
-                        _link: null
-                    }
-        });
-        // table1.relations.push(relation);
-        // table2.relations.push(relation);
-
-        //cree une autre relation 
-        var relation2 = new Relation({
-                    id:"link2",
+        //ne crée qu'une seule table avec des explications
+        let table = new Table({
+            name:"GretaSQLTool",
+            coords:{
+                x:400,
+                y:200
+            },
+            comment:"Thank's for using GretaSQLTool! Click on the burger menu overthere to access table context and add fields, constraints... or anywhere to access main context menu and add new tables or export to sql file",
+            fields:[
+                new Field({
+                    name:"a_simple_field",
+                    comment:"This is a simple field, click on the arrow to get the context menu and edit it's properties"
+                }),
+                new Field({
+                    name:"a_simple_id",
+                    comment:"This is a primary key, there can only be one, and it's UNIQUE, so you can drag it to another table to make a relation between them",
+                    primary_key: true,
                     
-                    from:{
-                        table: table1,
-                        field: t1_id,
-                        _link: null //ca, c'est vraiement pas beau....
-                    },
-                    to:{
-                        table: table3,
-                        field: t3_fk,
-                        _link: null //ca, c'est vraiement pas beau....
-                    }
-        });
-        // table1.relations.push(relation2);
-        // table3.relations.push(relation2);
-        //et la derniere, on pense toujours a l'inscrire dans la table...
-        var relation3 = new Relation({
-            id:"link3",
-                    top:{
-                        x: 20,
-                        y: 30,
-                    },
-                    bottom: {
-                        x: 400,
-                        y: 350
-                    },
-                    from:{
-                        table: table2,
-                        field: t2_fk,
-                        _link: null //ca, c'est vraiement pas beau....
-                    },
-                    to:{
-                        table: table3,
-                        field: t4_fk,
-                        _link: null //ca, c'est vraiement pas beau....
-                    }
-        });
-        // table2.relations.push(relation3);
-        // table3.relations.push(relation3);
-        
-        
-        //les relations entre les differentes tables de la base,
-        //pour me simplifier la vie, elles sont aussi globales (voir a changer ca plus tard...)
-        var relations = [
-                //decrit une relation (pas de 1 à n pour l'instant ou de truc comme ca...)
-                //entre 2 tables
-                relation,
-                relation2,
-                relation3
-            ];
+                }),
+                 new Field({
+                    name:"a_simple_index",
+                    comment:"This is a index, there can be as much as you want, and IF UNIQUE, you can drag it to another table to make a relation between them",
+                    index:true
+                }),
+
+            ]
+        })
+
+       
         //END DUMMY DATAS
         _db.tables = [
-                table1,
-                table2,
-                table3
+                table,
             ];
-        _db.relations = relations;
         //ajoute les liens 
 
         this._db = _db;
@@ -386,9 +230,9 @@ export class DBProvider{
     makeRelation(from, to_table){
         //crée un nouveau element dans la table ciblfr
         let cf = null;
-        console.log(from)
+        
         if(from.field.fields){
-            console.log("composite!!!!")
+            
             //un index composite, a voir....
             cf = new Index({
                 name:from.field.name+"_"+from.table.name,
@@ -437,5 +281,159 @@ export class DBProvider{
         }
     }
 
-    
+    /**
+     * Convertie l'objet Base en json-compliant pour le webworker
+     * Permet d'eviter les erreurs de redondances cycliques
+     */
+    convertToJSON(base:Base):Promise<string>{
+        return new Promise( (resolve,reject)=>{
+
+       
+            let json = {
+                db_name:base.db_name,//nom de la base
+                db_port:base.db_port,//le port d'ecoute de la base
+                db_type:base.db_type,//type de la base, pour l'instant, 'postgresql'
+
+                //informations de connections
+                host:base.host,//nom de l'host            
+                login:base.login,//login utilisateur
+                passwrd:base.passwrd,//pass utilisateur
+                
+                //les données de la base
+                tables:{},//les tables de la base
+                relations:[],//ls relations un tableau d'objets {from:{table,field},to:{table,field}} avec table, field = nom de la table ou field visé
+                enumerations:{}//les enums (custom types)
+            };
+
+
+
+
+            //les enums (custom types):  'nom_type'=>[valeur1,valeur2,valeur3...]
+            for (let enumeration of base.enumerations){
+                json.enumerations[enumeration.key] = enumeration.values.split(',');
+            }
+
+
+            //les tables 
+            for (let table of base.tables){
+                
+                let t = {
+                    comment : table.comment,//commentaires sur la table 
+                    fields: {},//les fields possibles de la table 
+                    constraints:{},//les contraintes sur cette table ,
+                    coords: table.coords //coords de la table (sert uniquement si save to LS)
+                };
+
+
+                //les fields, c'est un peu plus chaud...
+                //si a une property "fields", alors c'est une clé ou index
+                //composite...
+                for (let field of table.fields){
+                    //creation d'un nouveau field avec les informations completes
+                    let f = {
+                        comment: field.comment,//commentaire sur le field string 
+
+                        //Contraintes basiques
+                        primary_key: field.primary_key,// boolean si true, ce Field est une clé primaire de la table (1 seule par table)
+                        index:field.index,//boolean si true, ce Field est un index 
+                        not_null:field.not_null,// boolean si true, ce field peut prendre une valeur NULL 
+                        unique: field.unique,//boolean si true, ce field DOIT etre UNIQUE
+                        default_value: field.default_value,//any: valeur par defaut du Field si non renseigné
+                        check: field.check,//string: contrainte du Field (via CHECK)
+
+                        //type du field 
+                        type: field.type, //le type: numeric, text,...
+                        type_extras: field.type_extras,//parametres pour les types de Field 
+                        //ex: numeric (n,m) => {min:number, max:number}
+
+                        is_reference: field.is_reference,//boolean, si true, Field de type REFERENCES?
+                        //dans ce cas, ne doit pas tenir compte des autres infos A PART LE TYPE 
+                        //Note: penser a un truc, les serials a transformer en int...
+                    };
+
+                    //Dans le cas d'un composite, il y a une property "fields" pointant vers 
+                    //les fields référencés... Dans ce cas, le type = COMPOSITE
+                    if((<Index>field).fields){
+                        //un index ou clé composite...
+                        //recupere les noms des fields necessaires pour la création de la clé
+                        //simple tableau de string 
+                        f["fields"] = (<Index>field).fields.map(el=>el.name);
+                    }
+
+                    //enregistre les informations sous forme 
+                    // nom_de_la_table => objet Table (permet de les recups plus facilement
+                    //dans le worker)
+                    t.fields[field.name] = f;
+                }
+
+
+                //contraintes de tables nom_contrainte => valeur (simple string, 
+                //pour l'instant, je ne valide pas les contraintes)
+                for (let constraint of table.constraints){
+                    t.constraints[constraint.key] = constraint.values;
+                }
+
+                json.tables[table.name] = t;
+            }
+
+
+
+            //les relations de tables (en dernier bien sur)
+            //un tableau décrivant les relations entre les tables:
+            //{ 
+            //  from: {table: 'nom de la table d orgine', field:'nom du field source'},
+            //  to:{table:'nom de la table cible', field:'nom du field REFERNCES'}
+            //}
+            for(let relation of base.relations){
+                let r = {
+                    from:{
+                        table: relation.from.table.name,
+                        field:relation.from.field.name
+                    },
+                    to:{
+                        table:relation.to.table.name,
+                        field: relation.to.field.name
+                    }
+                };
+                json.relations.push(r);
+            }
+            resolve(JSON.stringify(json));
+
+        });
+    }
+
+    /**
+     * inverse d'au dessus, datas provennant du localstorage
+     */
+    convertFromJSON(jstr):Promise<Base>{
+        return new Promise<Base>( (resolve,reject)=>{
+            let desc = JSON.parse(jstr);
+            //creation du bouzin....
+
+            let base = new Base();
+            base.db_name = desc.db_name;
+            base.db_port = desc.db_port;
+            base.db_type = desc.db_type;
+            base.host = desc.host;
+            base.login = desc.login;
+            base.passwrd = desc.passwrd;
+
+            //les type enums 
+            for (let enums of Object.keys(desc.enumerations)){
+                let e = new Enumeration();
+                e.key = enums;
+                e.values = desc.enumerations[enums].join(',');
+            }
+
+            for(let table of Object.keys(desc.tables)){
+
+            }
+
+            for(let rel of desc.relations){
+                
+            }
+
+
+        });
+    }
 }
