@@ -183,6 +183,8 @@ export class DBProvider{
         let table = infos.table;
         let field = infos.field;
         
+        //verifie si appartient a un composite, si oui, refuse?
+
         
         //supprime les relations si existent
         //JEF Style looping
@@ -238,6 +240,7 @@ export class DBProvider{
         if(from.field.fields){
             
             //un index composite, a voir....
+            //cree les champs necessaires dans la table?
             cf = new Index({
                 name:from.field.name+"_"+from.table.name,
                 type:from.field.type, //???
@@ -458,7 +461,7 @@ export class DBProvider{
                         f.null_first = fd.null_first;
 
                         //les fields references...
-                        composites.push(f);
+                        if(!fd.is_reference)  composites.push({field:f,table:t, ref:fd.fields});
                     }
                     else  f = new Field();
 
@@ -489,6 +492,17 @@ export class DBProvider{
             //si des composites, a voir... 
             for (let cmp of composites){
                 //recup les fields...
+                //uniqument les non-references
+                let f = cmp.field;
+                let t = cmp.table;
+
+                if(!t) continue;
+                let refs = cmp.ref;
+
+                for (let r of refs){
+                    f.fields.push(DBProvider.getFieldByName(r, t));
+                }
+
             }
 
             for(let rel of desc.relations){
@@ -498,6 +512,11 @@ export class DBProvider{
                 let ff = DBProvider.getFieldByName(rel.from.field, ft);
                 let tt = DBProvider.getTableByName(rel.to.table,base);
                 let tf = DBProvider.getFieldByName(rel.to.field, tt);
+
+                if(tf.fields){
+                    //recup les references de from 
+                    for (let rf of ff.fields) tf.fields.push(rf);
+                }
                 r.from = {
                     table:ft,
                     field:ff
@@ -524,7 +543,7 @@ export class DBProvider{
         console.log("unknown table name: "+name);
         return null;
     }
-    private static getFieldByName(name:string, table:Table):Field{
+    private static getFieldByName(name:string, table:Table):any{
         for(let t of table.fields){
             if(t.name == name) return t;
         }
