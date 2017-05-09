@@ -78,11 +78,7 @@ export class MenuProvider{
                     icon:"insert_drive_file",
                     label:"New TABLE"
                 },
-                // {
-                //     action:"save_schema",
-                //     icon:"save",
-                //     label:"Save SCHEMA"
-                // },
+                
                 {
                     action:"export_sql",
                     icon:"file_upload",
@@ -92,6 +88,11 @@ export class MenuProvider{
                     action:"new_base",
                     icon:"folder",
                     label:"New BASE"
+                },
+                {
+                    action:"base_properties",
+                    icon:"storage",
+                    label:"Base Properties"
                 },
                 {
                     action:"about",

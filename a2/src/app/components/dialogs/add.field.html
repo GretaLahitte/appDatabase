@@ -50,7 +50,7 @@
                 Name is required, and must match: ^[a-zA-Z_]+[a-zA-Z0-9_]*$
             </div>
             <label>Type values (comma separated):</label>
-            <textarea #tvalues="ngModel" [disabled]="!newType.checked" name="enum_vals" [(ngModel)]="custom_type.values" required pattern="^([a-zA-Z0-9_],)*[a-zA-Z0-9_]+$"></textarea>
+            <textarea #tvalues="ngModel" [disabled]="!newType.checked" name="enum_vals" [(ngModel)]="custom_type.values" required pattern="^([a-zA-Z0-9_]+,)*[a-zA-Z0-9_]+$"></textarea>
             <div [hidden]="tvalues.valid || tvalues.pristine"
              class="error">
                 Values are required, and must match: ^([a-zA-Z0-9_],)*[a-zA-Z0-9_]+$

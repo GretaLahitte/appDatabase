@@ -129,7 +129,7 @@ export class AddFieldDialog{
                         tf.type = this.field.type;
 
                     } else if(tf == this.field){
-                        has_rel = true;
+                        //has_rel = true;
                         console.log("change type")
                         ff.type = this.field.type;
                     }

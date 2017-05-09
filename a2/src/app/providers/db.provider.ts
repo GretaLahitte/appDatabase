@@ -259,6 +259,7 @@ export class DBProvider{
             });
         }
         cf.index = true;//parceque
+        cf.unique = false;
         cf.is_reference = true; //parceque
 
         
@@ -442,6 +443,8 @@ export class DBProvider{
                 e.values = desc.enumerations[enums].join(',');
                 //ajoute a la liste des types possibles
                 FIELD_TYPES.push(enums);
+                //ajoute a la base
+                base.enumerations.push(e);
             }
 
             for(let table of Object.keys(desc.tables)){

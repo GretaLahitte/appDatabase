@@ -10,6 +10,14 @@
 <content (mousemove)="drag($event)" (mouseup)="stop_drag($event)" (click)="clearMenu()" (contextmenu)="showContextMenu($event)">   
     
     <div class="main">
+        <!--div class="enumerations" *ngIf="database?.enumerations">
+            <div class="header">Enumerations</div>
+            <div *ngFor="let enumeration of database?.enumerations">
+                <h3 class="title" title="Click to edit" (click)="showEnumDlg(enumeration)">{{enumeration.key}}</h3><span>({{enumeration.values}})</span>
+            </div>
+        </div-->
+
+
         <table-cmp *ngFor="let table of database?.tables" [table]="table" (onSelectedTable)="setSelectedTable($event)"></table-cmp>
 
         <menu-cmp *ngIf="descriptor" [descriptor]="descriptor"></menu-cmp>

@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 const EXTRAS = {
-    'LENGTH':['charcacter varying','character','bit','bit varying'],
+    'LENGTH':['character varying','character','bit','bit varying'],
     'MINMAX':['numeric'],
     //les autres....
 }
