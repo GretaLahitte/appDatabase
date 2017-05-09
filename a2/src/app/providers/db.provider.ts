@@ -490,6 +490,10 @@ export class DBProvider{
 
                 }
 
+                //contraintes de table 
+                for(let c of Object.keys(d.constraints)){
+                    t.constraints.push({key:c,values:d.constraints[c]});
+                }
                 //push la table 
                 base.tables.push(t);
             }

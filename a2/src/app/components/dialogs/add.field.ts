@@ -1,6 +1,7 @@
 import {Component, Input} from "@angular/core";
 import {DBProvider, FIELD_TYPES} from "../../providers/db.provider";
 import {DialogProvider} from "../../providers/dialog.provider";
+import {NgModel} from "@angular/forms";
 
 import {Table} from "../../providers/datas/table";
 import {Field} from "../../providers/datas/field";
@@ -129,7 +130,24 @@ export class AddFieldDialog{
     }
 
 
-
+    validPrecision(v:any, elem:any){
+        console.log(elem)
+        console.log(this.tmp.type_extras)
+        this.tmp.type_extras.precision = v;
+        if(this.tmp.type_extras.scale && v < this.tmp.type_extras.scale) 
+            elem.control.invalid = true;
+    }
+    validScale(v, elem:NgModel){
+        console.log(elem)
+        this.tmp.type_extras.scale = v;
+        if(!this.tmp.type_extras.precision || v >= this.tmp.type_extras.precision) {            
+            elem.control.setErrors({invalid:true});
+           
+        }
+        
+           
+            
+    }
     cancel(){
         this._dlg.clearDialogs();
     }

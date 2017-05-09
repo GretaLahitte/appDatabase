@@ -22,10 +22,18 @@
                 <input type='number' min="0" [(ngModel)]="tmp.type_extras.length" name="ex_ty_length">
             </div>
             <div *ngSwitchCase="'MINMAX'">
-                <label>Min value:</label>
-                <input type='number' min="0" [(ngModel)]="tmp.type_extras.min" name="ex_ty_min">
-                <label>Max value:</label>
-                <input type='number' min="0" [(ngModel)]="tmp.type_extras.max" name="ex_ty_max">
+                <label>Precision:</label>
+                <input type='number' #precision="ngModel" min="0" [(ngModel)]="tmp.type_extras.precision" (ngModelChange)="validPrecision($event,precision)" name="ex_ty_min">
+                <div [hidden]="precision.valid || precision.pristine"
+                    class="error">
+                    Precision must be higher than scale.
+                </div>
+                <label>Scale:</label>
+                <input type='number' #scale="ngModel" min="0" [(ngModel)]="tmp.type_extras.scale" (ngModelChange)="validScale($event, scale)" name="ex_ty_max">
+                <div [hidden]="scale.valid || scale.pristine"
+             class="error">
+                Scale must be lower than precision.
+            </div>
             </div>
             
 
