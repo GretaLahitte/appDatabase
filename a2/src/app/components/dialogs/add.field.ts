@@ -62,7 +62,22 @@ export class AddFieldDialog{
                 }
             }
         }
+        //si numeric, custom valid 
+        if(this.tmp.type == "numeric"){
+            let prec = this.tmp.type_extras.precision;
+            let sc = this.tmp.type_extras.scale;
 
+            if(sc){
+                if(!prec){
+                    this.tmp.type_extras.scale = null;//xupprime, ne veut rien dire
+                } else {
+                    if(sc > prec){
+                        this.error = "Error on Inconsistant datas: Scale must be lower than Precision!";
+                        return;
+                    }
+                }
+            }
+        }
 
 
 
@@ -130,24 +145,7 @@ export class AddFieldDialog{
     }
 
 
-    validPrecision(v:any, elem:any){
-        console.log(elem)
-        console.log(this.tmp.type_extras)
-        this.tmp.type_extras.precision = v;
-        if(this.tmp.type_extras.scale && v < this.tmp.type_extras.scale) 
-            elem.control.invalid = true;
-    }
-    validScale(v, elem:NgModel){
-        console.log(elem)
-        this.tmp.type_extras.scale = v;
-        if(!this.tmp.type_extras.precision || v >= this.tmp.type_extras.precision) {            
-            elem.control.setErrors({invalid:true});
-           
-        }
-        
-           
-            
-    }
+    
     cancel(){
         this._dlg.clearDialogs();
     }
