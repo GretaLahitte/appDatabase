@@ -415,6 +415,8 @@ export class DBProvider{
     convertFromJSON(jstr){
         
             let desc = JSON.parse(jstr);
+            
+            let composites = [];
             //creation du bouzin....
 
             let base = new Base();
@@ -439,7 +441,7 @@ export class DBProvider{
                 //set infos id for later???
                 d["id"] = t.id;
 
-                t.name = d.name;
+                t.name = table;
                 t.comment = d.comment;
                 t.coords = d.coords;
                 
@@ -456,10 +458,11 @@ export class DBProvider{
                         f.null_first = fd.null_first;
 
                         //les fields references...
+                        composites.push(f);
                     }
                     else  f = new Field();
 
-                    f.name = fd.name;
+                    f.name = fkey;
                     f.comment = fd.comment;
                     f.type = fd.type;
                     f.type_extras = fd.type_extras;
@@ -474,6 +477,7 @@ export class DBProvider{
 
                     //push 
                     t.fields.push(f);
+                    
 
 
                 }
@@ -483,7 +487,9 @@ export class DBProvider{
             }
 
             //si des composites, a voir... 
-
+            for (let cmp of composites){
+                //recup les fields...
+            }
 
             for(let rel of desc.relations){
                 let r = new Relation();
@@ -491,7 +497,7 @@ export class DBProvider{
                 let ft = DBProvider.getTableByName(rel.from.table,base);
                 let ff = DBProvider.getFieldByName(rel.from.field, ft);
                 let tt = DBProvider.getTableByName(rel.to.table,base);
-                let tf = DBProvider.getFieldByName(rel.to.field, ft);
+                let tf = DBProvider.getFieldByName(rel.to.field, tt);
                 r.from = {
                     table:ft,
                     field:ff
@@ -515,12 +521,14 @@ export class DBProvider{
         for(let t of base.tables){
             if(t.name == name) return t;
         }
+        console.log("unknown table name: "+name);
         return null;
     }
     private static getFieldByName(name:string, table:Table):Field{
         for(let t of table.fields){
             if(t.name == name) return t;
         }
+        console.log("unknown field name: "+name, table);
         return null;
     }
 }
