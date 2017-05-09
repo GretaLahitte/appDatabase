@@ -11,7 +11,7 @@ import {generateUUID} from "./datas/utils";
 
 export const FIELD_TYPES = [
         "bigint","bigserial","bit","bit varying","boolean","box","bytea",
-        "charcacter varying","character","cidr","circle","date","double precision",
+        "character varying","character","cidr","circle","date","double precision",
         "inet","integer","interval","line","lseg","macaddr","money","numeric",
         "path","point","polygon","real","smallint","serial","text","time","time with timezone",
         "timestamp","timestamp (TZ)","tsquery","tsvector","txid_snapshot","uuid","xml"
@@ -440,6 +440,8 @@ export class DBProvider{
                 let e = new Enumeration();
                 e.key = enums;
                 e.values = desc.enumerations[enums].join(',');
+                //ajoute a la liste des types possibles
+                FIELD_TYPES.push(enums);
             }
 
             for(let table of Object.keys(desc.tables)){
