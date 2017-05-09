@@ -12,16 +12,19 @@ export class ConfirmDialog {
    
     @Input() next:Function;
     @Input() target: any ;
+
+    error:string = "";
     constructor(private _dlg:DialogProvider, private _db:DBProvider){}
 
 
     perform_action(form){
         //what to do???
         try{
+            this.error = null;
             this.next.call(this._db,this.target);
             this._dlg.back();
         } catch(err){
-            console.error(err);
+            this.error  = err;
         }
     }
     cancel(){

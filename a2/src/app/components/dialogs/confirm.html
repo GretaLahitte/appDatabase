@@ -1,4 +1,4 @@
-
+<p *ngIf="error" class="error">{{error}}</p>
 <div class="commands" >
     <button  class="invert" (click)="perform_action()">OK</button> 
     <button type="button" (click)="cancel()" class="invert">Cancel</button>      

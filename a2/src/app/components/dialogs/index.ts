@@ -29,6 +29,7 @@ export class IndexDialog {
             this.index.unique = f.unique;
             this.index.index_null = f.index_null;
             this.index.null_first = f.null_first;
+            this.index.is_reference = f.is_reference;
             //la liste des composites
             this.index.fields = f.fields;
         } else {

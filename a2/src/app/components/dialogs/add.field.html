@@ -56,7 +56,7 @@
         
 
         <div class="check-group">
-            <label [ngClass]="table | has_PK:tmp.primary_key">
+            <label [ngClass]="table | has_PK:field?.primary_key">
                 <input type="checkbox" [disabled]="tmp.is_reference"  [(ngModel)]="tmp.primary_key" name="field_pk">Primary Key
             </label>
             <label>

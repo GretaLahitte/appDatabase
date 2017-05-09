@@ -184,7 +184,12 @@ export class DBProvider{
         let field = infos.field;
         
         //verifie si appartient a un composite, si oui, refuse?
-
+        for(let f of table.fields){
+            if(f.fields && f.fields.indexOf(field)>=0){
+                //refuse suppression
+                throw "Impossible to delete: this field is use in a composite index. Try first to delete '"+f.name+"' first.";
+            }
+        }
         
         //supprime les relations si existent
         //JEF Style looping
@@ -222,7 +227,7 @@ export class DBProvider{
         table.pk = p;//enregistrer
         //comme le field est la clé, on en profite 
         field.primary_key = true;
-        field.unique = true;
+        //field.unique = true;
         
     }
 

@@ -50,6 +50,23 @@ export class AddFieldDialog{
 
         //copy les données du tmp dans le field courant...
         if(!this.field) this.field = new Field({id:null});//genere un id
+
+        //probleme: si modifie PK ET a une relation, une couille
+        if((this.field.primary_key && !this.tmp.primary_key) ||(this.field.unique && !this.field.unique)){
+            //verifie les relations 
+            for(let r of this._db._db.relations){
+                if(r.from.field == this.field){
+                    this.error = "Impossible to update Field: to remove primary key ot unique constraint, you must first delete all relations to this field";
+                    return;
+                }
+            }
+        }
+
+
+
+
+
+
         this.field.copy(this.tmp);
 
         // console.log(this.field);
@@ -82,8 +99,7 @@ export class AddFieldDialog{
                 }   
             } else {
                 //verifie si appartient a une relation           A VOIR?
-                let is_unique = this.field.unique ;
-                
+                let is_unique = this.field.unique || this.field.primary_key;                
                 let has_rel = false;
                 
                 console.log("Verifie les types dans les relations")
