@@ -278,12 +278,13 @@ export class DBProvider{
             cf = new Field({
                 name:from.field.name+"_"+from.table.name,
                 type:from.field.type //???
+                
             });
         }
         cf.index = true;//parceque
         cf.unique = false;
         cf.is_reference = true; //parceque
-
+        cf.type_extras = from.field.type_extras;
         
         this.addFieldTo(cf, to_table);
         //cree les relations dans chaque table 
