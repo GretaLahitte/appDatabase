@@ -7,6 +7,10 @@ import {Field} from "../providers/datas/field";
 import {Index} from "../providers/datas/index";
 import {Enumeration} from "../providers/datas/enumeration";
 
+
+import {DBProvider} from "../providers/db.provider";
+
+
 /**
  * Chargée de créer les descripteurs de dialogues pour l'application
  */
@@ -16,6 +20,8 @@ export class DialogProvider{
     dlg:Subject<any> = new Subject<any>();
     _history:Array<any> = [];
 
+
+    constructor(private _db:DBProvider){}
     getDialogObservable():Observable<any>{
         return this.dlg.asObservable();
     }
@@ -174,6 +180,24 @@ export class DialogProvider{
             //action a realiser...
             target: target,
             next: next
+        };
+        this.next(desc);
+    }
+    pushEditBaseDialog(){
+        let desc = {
+            title:"Base Properties",
+            texte:"Edit and change base properties, but take care...",
+            type:"CREATE_BASE",
+            target: this._db._db
+        };
+        this.next(desc);
+    }
+    pushCustomTypeDialog(target?:Enumeration){
+        let desc = {
+            title:"Custom Types",
+            texte:"Edit custom types enumeration for the base",
+            type:"CREATE_CTYPE",
+            target: target
         };
         this.next(desc);
     }

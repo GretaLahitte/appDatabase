@@ -8,9 +8,11 @@ import {PKDialog} from "./add.primary";
 import {ExportDialog} from "./export";
 import {NewBaseDialog} from "./new.base";
 import {ConfirmDialog} from "./confirm";
+import {CustomTypeDialog} from "./custom.type";
+
 
 //toutes les dialogs sont la...
 const DIALOGS = [ AddTableDialog, AboutDialog, AddFieldDialog, ShowTableProperties, IndexDialog, ConstraintDialog
-,PKDialog, ExportDialog, NewBaseDialog, ConfirmDialog ];
+,PKDialog, ExportDialog, NewBaseDialog, ConfirmDialog, CustomTypeDialog ];
 
 export default DIALOGS; 

@@ -90,7 +90,7 @@ export class MenuProvider{
                     label:"New BASE"
                 },
                 {
-                    action:"base_properties",
+                    action:"edit_base",
                     icon:"storage",
                     label:"Base Properties"
                 },
@@ -148,6 +148,10 @@ export class MenuProvider{
             }
             case "new_base":{
                 this._dlg.pushNewBaseDialog();
+                break;
+            }
+            case "edit_base":{
+                this._dlg.pushEditBaseDialog();
                 break;
             }
             case 'DELETE':{

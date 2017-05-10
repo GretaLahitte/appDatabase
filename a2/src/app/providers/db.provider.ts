@@ -142,6 +142,14 @@ export class DBProvider{
 
 
     }
+
+    isDataTypeFree(type:Enumeration){
+        //verifie que n'existe pas deja
+        for(let en of this._db.enumerations){
+            if (en.key == type.key) return false;
+        }
+        return true;
+    }
     addDataType(type:Enumeration){
 
         if(!type.key) throw "Invalid: a custom type must have a name...";
@@ -158,6 +166,20 @@ export class DBProvider{
         this._db.enumerations.push(type);
         //ajoute aux types de données
         FIELD_TYPES.push(type.key);
+    }
+    removeDataType(type:Enumeration){
+        //uniquement si non utilisé
+        for (let t of this._db.tables){
+            for (let f of t.fields){
+                if (f.type == type.key) throw "Impossible to delete custom type: make sur it's not used anywhere before";
+            }
+        }
+        //sinon, go
+        let i = this._db.enumerations.indexOf(type);
+        if(i>=0) this._db.enumerations.splice(i,1);
+        //retire de la liste des types
+        i = FIELD_TYPES.indexOf(type.key);
+        if(i>=0) FIELD_TYPES.splice(i,1);
     }
     addFieldTo(field:Field, table:Table){
         //ajoute un id

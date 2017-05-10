@@ -32,10 +32,30 @@
             <label>Password:</label>
             <input type="text" name="b_pswd" [(ngModel)]="base.passwrd">
             
+
+
+            <!-- les contraintes de la table -->
+            <div class="group">Custom Types:
+                <div *ngFor="let enum of base.enumerations">
+                    <div  class="index-infos">
+                        <span  class="name">{{enum.key}}</span>(<span >{{enum.values}}</span>)
+                        <div>
+                            <a class="round" (click)="updateEnum(enum)"><i class="material-icons rippler">mode_edit</i></a>
+                            <a class="round" (click)="deleteEnum(enum)"><i class="material-icons rippler">delete_forever</i></a>
+                        </div>  
+                    </div>
+                </div>
+            
+                
+            </div>
+
+
+
             
         </content>
         <p class="error" *ngIf="error">{{error}}</p>
         <div class="commands" >
+            <button class="invert" type="button" (click)="newEnum()" type="button">Add new Custom Type</button>
             <button [disabled]="!baseForm.form.valid"  class="invert" type="submit">Create Base</button> 
             <button type="button" (click)="cancel()" class="invert">Cancel</button>      
         </div>

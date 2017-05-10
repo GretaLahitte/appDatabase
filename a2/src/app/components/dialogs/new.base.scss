@@ -1,0 +1,19 @@
+.group{
+    display: flex!important;
+    flex-direction: column;
+    margin-bottom: 20px;
+    border-bottom: 1px dashed #3E3E3E;
+
+    .index-infos{
+        margin-left: 10px;
+
+        .name{
+            font-weight: bold;
+            font-size: 1.3em;
+        }
+        div{
+            display: float;
+            float: right;
+        }
+    }
+}
