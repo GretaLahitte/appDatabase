@@ -15,11 +15,16 @@ onmessage = function(evt){
 		tab.push('CREATE TABLE ',key,'(\n');
 		//console.log(tab);
 		//console.log('CREATE TABLES '+key+'(');
-		for (champs in table.fields){
+		for (var champs in table.fields){
 			tab.push(...createSqlField(champs,table.fields[champs],key, base));
 			tab.push(",\n");
 		}
 		tab.pop();
+
+        //CONSTRAINT con1 CHECK (did > 100 AND name <> '')
+        for(var constraint in table.constraints){
+            tab.push("  CONSTRAINT ",constraint," CHECK (",table.constraints[constraint],");\n");
+        }
 		tab.push('\n);\n');
 		
 		
