@@ -45,6 +45,8 @@ export class Table{
     }
 
     addIndex(index:Index){
+        if(!index.id) index.id=generateUUID();
+        
         if(index.fields.length == 1){
             let fi:Field = index.fields[0];
             fi.index = true;

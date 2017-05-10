@@ -29,6 +29,8 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 ## TODO
 parmis les fonctionnalités prévues dans une prochaine version:
+* support SQL complet?
+* formulaire generation de contraintes suivant le type de la donnée
 * load from SQL file, load from database: creation de l'interface a partir d'un fichier SQL ou d'une connection à une BDD
 * group table by interest
 * zoom in and out + drag all tables

@@ -34,7 +34,7 @@ export class TableComponent{
         let __shift_left =  el.coords.x - evt.clientX;
         let __shift_top = el.coords.y - evt.clientY;
 
-        console.log(__shift_left,__shift_top)
+        
         this.selectedTable.emit({
             cible:el,
             shift_left: __shift_left,

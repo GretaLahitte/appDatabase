@@ -22,7 +22,7 @@ export class Field{
 
     
     constructor (args?:any){
-        args=args || {};
+        args = args || {};
         this.id = args.id === undefined ? generateUUID() : args.id;
         this.name = args.name;
         this.comment = args.comment;
