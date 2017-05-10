@@ -2446,6 +2446,8 @@ var NewBaseDialog = (function () {
             this.base = new __WEBPACK_IMPORTED_MODULE_1__providers_datas_base__["a" /* Base */]({});
             this.copy(this.base, e);
         }
+        else
+            this.base = new __WEBPACK_IMPORTED_MODULE_1__providers_datas_base__["a" /* Base */]({});
     };
     NewBaseDialog.prototype.copy = function (a, b) {
         a.db_name = b.db_name;

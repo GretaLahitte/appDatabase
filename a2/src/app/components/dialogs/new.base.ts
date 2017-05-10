@@ -26,7 +26,7 @@ export class NewBaseDialog {
             let e = <Base>dt.editable.currentValue;
             this.base = new Base({});
             this.copy(this.base, e);
-        }
+        } else this.base = new Base({});
     }
 
 
