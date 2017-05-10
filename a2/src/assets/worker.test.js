@@ -31,7 +31,6 @@ onmessage = function(evt){
 	//les index
   tab.push(...base.indexes);
   tab.push("\n/*Generated with Greta SQLTool, because sometimes, I look at the stars and go like 'Fuck it!'*/\n");
-  // postMessage("some SQL datas....");
   postMessage(tab.join(''));
 }
 
