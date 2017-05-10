@@ -29,14 +29,16 @@ onmessage = function(evt){
 		
 	}
 	tab.push('\n\n');
-	//les index
-    tab.push(...base.indexes);
-    
+	
     //les relations
     for(var relation of base.relations){
        //console.log(relation);
         tab.push(...createSqlRelation(relation, base));
     }
+
+	//les index
+    tab.push(...base.indexes);
+    
     
     tab.push("/*Generated with Greta SQLTool, because sometimes, I look at the stars and go like 'Fuck it!'*/\n");
    // postMessage("some SQL datas....");
