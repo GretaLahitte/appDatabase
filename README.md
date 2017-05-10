@@ -1,4 +1,8 @@
 # appDatabase
+This app can help you easily generating tables for database.
+You even can create relationship between tables.
+Finally you can export the SQL command to a SQL file.
+
 # Psqla2
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.0.1.
