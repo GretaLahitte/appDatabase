@@ -12,7 +12,7 @@ export class WorkerProvider{
     worker:Worker;
     constructor(){
         //creation du worker
-        this.worker = new Worker("./assets/worker.test.2.js");
+        this.worker = new Worker("./assets/worker.test.js");
         //les listeners
         
     }
