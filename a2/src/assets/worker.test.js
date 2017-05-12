@@ -12,7 +12,8 @@ onmessage = function(evt){
 	for ( var key in base.tables){
 		var table=base.tables[key];
 		if(table.comment){
-			tab.push('/*' ,table.comment, '*/\n');
+			console.log('table',key);
+			base.indexes.push('COMMENT ON TABLE ',key,' IS \'',table.comment,'\';\n');
 		}
 		tab.push('CREATE TABLE ',key,' (\n');
 		for (champs in table.fields){
@@ -117,7 +118,8 @@ function createSqlField(champs, field_desc,tableName,  base){
   tab.push(champs,'    ',...type,' ',...special,' ',check);
 	
   if(field_desc.comment){
-		tab.push('	/* ',field_desc.comment,' */');
+		//tab.push('	/* ',field_desc.comment,' */');
+		base.indexes.push('COMMENT ON COLUMN ',tableName,'.',champs,' IS \'',field_desc.comment,'\';\n');
 	}
 	
 	tab.push(",\n");
