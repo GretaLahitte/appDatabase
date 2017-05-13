@@ -4,14 +4,14 @@ onmessage = function(evt){
   var base = JSON.parse(evt.data);
 	var tab=[]; //pour stocker les commandes SQL 
 	base.indexes=[];
-
+console.log('base:',base.db_type);
 	//enumerations
 	for (var en in base.enumerations) tab.push(...createSqlEnum(en, base.enumerations[en]));
 	
 	//les tables de la base
 	for ( var key in base.tables){
 		var table=base.tables[key];
-		if(table.comment){
+		if(table.comment && base.db_type == 'postgres'){
 			console.log('table',key);
 			base.indexes.push('COMMENT ON TABLE ',key,' IS \'',table.comment,'\';\n');
 		}
@@ -21,7 +21,11 @@ onmessage = function(evt){
 			if(cto.length > 0) tab.push('   ',...cto);
 		}
 		tab.pop();
-		tab.push('\n);\n\n');
+		if(table.comment && base.db_type == 'mysql'){
+			tab.push('\n) COMMENT=\'',table.comment,'\';\n\n')
+		}else{
+			tab.push('\n);\n\n');
+		}
 	}
 	tab.push('\n\n');
   //les relations
@@ -117,9 +121,11 @@ function createSqlField(champs, field_desc,tableName,  base){
 	
   tab.push(champs,'    ',...type,' ',...special,' ',check);
 	
-  if(field_desc.comment){
+  if(field_desc.comment && base.db_type=='postgres'){
 		//tab.push('	/* ',field_desc.comment,' */');
 		base.indexes.push('COMMENT ON COLUMN ',tableName,'.',champs,' IS \'',field_desc.comment,'\';\n');
+  }else if (field_desc.comment && base.db_type=='mysql'){
+			tab.push(' COMMENT \'',field_desc.comment,'\'')
 	}
 	
 	tab.push(",\n");
