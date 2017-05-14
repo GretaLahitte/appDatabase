@@ -2,17 +2,21 @@ var CAN_HAVE_EXTRAS = ["character varying","character","bit","bit varying","nume
 
 onmessage = function(evt){
   var base = JSON.parse(evt.data);
+	var created_at=new Date();
 	var tab=[]; //pour stocker les commandes SQL 
 	base.indexes=[];
-console.log('base:',base.db_type);
+	//console.log('base:',base);
+	tab.push('--\n-- ',base.db_type,' syntax\n--\n\n');
 	//enumerations
 	for (var en in base.enumerations) tab.push(...createSqlEnum(en, base.enumerations[en]));
 	
 	//les tables de la base
 	for ( var key in base.tables){
+	
+	
 		var table=base.tables[key];
 		if(table.comment && base.db_type == 'postgres'){
-			console.log('table',key);
+			//console.log('table',key);
 			base.indexes.push('COMMENT ON TABLE ',key,' IS \'',table.comment,'\';\n');
 		}
 		tab.push('CREATE TABLE ',key,' (\n');
@@ -35,7 +39,10 @@ console.log('base:',base.db_type);
 	tab.push('\n\n');
 	//les index
   tab.push(...base.indexes);
-  tab.push("\n/*Generated with Greta SQLTool, because sometimes, I look at the stars and go like 'Fuck it!'*/\n");
+  tab.push('\n-- Generated with Greta SQLTool on ',created_at,'\n');
+  tab.push('-- Visit us at https://seraphita.freeboxos.fr/gretaSQLTool\n')
+	
+  //tab.push("\n/*Because sometimes, I look at the stars and go like 'Fuck it!'*/\n");
   postMessage(tab.join(''));
 }
 
@@ -72,6 +79,23 @@ function createSqlField(champs, field_desc,tableName,  base){
 	var check='';
 	var special=[];
 	var indexes=base.indexes;
+	var isReference=field_desc.is_reference;
+	if((field_desc.type=='bigserial'||'smallserial'||'serial')&& isReference){
+		switch (field_desc.type){
+			case 'bigserial':
+				console.log('bigserial');
+				type=['bigint'];
+				break;
+			case 'smallserial':
+				type=['smallint'];
+				break;
+			case 'serial':
+				type=['integer'];
+				break;
+			default:
+				break;
+			}
+	}
 	
 	if(field_desc.type=='Composite'){
 		indexes.push('CREATE ');
