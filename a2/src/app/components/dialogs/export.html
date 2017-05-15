@@ -1,6 +1,6 @@
 <content>
-    <h4>SQL</h4>
-    <textarea *ngIf="sql_datas" [(ngModel)]="sql_datas" rows="30"></textarea>
+ 
+    <pre> <code id='colored'></code></pre>
     <p *ngIf="!error && !sql_datas">Loading sql, please wait...</p>
     <p class="error" *ngIf="error">{{error}}</p>
     <div class="commands" >

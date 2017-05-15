@@ -1,22 +1,21 @@
 var CAN_HAVE_EXTRAS = ["character varying","character","bit","bit varying","numeric"];
 
 onmessage = function(evt){
-  var base = JSON.parse(evt.data);
+	var base = JSON.parse(evt.data);
+	var db_type=base.db_type;
 	var created_at=new Date();
 	var tab=[]; //pour stocker les commandes SQL 
 	base.indexes=[];
 	//console.log('base:',base);
-	tab.push('--\n-- ',base.db_type,' syntax\n--\n\n');
-	//enumerations
-	for (var en in base.enumerations) tab.push(...createSqlEnum(en, base.enumerations[en]));
-	
+	tab.push('\n--\n-- ',base.db_type,' syntax\n--\n\n');
+	//enumerations postgres
+	if(db_type=='postgres'){
+		for (var en in base.enumerations) tab.push(...createSqlEnum(db_type,en, base.enumerations[en]));
+	}
 	//les tables de la base
 	for ( var key in base.tables){
-	
-	
 		var table=base.tables[key];
 		if(table.comment && base.db_type == 'postgres'){
-			//console.log('table',key);
 			base.indexes.push('COMMENT ON TABLE ',key,' IS \'',table.comment,'\';\n');
 		}
 		tab.push('CREATE TABLE ',key,' (\n');
@@ -38,9 +37,10 @@ onmessage = function(evt){
   }
 	tab.push('\n\n');
 	//les index
-  tab.push(...base.indexes);
-  tab.push('\n-- Generated with Greta SQLTool on ',created_at,'\n');
-  tab.push('-- Visit us at https://seraphita.freeboxos.fr/gretaSQLTool\n')
+	tab.push(...base.indexes);
+	tab.push('\n-- Generated with Greta SQLTool on ',created_at,'\n');
+	tab.push('-- Visit us at https://seraphita.freeboxos.fr/gretaSQLTool\n');
+	tab.push('-- git: https://github.com/GretaLahitte/appDatabase.git\n\n');
 	
   //tab.push("\n/*Because sometimes, I look at the stars and go like 'Fuck it!'*/\n");
   postMessage(tab.join(''));
@@ -48,20 +48,31 @@ onmessage = function(evt){
 
 /**
  * create custom type for database
- * ex: CREATE TYPE mood AS ENUM ('sad', 'ok', 'happy');
+ * ex postgres: CREATE TYPE mood AS ENUM ('sad', 'ok', 'happy');
  * @param name: enum name 
  * @param values: enum values
  * 
  * @return string Array: sql command list
  */
-function createSqlEnum(name,values){
-	var t=["CREATE TYPE ",
-			name,
-			" AS ENUM ("];
-	for (var v of values) t.push("'",v,"'");
-	t.push(');\n');
+function createSqlEnum(db_type,name,values){
+	if(db_type=='postgres'){
+			var t=["CREATE TYPE ",
+					name,
+					" AS ENUM ("];
+			for (var v of values) t.push("'",v,"'");
+			t.push(');\n');
 
-	return t;
+			return t;
+	}else if(db_type=='mysql'){
+		var t= ["ENUM(",];
+		for (var v of values) {
+			t.push("'",v,"'");
+			t.push(',');
+		};
+		t.pop();
+		t.push(') ');
+		return t
+	}
 }
 
 
@@ -80,6 +91,23 @@ function createSqlField(champs, field_desc,tableName,  base){
 	var special=[];
 	var indexes=base.indexes;
 	var isReference=field_desc.is_reference;
+	var mysqlEnum=[];
+	var isEnum=false;
+	
+	//enum mysql syntax
+	if(base.enumerations && base.db_type=='mysql'){
+		//console.log(base.enumerations);
+		for (var t in base.enumerations ){
+			//console.log('enum type is:',t);
+			//console.log('champs',champs,'field',field_desc,'tablename',tableName);
+			if(field_desc.type==t){
+				isEnum = true;
+				//console.log('this enum is mysql');
+				for (var en in base.enumerations) mysqlEnum.push(...createSqlEnum(base.db_type,en, base.enumerations[en]));
+				//console.log('testArray',mysqlEnum);
+				}
+			}
+		}
 	if((field_desc.type=='bigserial'||'smallserial'||'serial')&& isReference){
 		switch (field_desc.type){
 			case 'bigserial':
@@ -136,25 +164,32 @@ function createSqlField(champs, field_desc,tableName,  base){
 	if(field_desc.not_null){
 		special.push(' NOT NULL');
 	}	
-  if(field_desc.primary_key){
+	if(field_desc.primary_key){
 		special.push(' PRIMARY KEY');
-	}	
-  if(field_desc.unique){
+	}
+	if(field_desc.unique){
 		special.push(' UNIQUE');
 	}
+	if(field_desc.default_value){
+	 	special.push(' DEFAULT ',field_desc.default_value);
+    }
 	
-  tab.push(champs,'    ',...type,' ',...special,' ',check);
-	
-  if(field_desc.comment && base.db_type=='postgres'){
+	if(base.db_type=='postgres'){
+		tab.push(champs,'    ',...type,' ',...special,' ',check);
+	}else if (base.db_type=='mysql' && isEnum){
+		tab.push(champs,'    ',...mysqlEnum,' ',...special,' ',check);
+	}else if (base.db_type=='mysql' && !isEnum){
+		tab.push(champs,'    ',...type,' ',...special,' ',check);
+	}	
+	if(field_desc.comment && base.db_type=='postgres'){
 		//tab.push('	/* ',field_desc.comment,' */');
 		base.indexes.push('COMMENT ON COLUMN ',tableName,'.',champs,' IS \'',field_desc.comment,'\';\n');
-  }else if (field_desc.comment && base.db_type=='mysql'){
+	}else if (field_desc.comment && base.db_type=='mysql'){
 			tab.push(' COMMENT \'',field_desc.comment,'\'')
 	}
-	
 	tab.push(",\n");
 	
-  return tab;
+	return tab;
 }
 
 /**

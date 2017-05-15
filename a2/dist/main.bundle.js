@@ -561,7 +561,7 @@ DBProvider = DBProvider_1 = __decorate([
 ], DBProvider);
 
 var DBProvider_1;
-//# sourceMappingURL=/home/user9/Documents/postgres-tool/appDatabase/a2/src/db.provider.js.map
+//# sourceMappingURL=/home/maelle/workspace/git/appDatabase/a2/src/db.provider.js.map
 
 /***/ }),
 /* 3 */
@@ -770,7 +770,7 @@ DialogProvider = __decorate([
 ], DialogProvider);
 
 var _a;
-//# sourceMappingURL=/home/user9/Documents/postgres-tool/appDatabase/a2/src/dialog.provider.js.map
+//# sourceMappingURL=/home/maelle/workspace/git/appDatabase/a2/src/dialog.provider.js.map
 
 /***/ }),
 /* 4 */
@@ -895,7 +895,7 @@ var Table = (function () {
     return Table;
 }());
 
-//# sourceMappingURL=/home/user9/Documents/postgres-tool/appDatabase/a2/src/table.js.map
+//# sourceMappingURL=/home/maelle/workspace/git/appDatabase/a2/src/table.js.map
 
 /***/ }),
 /* 7 */,
@@ -939,7 +939,7 @@ var Field = (function () {
     return Field;
 }());
 
-//# sourceMappingURL=/home/user9/Documents/postgres-tool/appDatabase/a2/src/field.js.map
+//# sourceMappingURL=/home/maelle/workspace/git/appDatabase/a2/src/field.js.map
 
 /***/ }),
 /* 13 */
@@ -956,7 +956,7 @@ var Enumeration = (function () {
     return Enumeration;
 }());
 
-//# sourceMappingURL=/home/user9/Documents/postgres-tool/appDatabase/a2/src/enumeration.js.map
+//# sourceMappingURL=/home/maelle/workspace/git/appDatabase/a2/src/enumeration.js.map
 
 /***/ }),
 /* 14 */
@@ -977,7 +977,7 @@ function generateUUID() {
     });
 }
 ;
-//# sourceMappingURL=/home/user9/Documents/postgres-tool/appDatabase/a2/src/utils.js.map
+//# sourceMappingURL=/home/maelle/workspace/git/appDatabase/a2/src/utils.js.map
 
 /***/ }),
 /* 15 */
@@ -1158,7 +1158,7 @@ MenuProvider = __decorate([
 ], MenuProvider);
 
 var _a, _b;
-//# sourceMappingURL=/home/user9/Documents/postgres-tool/appDatabase/a2/src/menu.provider.js.map
+//# sourceMappingURL=/home/maelle/workspace/git/appDatabase/a2/src/menu.provider.js.map
 
 /***/ }),
 /* 16 */,
@@ -1198,7 +1198,7 @@ var Index = (function (_super) {
     return Index;
 }(__WEBPACK_IMPORTED_MODULE_0__field__["a" /* Field */]));
 
-//# sourceMappingURL=/home/user9/Documents/postgres-tool/appDatabase/a2/src/index.js.map
+//# sourceMappingURL=/home/maelle/workspace/git/appDatabase/a2/src/index.js.map
 
 /***/ }),
 /* 18 */,
@@ -1231,7 +1231,7 @@ var Base = (function () {
     return Base;
 }());
 
-//# sourceMappingURL=/home/user9/Documents/postgres-tool/appDatabase/a2/src/base.js.map
+//# sourceMappingURL=/home/maelle/workspace/git/appDatabase/a2/src/base.js.map
 
 /***/ }),
 /* 26 */
@@ -1281,7 +1281,7 @@ WorkerProvider = __decorate([
     __metadata("design:paramtypes", [])
 ], WorkerProvider);
 
-//# sourceMappingURL=/home/user9/Documents/postgres-tool/appDatabase/a2/src/worker.provider.js.map
+//# sourceMappingURL=/home/maelle/workspace/git/appDatabase/a2/src/worker.provider.js.map
 
 /***/ }),
 /* 27 */,
@@ -1333,7 +1333,7 @@ if (__WEBPACK_IMPORTED_MODULE_6__environments_environment__["a" /* environment *
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["a" /* enableProdMode */])();
 }
 __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dynamic__["a" /* platformBrowserDynamic */])().bootstrapModule(__WEBPACK_IMPORTED_MODULE_5__app_app_module__["a" /* AppModule */]);
-//# sourceMappingURL=/home/user9/Documents/postgres-tool/appDatabase/a2/src/main.js.map
+//# sourceMappingURL=/home/maelle/workspace/git/appDatabase/a2/src/main.js.map
 
 /***/ }),
 /* 39 */,
@@ -1475,7 +1475,7 @@ AppComponent = __decorate([
 ], AppComponent);
 
 var _a, _b, _c;
-//# sourceMappingURL=/home/user9/Documents/postgres-tool/appDatabase/a2/src/app.component.js.map
+//# sourceMappingURL=/home/maelle/workspace/git/appDatabase/a2/src/app.component.js.map
 
 /***/ }),
 /* 45 */
@@ -1568,7 +1568,7 @@ AppModule = __decorate([
     })
 ], AppModule);
 
-//# sourceMappingURL=/home/user9/Documents/postgres-tool/appDatabase/a2/src/app.module.js.map
+//# sourceMappingURL=/home/maelle/workspace/git/appDatabase/a2/src/app.module.js.map
 
 /***/ }),
 /* 46 */
@@ -1617,7 +1617,7 @@ DialogComponent = __decorate([
 ], DialogComponent);
 
 var _a, _b;
-//# sourceMappingURL=/home/user9/Documents/postgres-tool/appDatabase/a2/src/dialog.js.map
+//# sourceMappingURL=/home/maelle/workspace/git/appDatabase/a2/src/dialog.js.map
 
 /***/ }),
 /* 47 */
@@ -1657,7 +1657,7 @@ AboutDialog = __decorate([
 ], AboutDialog);
 
 var _a;
-//# sourceMappingURL=/home/user9/Documents/postgres-tool/appDatabase/a2/src/about.js.map
+//# sourceMappingURL=/home/maelle/workspace/git/appDatabase/a2/src/about.js.map
 
 /***/ }),
 /* 48 */
@@ -1821,7 +1821,7 @@ AddFieldDialog = __decorate([
 ], AddFieldDialog);
 
 var _a, _b, _c, _d;
-//# sourceMappingURL=/home/user9/Documents/postgres-tool/appDatabase/a2/src/add.field.js.map
+//# sourceMappingURL=/home/maelle/workspace/git/appDatabase/a2/src/add.field.js.map
 
 /***/ }),
 /* 49 */
@@ -1917,7 +1917,7 @@ PKDialog = __decorate([
 ], PKDialog);
 
 var _a, _b, _c, _d;
-//# sourceMappingURL=/home/user9/Documents/postgres-tool/appDatabase/a2/src/add.primary.js.map
+//# sourceMappingURL=/home/maelle/workspace/git/appDatabase/a2/src/add.primary.js.map
 
 /***/ }),
 /* 50 */
@@ -1998,7 +1998,7 @@ AddTableDialog = __decorate([
 ], AddTableDialog);
 
 var _a, _b;
-//# sourceMappingURL=/home/user9/Documents/postgres-tool/appDatabase/a2/src/add.table.js.map
+//# sourceMappingURL=/home/maelle/workspace/git/appDatabase/a2/src/add.table.js.map
 
 /***/ }),
 /* 51 */
@@ -2061,7 +2061,7 @@ ConfirmDialog = __decorate([
 ], ConfirmDialog);
 
 var _a, _b;
-//# sourceMappingURL=/home/user9/Documents/postgres-tool/appDatabase/a2/src/confirm.js.map
+//# sourceMappingURL=/home/maelle/workspace/git/appDatabase/a2/src/confirm.js.map
 
 /***/ }),
 /* 52 */
@@ -2136,7 +2136,7 @@ ConstraintDialog = __decorate([
 ], ConstraintDialog);
 
 var _a, _b, _c, _d;
-//# sourceMappingURL=/home/user9/Documents/postgres-tool/appDatabase/a2/src/constraint.js.map
+//# sourceMappingURL=/home/maelle/workspace/git/appDatabase/a2/src/constraint.js.map
 
 /***/ }),
 /* 53 */
@@ -2213,7 +2213,7 @@ CustomTypeDialog = __decorate([
 ], CustomTypeDialog);
 
 var _a, _b, _c;
-//# sourceMappingURL=/home/user9/Documents/postgres-tool/appDatabase/a2/src/custom.type.js.map
+//# sourceMappingURL=/home/maelle/workspace/git/appDatabase/a2/src/custom.type.js.map
 
 /***/ }),
 /* 54 */
@@ -2246,7 +2246,7 @@ var _a, _b, _c;
 var DIALOGS = [__WEBPACK_IMPORTED_MODULE_0__add_table__["a" /* AddTableDialog */], __WEBPACK_IMPORTED_MODULE_1__about__["a" /* AboutDialog */], __WEBPACK_IMPORTED_MODULE_2__add_field__["a" /* AddFieldDialog */], __WEBPACK_IMPORTED_MODULE_3__show_table_properties__["a" /* ShowTableProperties */], __WEBPACK_IMPORTED_MODULE_4__index__["a" /* IndexDialog */], __WEBPACK_IMPORTED_MODULE_5__constraint__["a" /* ConstraintDialog */],
     __WEBPACK_IMPORTED_MODULE_6__add_primary__["a" /* PKDialog */], __WEBPACK_IMPORTED_MODULE_7__export__["a" /* ExportDialog */], __WEBPACK_IMPORTED_MODULE_8__new_base__["a" /* NewBaseDialog */], __WEBPACK_IMPORTED_MODULE_9__confirm__["a" /* ConfirmDialog */], __WEBPACK_IMPORTED_MODULE_10__custom_type__["a" /* CustomTypeDialog */]];
 /* harmony default export */ __webpack_exports__["a"] = DIALOGS;
-//# sourceMappingURL=/home/user9/Documents/postgres-tool/appDatabase/a2/src/dialogs.js.map
+//# sourceMappingURL=/home/maelle/workspace/git/appDatabase/a2/src/dialogs.js.map
 
 /***/ }),
 /* 55 */
@@ -2282,9 +2282,26 @@ var ExportDialog = (function () {
         //lance le loading...
         var db = this._db._db;
         this.name = db.db_name;
+        //var for syntax highlighting
+        var codeElement = document.getElementById('colored');
+        var sqlCmd = /\b(ADD|ALL|ALTER|AND|AS|BETWEEN|BY|CASE|CHECK|COLUMN|COMMENT|COUNT|CREATE|DATABASE|DELETE|ENUM|FLUSH|FOREIGN|FROM|GRANT|GROUP|IDENTIFIED|IF|INDEX|INNER|INSERT|IS|KEY|LIMIT|NOT|NULL|ON|OR|ORDER|OUTER|PRIMARY|PRIVILEGES|REFERENCES|SELECT|TABLE|TYPE|TO|UNIQUE|UPDATE|WHEN|WHERE)(?=[^\w])/g;
+        var sqlVar = /\b(bigint|bigserial|bit|bit varying|boolean|box|bytea|character varying|character|cidr|circle|date|double precision|inet|integer|interval|line|lseg|macaddr|money|numeric|path|point|polygon|real|smallint|serial|text|time|time with timezone|timestamp|timestamp (TZ)|tsquery|tsvector|txid_snapshot|uuid|xml)/g;
+        var multiLines = /(\/\*.*\*\/)/g;
+        var inline = /(--(.+?)\n|--\n)/g;
+        var quoted = /('(.+)')/g;
         this._db.convertToJSON(db).then(function (jstr) {
             return _this._worker.process_SQL(jstr);
-        }).then(function (sql) { return _this.sql_datas = sql; })
+        }).then(function (sql) {
+            //the sql code
+            _this.sql_datas = sql;
+            //the sql syntax highlighted
+            sql = sql.replace(inline, '<span class="multilines" style="color:#aaa">$1</span>');
+            sql = sql.replace(sqlVar, '<span class="sqlVar" style="color:#5dc122;">$1</span>');
+            sql = sql.replace(sqlCmd, '<span class="sqlCmd" style="color:#1f3eb9;">$1</span>');
+            sql = sql.replace(multiLines, '<span class="multilines" style="color:#aaa;">$1</span>');
+            sql = sql.replace(quoted, '<span class="quoted" style="color:rgb(255, 134, 0);">$1</span>');
+            codeElement.innerHTML = sql;
+        })
             .catch(function (err) { return _this.error = err; });
     };
     ExportDialog.prototype.download_as_file = function () {
@@ -2305,7 +2322,7 @@ ExportDialog = __decorate([
 ], ExportDialog);
 
 var _a, _b, _c;
-//# sourceMappingURL=/home/user9/Documents/postgres-tool/appDatabase/a2/src/export.js.map
+//# sourceMappingURL=/home/maelle/workspace/git/appDatabase/a2/src/export.js.map
 
 /***/ }),
 /* 56 */
@@ -2406,7 +2423,7 @@ IndexDialog = __decorate([
 ], IndexDialog);
 
 var _a, _b, _c, _d;
-//# sourceMappingURL=/home/user9/Documents/postgres-tool/appDatabase/a2/src/index.js.map
+//# sourceMappingURL=/home/maelle/workspace/git/appDatabase/a2/src/index.js.map
 
 /***/ }),
 /* 57 */
@@ -2513,7 +2530,7 @@ NewBaseDialog = __decorate([
 ], NewBaseDialog);
 
 var _a, _b, _c;
-//# sourceMappingURL=/home/user9/Documents/postgres-tool/appDatabase/a2/src/new.base.js.map
+//# sourceMappingURL=/home/maelle/workspace/git/appDatabase/a2/src/new.base.js.map
 
 /***/ }),
 /* 58 */
@@ -2595,7 +2612,7 @@ ShowTableProperties = __decorate([
 ], ShowTableProperties);
 
 var _a, _b, _c;
-//# sourceMappingURL=/home/user9/Documents/postgres-tool/appDatabase/a2/src/show.table.properties.js.map
+//# sourceMappingURL=/home/maelle/workspace/git/appDatabase/a2/src/show.table.properties.js.map
 
 /***/ }),
 /* 59 */
@@ -2697,7 +2714,7 @@ FieldComponent = __decorate([
 ], FieldComponent);
 
 var _a, _b, _c, _d, _e;
-//# sourceMappingURL=/home/user9/Documents/postgres-tool/appDatabase/a2/src/field.js.map
+//# sourceMappingURL=/home/maelle/workspace/git/appDatabase/a2/src/field.js.map
 
 /***/ }),
 /* 60 */
@@ -2742,7 +2759,7 @@ MenuComponent = __decorate([
 ], MenuComponent);
 
 var _a;
-//# sourceMappingURL=/home/user9/Documents/postgres-tool/appDatabase/a2/src/menu.js.map
+//# sourceMappingURL=/home/maelle/workspace/git/appDatabase/a2/src/menu.js.map
 
 /***/ }),
 /* 61 */
@@ -2868,7 +2885,7 @@ TableComponent = __decorate([
 ], TableComponent);
 
 var _a, _b, _c, _d;
-//# sourceMappingURL=/home/user9/Documents/postgres-tool/appDatabase/a2/src/tables.js.map
+//# sourceMappingURL=/home/maelle/workspace/git/appDatabase/a2/src/tables.js.map
 
 /***/ }),
 /* 62 */
@@ -2906,7 +2923,7 @@ BypassCSSPipe = __decorate([
 ], BypassCSSPipe);
 
 var _a;
-//# sourceMappingURL=/home/user9/Documents/postgres-tool/appDatabase/a2/src/bypass.css.pipe.js.map
+//# sourceMappingURL=/home/maelle/workspace/git/appDatabase/a2/src/bypass.css.pipe.js.map
 
 /***/ }),
 /* 63 */
@@ -2936,7 +2953,7 @@ DBInfosPipe = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["W" /* Pipe */])({ name: 'dbinfos' })
 ], DBInfosPipe);
 
-//# sourceMappingURL=/home/user9/Documents/postgres-tool/appDatabase/a2/src/db.infos.pipe.js.map
+//# sourceMappingURL=/home/maelle/workspace/git/appDatabase/a2/src/db.infos.pipe.js.map
 
 /***/ }),
 /* 64 */
@@ -2975,7 +2992,7 @@ ExtraTypePipe = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["W" /* Pipe */])({ name: 'extratype' })
 ], ExtraTypePipe);
 
-//# sourceMappingURL=/home/user9/Documents/postgres-tool/appDatabase/a2/src/extra.type.pipe.js.map
+//# sourceMappingURL=/home/maelle/workspace/git/appDatabase/a2/src/extra.type.pipe.js.map
 
 /***/ }),
 /* 65 */
@@ -3013,7 +3030,7 @@ FileDownloadPipe = __decorate([
 ], FileDownloadPipe);
 
 var _a;
-//# sourceMappingURL=/home/user9/Documents/postgres-tool/appDatabase/a2/src/file.download.js.map
+//# sourceMappingURL=/home/maelle/workspace/git/appDatabase/a2/src/file.download.js.map
 
 /***/ }),
 /* 66 */
@@ -3049,7 +3066,7 @@ HasPrimaryKeyPipe = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["W" /* Pipe */])({ name: 'has_PK' })
 ], HasPrimaryKeyPipe);
 
-//# sourceMappingURL=/home/user9/Documents/postgres-tool/appDatabase/a2/src/has.pk.pipe.js.map
+//# sourceMappingURL=/home/maelle/workspace/git/appDatabase/a2/src/has.pk.pipe.js.map
 
 /***/ }),
 /* 67 */
@@ -3083,7 +3100,7 @@ PureFieldyPipe = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["W" /* Pipe */])({ name: 'pure_fields' })
 ], PureFieldyPipe);
 
-//# sourceMappingURL=/home/user9/Documents/postgres-tool/appDatabase/a2/src/pure.field.pipe.js.map
+//# sourceMappingURL=/home/maelle/workspace/git/appDatabase/a2/src/pure.field.pipe.js.map
 
 /***/ }),
 /* 68 */
@@ -3163,7 +3180,7 @@ Relation2PointsPipe = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["W" /* Pipe */])({ name: 'relation2points', pure: false }) //ca craint un peu ca...
 ], Relation2PointsPipe);
 
-//# sourceMappingURL=/home/user9/Documents/postgres-tool/appDatabase/a2/src/relation.to.points.pipe.js.map
+//# sourceMappingURL=/home/maelle/workspace/git/appDatabase/a2/src/relation.to.points.pipe.js.map
 
 /***/ }),
 /* 69 */
@@ -3211,7 +3228,7 @@ WidthHeightPipe = __decorate([
 ], WidthHeightPipe);
 
 var _a;
-//# sourceMappingURL=/home/user9/Documents/postgres-tool/appDatabase/a2/src/width.height.pipe.js.map
+//# sourceMappingURL=/home/maelle/workspace/git/appDatabase/a2/src/width.height.pipe.js.map
 
 /***/ }),
 /* 70 */
@@ -3232,7 +3249,7 @@ var Relation = (function () {
     return Relation;
 }());
 
-//# sourceMappingURL=/home/user9/Documents/postgres-tool/appDatabase/a2/src/relation.js.map
+//# sourceMappingURL=/home/maelle/workspace/git/appDatabase/a2/src/relation.js.map
 
 /***/ }),
 /* 71 */
@@ -3248,7 +3265,7 @@ var Relation = (function () {
 var environment = {
     production: false
 };
-//# sourceMappingURL=/home/user9/Documents/postgres-tool/appDatabase/a2/src/environment.js.map
+//# sourceMappingURL=/home/maelle/workspace/git/appDatabase/a2/src/environment.js.map
 
 /***/ }),
 /* 72 */,
@@ -3414,7 +3431,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "", ""]);
+exports.push([module.i, "pre {\n  border: 1px solid #aaa;\n  padding: 10px; }\n", ""]);
 
 // exports
 
@@ -3540,7 +3557,7 @@ module.exports = "<div class=\"modal\" (contextmenu)=\"skip($event)\">\n    <div
 /* 92 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"about\">\n    <content>\n        <div class=\"present\">\n            <header>\n                <img src=\"https://avatars1.githubusercontent.com/u/26115418?v=3&s=460\">\n                <div class=\"infos\">\n                    <h2>Lahitte Mathieu</h2>\n                    <p>javascript, SQL</p>\n\n                </div>\n            </header>\n            <p>un petit texte de presentation un petit texte de presentation un petit texte de presentation</p>\n            <a href=\"mailto:???\">contact me.</a>\n        </div>\n        <div class=\"present\">\n            <header>\n                <img src=\"https://avatars2.githubusercontent.com/u/17245172?v=3&s=460\">\n                <div class=\"infos\">\n                    <h2>Stéphane Ponteins</h2>\n                    <p>Typescript, Angular2</p>\n                </div>\n            </header>\n            <p>un petit texte de presentation un petit texte de presentation</p>\n            <a href=\"mailto:???\">contact me.</a>\n        </div>\n    </content>\n    <div class=\"commands\" >\n        <button type=\"button\" (click)=\"cancel()\" class=\"invert\">OK, thanks guys!</button>      \n    </div>\n</div>"
+module.exports = "<div class=\"about\">\n    <content>\n        <div class=\"present\">\n            <header>\n                <img src=\"https://avatars1.githubusercontent.com/u/26115418?v=3&s=460\">\n                <div class=\"infos\">\n                    <h2>Lahitte Mathieu</h2>\n                    <p>javascript, SQL</p>\n\n                </div>\n            </header>\n            <p>\"Patience, patience dans l'azur. Chaque atome de silence est la chance d'un fruit mûr.\" H.Reeves</p>\n            <a href=\"mailto:greta.lahitte@outlook.fr\">contact me.</a>\n        </div>\n        <div class=\"present\">\n            <header>\n                <img src=\"https://avatars2.githubusercontent.com/u/17245172?v=3&s=460\">\n                <div class=\"infos\">\n                    <h2>Stéphane Ponteins</h2>\n                    <p>Typescript, Angular2</p>\n                </div>\n            </header>\n            <p>un petit texte de presentation un petit texte de presentation</p>\n            <a href=\"mailto:???\">contact me.</a>\n        </div>\n    </content>\n    <div class=\"commands\" >\n        <button type=\"button\" (click)=\"cancel()\" class=\"invert\">OK, thanks guys!</button>      \n    </div>\n</div>\n"
 
 /***/ }),
 /* 93 */
@@ -3582,7 +3599,7 @@ module.exports = "<form #fieldForm=\"ngForm\" (ngSubmit)=\"process_dialog_form()
 /* 99 */
 /***/ (function(module, exports) {
 
-module.exports = "<content>\n    <h4>SQL</h4>\n    <textarea *ngIf=\"sql_datas\" [(ngModel)]=\"sql_datas\" rows=\"30\"></textarea>\n    <p *ngIf=\"!error && !sql_datas\">Loading sql, please wait...</p>\n    <p class=\"error\" *ngIf=\"error\">{{error}}</p>\n    <div class=\"commands\" >\n            <a [hidden]=\"!sql_datas\" [download]=\"name+'.sql'\" [href]=\"sql_datas | file_download\"  class=\"invert\">Download file?</a> \n            <button type=\"button\" (click)=\"cancel()\" class=\"invert\">Close</button>      \n        </div>\n        \n</content>"
+module.exports = "<content>\n \n    <pre> <code id='colored'></code></pre>\n    <p *ngIf=\"!error && !sql_datas\">Loading sql, please wait...</p>\n    <p class=\"error\" *ngIf=\"error\">{{error}}</p>\n    <div class=\"commands\" >\n            <a [hidden]=\"!sql_datas\" [download]=\"name+'.sql'\" [href]=\"sql_datas | file_download\"  class=\"invert\">Download file?</a> \n            <button type=\"button\" (click)=\"cancel()\" class=\"invert\">Close</button>      \n        </div>\n        \n</content>\n"
 
 /***/ }),
 /* 100 */
