@@ -1,7 +1,7 @@
  <form #dlgForm="ngForm" (ngSubmit)="process_dialog_form()">
         <content>
             <label>Table name:</label>
-            <input type="text" name="table_name" [(ngModel)]="table.name" required>
+            <input autofocus type="text" name="table_name" [(ngModel)]="table.name" required>
             <label>Comment:</label>
             <textarea type="text" name="table_comment" [(ngModel)]="table.comment" ></textarea>
 
