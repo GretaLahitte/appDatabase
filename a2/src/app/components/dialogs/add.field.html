@@ -1,7 +1,7 @@
 <form #fieldForm="ngForm" (ngSubmit)="process_dialog_form()">
     <content>
         <label>Field name *</label>
-        <input autofocus type="text" #Fname="ngModel" name="field_name" [(ngModel)]="tmp.name" required pattern="^[a-zA-Z_]+[a-zA-Z0-9_]+$">
+        <input  type="text" #Fname="ngModel" name="field_name" [(ngModel)]="tmp.name" required pattern="^[a-zA-Z_]+[a-zA-Z0-9_]+$" autofocus>
         <div [hidden]="Fname.valid || Fname.pristine"
              class="error">
           Name is required, and must match: ^[a-zA-Z_]+[a-zA-Z0-9_]+$
