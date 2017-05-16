@@ -10,7 +10,7 @@ import {Observable} from "rxjs/Observable";
 import {generateUUID} from "./datas/utils";
 
 export const FIELD_TYPES = [
-        "bigint","bigserial","bit","bit varying","boolean","box","bytea",
+        "bigint","bigserial","bit","bit varying","blob","boolean","box","bytea",
         "character varying","character","cidr","circle","date","double precision",
         "inet","integer","interval","line","lseg","macaddr","money","numeric",
         "path","point","polygon","real","smallint","serial","text","time","time with timezone",
