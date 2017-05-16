@@ -1,8 +1,3 @@
-# appDatabase
-This app can help you easily generating tables for database.
-You even can create relationship between tables.
-Finally you can export the SQL command to a SQL file.
-
 # Psqla2
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.0.1.
@@ -17,7 +12,7 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 ## Build
 
-Run `npm build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
 
 ## Further help
 
