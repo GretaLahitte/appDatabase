@@ -75,12 +75,13 @@ qqs explications:
  */
 
 import {generateUUID} from "../utils";
-import Field from "./field";
-import Index from "./index";
-
+import {Field} from "./field";
+import {Index} from "./index";
+import {Relation} from './relation';
+import {Enumeration} from "./enumeration";
 
 export default class Table{
-    uuid:string; //identifiant unique de la table
+    id:string; //identifiant unique de la table
     name:string;//le nom de la table (doit aussi etre unique dans la base)
     comment:string; //un commentaire sur la table 
 
@@ -101,17 +102,103 @@ export default class Table{
     //relations: Array<Relation>;
 
     //les contraintes....
-    //constraints:Array<Enumeration> = [];
+    constraints:Array<Enumeration> = [];
     //les clés indexs
     indexes:Array<Index> = []
     
     private __elem:any;//le composant graphique, n'interresse que moi... 
-    private coords:{x:number, y:number};//coordonnées x,y sur la page: voir si toujours utile?
-    private selected: boolean;//probleme, ca devrait plutot aller dans le composant
+    private _coords:{x:number, y:number};//coordonnées x,y sur la page: voir si toujours utile?
+    private _selected: boolean;//probleme, ca devrait plutot aller dans le composant
 
 
-    constructor(){
-        this.uuid = generateUUID();//genere un code unique pour la table...
+    constructor(args?:any){
+         args = args || {};
+        this.id = args.id || generateUUID();
+        this.name = args.name;
+        this.comment = args.comment;
+        this.coords = args.coords || {x:0,y:0};
+        this.selected = args.selected || false;
+        this.fields = args.fields || [];
     }
 
+    get coords(){return this._coords;}
+    set coords(v){this._coords = v;}
+    get selected(){return this._selected;}
+    set selected(v:boolean){this._selected = v;}
+    get elem(){return this.__elem;}
+    set elem(v:boolean){this.__elem = v;}
+
+
+    //uniquement le temps de finir les rewrite
+    //permet de ne pas completement bugger
+    addIndex(index:Index){
+        if(!index.id) index.id=generateUUID();
+        
+        if(index.fields.length == 1){
+            let fi:Field = index.fields[0];
+            fi.index = true;
+            fi.unique = index.unique;
+
+            
+            //this.fields.push(fi);
+        } else {
+            //verifications....
+            let n = index.name;
+            for(let t of this.fields){
+                if(t.name == n) throw "Invalid name: index must be unique in table!";
+            }
+            index.index = true;
+            this.fields.push(index);
+        }
+        
+        //this.indexes.push(index);
+    }
+    addConstraint(c:Enumeration){
+        let n = c.key;
+        for(let t of this.constraints){
+            if(t.key == n) throw "Invalid name: constraint must be unique in table!";
+        }
+        this.constraints.push(c);
+    }
+    removeConstraint(c:Enumeration){
+        let i = this.constraints.indexOf(c);
+        if(i>=0) this.constraints.splice(i,1);
+    }
+    addCompositePK(index:any){
+
+        if(index.fields.length == 1){
+            //un seul field, pas de création d'index
+            index = index.fields[0];
+            index.primary_key = true;
+        }
+        else {
+            //plusieurs clés, cree un nouvel element
+            if(!index.name){
+                //genere la clé?
+                index.name = index.fields.map(el=>{
+                    return el.name;
+                }).join('_');
+            }
+            index.primary_key = true;
+            index.type="Composite";
+
+            
+            this.fields.push(index);
+        }
+        
+    }
+    copy(t:Table){
+        this.id = t.id;
+        this.name = t.name;
+        this.comment = t.comment;
+        this.constraints = t.constraints;
+    }
+    
+    
+    hasPK():boolean{
+        for(let field of this.fields){            
+            if(field.primary_key === true) return true;
+        }
+        return false;
+    }
 }

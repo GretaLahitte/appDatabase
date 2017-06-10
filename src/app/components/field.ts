@@ -1,9 +1,9 @@
 import {Component, Input,ViewChild, ElementRef} from "@angular/core";
-import {Field} from "../providers/datas/field";
-import {Index} from "../providers/datas/index";
-import {Table} from "../providers/datas/table";
-import {DialogProvider} from "../providers/dialog.provider";
-import {DBProvider} from "../providers/db.provider";
+import {Field} from "../sql/beans/field";
+import {Index} from "../sql/beans/index";
+import Table from "../sql/beans/table";
+import {DialogProvider} from "../dialogs/dialog.provider";
+import {SQLProvider} from "../sql/sql.provider";
 
 @Component({
     selector:"field-cmp",
@@ -17,7 +17,7 @@ export class FieldComponent{
     show_fabs:boolean = false;
 
     @ViewChild("fieldElem") fieldElem;
-    constructor(private _el:ElementRef, private _dlg:DialogProvider, private _db:DBProvider){}
+    constructor(private _el:ElementRef, private _dlg:DialogProvider, private _db:SQLProvider){}
     ngOnChanges(dt){
         if(dt.field){
             this.field.__elem = this.fieldElem;

@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import {Relation} from "../providers/datas/relation";
-import {Table} from "../providers/datas/table";
+import {Relation} from "../sql/beans/relation";
+import Table from "../sql/beans/table";
 
 @Pipe({name: 'relation2points', pure:false})//ca craint un peu ca...
 export class Relation2PointsPipe implements PipeTransform {

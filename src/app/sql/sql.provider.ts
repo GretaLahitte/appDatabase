@@ -1,9 +1,9 @@
 import {Injectable} from "@angular/core";
 import Base from "./beans/base";
 import Table from "./beans/table";
-import Field from "./beans/field";
+import {Field} from "./beans/field";
 import {Relation} from "./beans/relation";
-import Index from "./beans/index";
+import {Index} from "./beans/index";
 import {Enumeration} from "./beans/enumeration";
 import {Subject} from "rxjs/Subject";
 import {Observable} from "rxjs/Observable";
@@ -187,7 +187,7 @@ export class SQLProvider{
         p.name = field.name;
         //p.is_unique = true;
         p.method = "btree";
-        table.pk = p;//enregistrer
+        //table.pk = p;//enregistrer
         //comme le field est la clé, on en profite 
         field.primary_key = true;
         //field.unique = true;

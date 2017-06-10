@@ -59,7 +59,7 @@ export class DialogProvider{
     }
 
 
-/*
+
     pushAddTableDialog(coords={x:0,y:0}){
         let desc = {
             title:"Add Table",
@@ -186,5 +186,5 @@ export class DialogProvider{
         this.next(desc);
     }
 
-*/
+
 }

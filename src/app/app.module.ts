@@ -4,15 +4,14 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 
-import {DialogModule} from "../dialogs/dialogs.module";
-import {SQLModule} from "../sql/sql.module";
+import {DialogModule} from "./dialogs/dialogs.module";
+import {SQLModule} from "./sql/sql.module";
 
 import { AppComponent } from './app.component';
 import {TableComponent} from "./components/tables";
 import {FieldComponent} from "./components/field";
 // import {RelationComponent} from "./components/relation";
 import {MenuComponent} from "./components/menu";
-import {DialogComponent} from "./components/dialog";
 
 
 import {DBInfosPipe} from "./pipes/db.infos.pipe";
@@ -47,9 +46,7 @@ import {WorkerProvider} from "./providers/worker.provider";
     AppComponent,
     TableComponent,
     FieldComponent,
-    MenuComponent,
-    DialogComponent
-    // RelationComponent
+    MenuComponent
   ],
   imports: [
     BrowserModule,

@@ -1,8 +1,8 @@
 import {Injectable} from "@angular/core";
 import {Subject} from "rxjs/Subject";
 import {Observable} from "rxjs/Observable";
-import {DialogProvider} from "../providers/dialog.provider";
-import {DBProvider} from "../providers/db.provider";
+import {DialogProvider} from "../dialogs/dialog.provider";
+import {SQLProvider} from "../sql/sql.provider";
 /**
  * Chargée de créer les descripteurs de menus pour l'application
  */
@@ -10,7 +10,7 @@ import {DBProvider} from "../providers/db.provider";
 export class MenuProvider{
 
     menu:Subject<any> = new Subject<any>();
-    constructor(private _dlg:DialogProvider,  private _db:DBProvider){}
+    constructor(private _dlg:DialogProvider,  private _db:SQLProvider){}
 
     getMenuObservable():Observable<any>{
         return this.menu.asObservable();

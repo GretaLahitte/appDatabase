@@ -1,7 +1,7 @@
 import {Component, Input, Output, EventEmitter, ViewChild} from "@angular/core";
-import {Table} from "../../sql/beans/table";
+import Table from "../sql/beans/table";
 import {MenuProvider} from "../providers/menu.provider";
-
+import {SQLProvider} from "../sql/sql.provider";
 
 @Component({
     selector:"table-cmp",
@@ -15,10 +15,10 @@ export class TableComponent{
     @ViewChild("tableElem") tableElem;
 
 
-    constructor(private _menu:MenuProvider, private _db:DBProvider){}
+    constructor(private _menu:MenuProvider, private _db:SQLProvider){}
     ngOnChanges(dt){
         if(dt.table){
-            this.table.__elem = this.tableElem;
+            this.table.elem = this.tableElem;
         }
     }
     startDrag(evt){

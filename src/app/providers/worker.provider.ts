@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
-import {Base} from "./datas/base";
-import {Index} from "./datas/index";
+import Base from "../sql/beans/base";
+import {Index} from "../sql/beans/index";
 
 
 ///connection au websocke pour creation du SQL

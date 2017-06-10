@@ -1,14 +1,18 @@
 /**
- * Les informations sur une base de données
+ * Informations sur la base actuellement affichée 
+ * 
  */
-import {Table} from "./table";
-import {Relation} from "./relation";
+
+import {generateUUID} from "../utils";
+import {Field} from "./field";
+import {Index} from "./index";
 import {Enumeration} from "./enumeration";
+import Table from "./table";
+import {Relation} from "./relation";
 
+export default class Base{
 
-export class Base{
-
-    
+    uuid:string; // identifiant unique de la base
     file_url: string;//@Deprecated: se servira d'un serveur web
     db_name: string;
     db_type: string;
@@ -16,13 +20,17 @@ export class Base{
     host: string;
     login: string;
     passwrd: string;
+    type:string;//le type de base de données: POSTGRES, MYSQL, MONGO...
 
+    //une base est constituée de table, d'extention (si postgres), d'enum (custom type) et de relations
+    tables:Array<Table> = [];
+    relations:Array<Relation> = [];
+    custom_types:Array<Enumeration> = [];
+    extentions:Array<string> = [];
     enumerations:Array<Enumeration> = [];
-    tables:Array<Table>;
-    relations: Array<Relation>;
 
-    
     constructor(args?:any){
+        
         args = args || {};
         this.file_url = args.file_url || 'a/path',//chemin vers le fichier sql/dump ou enregistrer
         this.db_name = args.db_name || "nom_de_la_base",
@@ -35,6 +43,7 @@ export class Base{
         //a voir...
         this.tables = args.tables || [];
         this.relations = args.relations || [];
-    }
     
+    }
+
 }

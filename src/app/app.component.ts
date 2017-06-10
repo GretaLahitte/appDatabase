@@ -4,12 +4,13 @@ import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
 import {MenuProvider} from "./providers/menu.provider";
 
 
-import {SQLProvider} from "../sql/sql.provider";
-import {DialogProvider} from "../dialogs/dialog.provider";
+import {SQLProvider} from "./sql/sql.provider";
+import {DialogProvider} from "./dialogs/dialog.provider";
 
 
-import {Base} from "./providers/datas/base";
-import {Table} from "./providers/datas/table";
+import Base from "./sql/beans/base";
+import Table from "./sql/beans/table";
+
 import {Observable} from "rxjs/Observable";
 
 
@@ -64,7 +65,7 @@ export class AppComponent {
     let jstr = window.localStorage.getItem("gretasql");
     if(jstr){
         this._db.convertFromJSON(jstr);
-    } else  this._db.loadDummyBase();
+    }
 
 
     
