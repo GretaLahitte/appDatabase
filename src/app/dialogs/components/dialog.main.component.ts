@@ -1,5 +1,4 @@
 import {Component, Input, AfterViewInit, ViewChild, ComponentFactoryResolver} from "@angular/core";
-import {Base,Field} from "../../sql/sql.entities";
 import {mappings} from "./dialog";
 import {DynDialogDirective} from "../dyn.dialogs.directive";
 

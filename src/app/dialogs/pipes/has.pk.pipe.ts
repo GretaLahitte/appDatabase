@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import Table from "../sql/beans/table";
+import Table from "../../sql/beans/table";
 
 
 @Pipe({name: 'has_PK'})

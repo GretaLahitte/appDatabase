@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import {Field} from "../sql/beans/field";
+import {Field} from "../../sql/beans/field";
 
 
 @Pipe({name: 'pure_fields'})

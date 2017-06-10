@@ -2,7 +2,7 @@ import {Injectable} from "@angular/core";
 import {Subject} from "rxjs/Subject";
 import {Observable} from "rxjs/Observable";
 
-
+import Base from "../sql/beans/base";
 import Table from "../sql/beans/table";
 import {Field} from "../sql/beans/field";
 import {Index} from "../sql/beans/index";
@@ -189,6 +189,25 @@ export class DialogProvider{
             //action a realiser...
             target: target,
             next: next
+        };
+        this.next(desc);
+    }
+
+     pushEditBaseDialog(target?:Base){
+        let desc = {
+            title:"Base Properties",
+            texte:"Edit and change base properties, but take care...",
+            type:"CREATE_BASE",
+            target: target || {}
+        };
+        this.next(desc);
+    }
+    pushCustomTypeDialog(target?:Enumeration){
+        let desc = {
+            title:"Custom Types",
+            texte:"Edit custom types enumeration for the base",
+            type:"CREATE_CTYPE",
+            target: target
         };
         this.next(desc);
     }
