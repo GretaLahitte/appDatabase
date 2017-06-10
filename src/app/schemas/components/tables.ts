@@ -12,6 +12,7 @@ export class TableComponent{
 
     @Input() table:Table;
     @Output("onSelectedTable") selectedTable:EventEmitter<any> = new EventEmitter<any>();
+    @Output("onNewRelation") newRelation:EventEmitter<any> = new EventEmitter<any>();
     @ViewChild("tableElem") tableElem;
 
 
@@ -59,11 +60,9 @@ export class TableComponent{
     skip_evt(event){event.preventDefault();}
     doDrop(event){
         let dt = event.dataTransfer.getData("js/field");
-              console.log("Trying to drop?")
         event.stopPropagation();
         this.skip_evt(event);
         //lance le move
-        console.log("data-transfert",dt)
         if(dt){
             
             let ids = dt.split(" ");
@@ -91,15 +90,12 @@ export class TableComponent{
             if(!field) return;
 
 
-            console.log("transferring:");
-            console.log(field);
-
             
             //sinon, crée une nouvelle relation entre les tables
             //probleme, ai besoin de connaitre la table de depart...
-            console.log("make relation")
-            this._db.makeRelation({table:table, field:field},this.table);
             
+            this._db.makeRelation({table:table, field:field},this.table);
+            this.newRelation.emit({table: this.table});
         }
     }
 }

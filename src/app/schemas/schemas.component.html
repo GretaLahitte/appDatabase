@@ -18,7 +18,8 @@
         </div-->
 
 
-        <table-cmp *ngFor="let table of database?.tables" [table]="table" (onSelectedTable)="setSelectedTable($event)"></table-cmp>
+        <table-cmp *ngFor="let table of database?.tables" [table]="table" (onSelectedTable)="setSelectedTable($event)"
+        (onNewRelation)="setNewRelation($event)"></table-cmp>
 
         <menu-cmp *ngIf="descriptor" [descriptor]="descriptor"></menu-cmp>
         

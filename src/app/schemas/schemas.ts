@@ -101,7 +101,7 @@ export class SchemasComponent {
             
           //verifie si doit mettre a jour la taille de la zone de travaille
           this.doUpdateWorkSize(__cible);
-           setTimeout(()=>this.doUpdateRelationsCoordsForTable(__cible), 100);
+          this.doUpdateRelationsCoordsForTable(__cible);
          }
         
     }
@@ -168,8 +168,8 @@ export class SchemasComponent {
               //recup les infos de position
               let fromElem = r.from.field;
               let toElem = r.to.field;
-              if(!fromElem.__elem){   
-                console.log("pas encore de rendu...")          
+              if(!fromElem.__elem || !toElem.__elem){   
+                console.log("pas encore de rendu...");          
                   return; //pas encore rendu        
               }
               let e1 = fromElem.__elem.nativeElement.getBoundingClientRect();
@@ -250,6 +250,10 @@ export class SchemasComponent {
             */
         }
         
+    }
+    setNewRelation(evt){
+      console.log("update relations")
+      setTimeout(()=>this.doUpdateRelationsCoordsForTable(evt.table), 100);
     }
 
 
