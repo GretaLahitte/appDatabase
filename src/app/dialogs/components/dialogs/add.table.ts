@@ -1,8 +1,8 @@
 import {Component, Input} from "@angular/core";
-import {Table} from "../../providers/datas/table";
-import {Field} from "../../providers/datas/field";
-import {DialogProvider} from '../../providers/dialog.provider';
-import {DBProvider} from "../../providers/db.provider";
+import Table from "../../../sql/beans/table";
+import {Field} from "../../../sql/beans/field";
+import {DialogProvider} from '../../dialog.provider';
+import {SQLProvider} from "../../../sql/sql.provider";
 
 @Component({
     selector:"dlg-addtable",
@@ -17,7 +17,7 @@ export class AddTableDialog {
 
     error:string = "";
 
-    constructor(private _db:DBProvider, private _dlg:DialogProvider){}
+    constructor(private _db:SQLProvider, private _dlg:DialogProvider){}
     ngOnInit(){
         this.table = this._db.createEmptyTable();
     }

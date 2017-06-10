@@ -1,8 +1,8 @@
 import {Component, Input} from "@angular/core";
-import {Enumeration} from "../../providers/datas/enumeration";
+import {Enumeration} from "../../../sql/beans/enumeration";
 
-import {DBProvider} from "../../providers/db.provider";
-import {DialogProvider} from "../../providers/dialog.provider";
+import {SQLProvider} from "../../../sql/sql.provider";
+import {DialogProvider} from "../../dialog.provider";
 
 @Component({
     selector:"dlg-customtype",
@@ -16,7 +16,7 @@ export class CustomTypeDialog{
 
 
     error:string;
-    constructor(private _db:DBProvider, private _dlg:DialogProvider){}
+    constructor(private _db:SQLProvider, private _dlg:DialogProvider){}
 
     ngOnChanges(dt){
         

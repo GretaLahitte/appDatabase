@@ -1,10 +1,10 @@
 import {Component} from "@angular/core";
-import {DialogProvider} from '../../providers/dialog.provider';
-import {DBProvider} from "../../providers/db.provider";
-import {WorkerProvider} from "../../providers/worker.provider";
+import {DialogProvider} from '../../dialog.provider';
+import {SQLProvider} from "../../../sql/sql.provider";
+import {WorkerProvider} from "../../../providers/worker.provider";
 
 
-import {Base} from "../../providers/datas/base";
+import Base from "../../../sql/beans/base";
 
 
 @Component({
@@ -19,7 +19,7 @@ export class ExportDialog{
     error:string;
     name : string;//le nom de la base
 
-    constructor(private _db:DBProvider, private _dlg:DialogProvider, private _worker:WorkerProvider){}
+    constructor(private _db:SQLProvider, private _dlg:DialogProvider, private _worker:WorkerProvider){}
     ngOnInit(){
         //lance le loading...
         let db = this._db._db;

@@ -1,8 +1,8 @@
 import {Component, Input} from "@angular/core";
-import {Base} from "../../providers/datas/base";
-import {DialogProvider} from '../../providers/dialog.provider';
-import {DBProvider} from "../../providers/db.provider";
-import {Enumeration} from "../../providers/datas/enumeration";
+import Base from "../../../sql/beans/base";
+import {DialogProvider} from '../../dialog.provider';
+import {SQLProvider} from "../../../sql/sql.provider";
+import {Enumeration} from "../../../sql/beans/enumeration";
 
 @Component({
     selector:"dlg-newbase",
@@ -15,7 +15,7 @@ export class NewBaseDialog {
     base:Base;
     error:string;
     
-    constructor(private _db:DBProvider, private _dlg:DialogProvider){}
+    constructor(private _db:SQLProvider, private _dlg:DialogProvider){}
     ngOnInit(){
         //this.base = new Base({});
     }

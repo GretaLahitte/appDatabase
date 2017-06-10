@@ -11,8 +11,7 @@ import {DynDialogDirective} from "./dyn.dialogs.directive";
 import {DialogProvider} from "./dialog.provider";
 import {DialogMainComponent} from "./components/dialog.main.component";
 
-import {DialogBase} from "./components/dialog.base";
-import {DialogField} from "./components/dialgo.field";
+import DIALOGS from "./components/dialogs/dialogs";
 
 
 export class DialogConfigService{
@@ -20,10 +19,10 @@ export class DialogConfigService{
 }
 @NgModule({
   imports:      [ CommonModule, FormsModule ],
-  declarations: [DialogMainComponent, DynDialogDirective, DialogBase, DialogField],
+  declarations: [DialogMainComponent, DynDialogDirective, ...DIALOGS],
   exports:      [ DialogMainComponent ],
   providers:    [ DialogProvider ],
-  entryComponents: [ DialogBase, DialogField ],
+  entryComponents: [ ...DIALOGS ],
 
 })
 export class DialogModule { 

@@ -478,7 +478,7 @@ export class SQLProvider{
                 let refs = cmp.ref;
 
                 for (let r of refs){
-                    f.fields.push(DBProvider.getFieldByName(r, t));
+                    f.fields.push(SQLProvider.getFieldByName(r, t));
                 }
 
             }
@@ -486,10 +486,10 @@ export class SQLProvider{
             for(let rel of desc.relations){
                 let r = new Relation();
                 //recupe les infos depuis from et to 
-                let ft = DBProvider.getTableByName(rel.from.table,base);
-                let ff = DBProvider.getFieldByName(rel.from.field, ft);
-                let tt = DBProvider.getTableByName(rel.to.table,base);
-                let tf = DBProvider.getFieldByName(rel.to.field, tt);
+                let ft = SQLProvider.getTableByName(rel.from.table,base);
+                let ff = SQLProvider.getFieldByName(rel.from.field, ft);
+                let tt = SQLProvider.getTableByName(rel.to.table,base);
+                let tf = SQLProvider.getFieldByName(rel.to.field, tt);
 
                 if(tf.fields){
                     //recup les references de from 

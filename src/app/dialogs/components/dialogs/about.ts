@@ -1,5 +1,7 @@
 import {Component} from "@angular/core";
-import {DialogProvider} from '../../providers/dialog.provider';
+import {DialogProvider} from '../../dialog.provider';
+
+
 @Component({
     selector:"dlg-about",
     templateUrl:'./about.html',

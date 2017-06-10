@@ -1,9 +1,9 @@
 import {Component, Input} from "@angular/core";
-import {Table} from "../../providers/datas/table";
-import {Field} from "../../providers/datas/field";
-import {DialogProvider} from '../../providers/dialog.provider';
-import {DBProvider} from "../../providers/db.provider";
-import {Index} from "../../providers/datas/index";
+import Table from "../../../sql/beans/table";
+import {Field} from "../../../sql/beans/field";
+import {DialogProvider} from '../../dialog.provider';
+import {SQLProvider} from "../../../sql/sql.provider";
+import {Index} from "../../../sql/beans/index";
 
 
 @Component({
@@ -17,7 +17,7 @@ export class IndexDialog {
     @Input () field:Index;//si edition
     index:Index = new Index({id:null});
 
-    constructor(private _db:DBProvider, private _dlg:DialogProvider){}
+    constructor(private _db:SQLProvider, private _dlg:DialogProvider){}
 
     ngOnChanges(dt){
         

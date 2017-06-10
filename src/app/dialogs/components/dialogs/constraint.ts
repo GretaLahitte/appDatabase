@@ -1,9 +1,9 @@
 import {Component, Input} from "@angular/core";
-import {DBProvider, FIELD_TYPES} from "../../providers/db.provider";
-import {DialogProvider} from "../../providers/dialog.provider";
+import {SQLProvider, FIELD_TYPES} from "../../../sql/sql.provider";
+import {DialogProvider} from "../../dialog.provider";
 
-import {Table} from "../../providers/datas/table";
-import {Enumeration} from "../../providers/datas/enumeration";
+import Table from "../../../sql/beans/table";
+import {Enumeration} from "../../../sql/beans/enumeration";
 @Component({
     selector:"dlg-constraint",
     templateUrl:"./constraint.html",
@@ -17,7 +17,7 @@ export class ConstraintDialog{
     constraint:Enumeration = new Enumeration();
     error:string = null;
 
-    constructor(private _db:DBProvider, private _dlg:DialogProvider){}
+    constructor(private _db:SQLProvider, private _dlg:DialogProvider){}
 
     ngOnChanges(dt){
         console.log(dt.cnt)

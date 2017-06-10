@@ -1,6 +1,6 @@
 import {Component, Input} from "@angular/core";
-import {DialogProvider} from '../../providers/dialog.provider';
-import {DBProvider} from "../../providers/db.provider";
+import {DialogProvider} from '../../dialog.provider';
+import {SQLProvider} from "../../../sql/sql.provider";
 
 @Component({
     selector:"dlg-confirm",
@@ -14,7 +14,7 @@ export class ConfirmDialog {
     @Input() target: any ;
 
     error:string = "";
-    constructor(private _dlg:DialogProvider, private _db:DBProvider){}
+    constructor(private _dlg:DialogProvider, private _db:SQLProvider){}
 
 
     perform_action(form){

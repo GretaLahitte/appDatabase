@@ -1,12 +1,12 @@
 import {Component, Input} from "@angular/core";
-import {Table} from "../../providers/datas/table";
-import {Field} from "../../providers/datas/field";
-import {Index} from "../../providers/datas/index";
-import {Enumeration} from "../../providers/datas/enumeration";
+import Table from "../../../sql/beans/table";
+import {Field} from "../../../sql/beans/field";
+import {Index} from "../../../sql/beans/index";
+import {Enumeration} from "../../../sql/beans/enumeration";
 
 
-import {DialogProvider} from '../../providers/dialog.provider';
-import {DBProvider} from "../../providers/db.provider";
+import {DialogProvider} from '../../dialog.provider';
+import {SQLProvider} from "../../../sql/sql.provider";
 
 
 
@@ -23,7 +23,7 @@ export class ShowTableProperties{
     error:string = "";
     table_cpy:Table;//une copie pour eviter les changements intempestifs...
 
-    constructor(private _db:DBProvider, private _dlg:DialogProvider){}
+    constructor(private _db:SQLProvider, private _dlg:DialogProvider){}
     ngOnInit(dt){
         
         

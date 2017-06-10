@@ -1,11 +1,12 @@
 import {Component, Input} from "@angular/core";
-import {DBProvider, FIELD_TYPES} from "../../providers/db.provider";
-import {DialogProvider} from "../../providers/dialog.provider";
+import {SQLProvider, FIELD_TYPES} from "../../../sql/sql.provider";
+import {DialogProvider} from '../../dialog.provider';
+
 import {NgModel} from "@angular/forms";
 
-import {Table} from "../../providers/datas/table";
-import {Field} from "../../providers/datas/field";
-import {Enumeration} from "../../providers/datas/enumeration";
+import Table from "../../../sql/beans/table";
+import {Field} from "../../../sql/beans/field";
+import {Enumeration} from "../../../sql/beans/enumeration";
 
 
 
@@ -28,7 +29,7 @@ export class AddFieldDialog{
     custom_type:Enumeration = new Enumeration();
     make_custom:boolean = false;
 
-    constructor(private _db:DBProvider, private _dlg:DialogProvider){}
+    constructor(private _db:SQLProvider, private _dlg:DialogProvider){}
 
     ngOnInit(){
         //this.tmp = new Field({id:null});

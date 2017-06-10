@@ -1,9 +1,9 @@
 import {Component, Input} from "@angular/core";
-import {DBProvider} from "../../providers/db.provider";
-import {DialogProvider} from "../../providers/dialog.provider";
+import {SQLProvider} from "../../../sql/sql.provider";
+import {DialogProvider} from "../../dialog.provider";
 
-import {Table} from "../../providers/datas/table";
-import {Index} from "../../providers/datas/index";
+import Table from "../../../sql/beans/table";
+import {Index} from "../../../sql/beans/index";
 
 
 @Component({
@@ -16,7 +16,7 @@ export class PKDialog{
     @Input() field:Index;
     index:Index = new Index({});
 
-    constructor(private _db:DBProvider, private _dlg:DialogProvider){}
+    constructor(private _db:SQLProvider, private _dlg:DialogProvider){}
     ngOnChanges(dt){
         console.log(dt)
         if(dt.field && dt.field.currentValue){ 

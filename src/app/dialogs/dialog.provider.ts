@@ -2,6 +2,13 @@ import {Injectable} from "@angular/core";
 import {Subject} from "rxjs/Subject";
 import {Observable} from "rxjs/Observable";
 
+
+import Table from "../sql/beans/table";
+import {Field} from "../sql/beans/field";
+import {Index} from "../sql/beans/index";
+import {Enumeration} from "../sql/beans/enumeration";
+
+
 /**
  * Chargée de créer les descripteurs de dialogues pour l'application
  */
