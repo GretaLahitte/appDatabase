@@ -76,8 +76,13 @@ export class SchemasComponent {
   }
 
   ngAfterViewInit(){
-    this.doUpdateWorkSize();
-    this.doUpdateRelationsCoords();
+    console.log("AfterView Init")
+    //force le tick
+    setTimeout(()=>{
+      this.doUpdateWorkSize();
+      this.doUpdateRelationsCoords();
+    },0);
+    
   }
 
   setSelectedTable(el:any){

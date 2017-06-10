@@ -5,9 +5,10 @@ import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
 
 
-import {DialogModule} from "./dialogs/dialogs.module";
+//import {DialogModule} from "./dialogs/dialogs.module";
 import {SQLModule} from "./sql/sql.module";
-import {MenuModule} from "./menus/menu.module";
+import {TestModule} from "./test/test.module";
+//import {MenuModule} from "./menus/menu.module";
 
 import {SchemasModule} from "./schemas/schemas.module";
 
@@ -24,10 +25,11 @@ import {appRoutes} from "./routing";
     BrowserModule,
     FormsModule,
     HttpModule,
-    DialogModule.forRoot(),
+    //DialogModule.forRoot(),
     SQLModule.forRoot(),
-    MenuModule.forRoot(),
+   // MenuModule.forRoot(),
     SchemasModule,
+    TestModule,
     RouterModule.forRoot(appRoutes)
   ],
   bootstrap: [AppComponent]

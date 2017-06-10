@@ -4,7 +4,7 @@
     <h2>{{slogan}}</h2>
     <div>{{database | dbinfos }}</div>
     
-    
+    <a routerLink="/test">Test</a>
 </header>
 <div id="wrapper" #wrapper>
 <content (mousemove)="drag($event)" (mouseup)="stop_drag($event)" (click)="clearMenu()" (contextmenu)="showContextMenu($event)">   

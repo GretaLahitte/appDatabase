@@ -23,7 +23,7 @@ export class MenuConfigService{
 
 })
 export class MenuModule { 
-    constructor (@Optional() @SkipSelf() parentModule: MenuModule) {
+    /*constructor (@Optional() @SkipSelf() parentModule: MenuModule) {
         if (parentModule) {
             throw new Error(
             'MenuModule is already loaded. Import it in the AppModule only');
@@ -39,5 +39,5 @@ export class MenuModule {
             ]
         };
     }
-
+    */
 }

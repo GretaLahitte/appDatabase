@@ -32,7 +32,7 @@ export class DialogConfigService{
 
 })
 export class DialogModule { 
-    constructor (@Optional() @SkipSelf() parentModule: DialogModule) {
+   /* constructor (@Optional() @SkipSelf() parentModule: DialogModule) {
         if (parentModule) {
             throw new Error(
             'CoreModule is already loaded. Import it in the AppModule only');
@@ -48,5 +48,5 @@ export class DialogModule {
             ]
         };
     }
-
+    */
 }

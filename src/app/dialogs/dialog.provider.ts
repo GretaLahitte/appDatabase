@@ -18,6 +18,8 @@ export class DialogProvider{
     dlg:Subject<any> = new Subject<any>();
     _history:Array<any> = [];
 
+    constructor(){
+    }
     
     getDialogObservable():Observable<any>{
         return this.dlg.asObservable();
