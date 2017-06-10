@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
 //import {DBProvider} from './providers/db.provider';
 //import {DialogProvider} from "./providers/dialog.provider";
-import {MenuProvider} from "./providers/menu.provider";
+import {MenuProvider} from "./menus/menu.provider";
 
 
 import {SQLProvider} from "./sql/sql.provider";

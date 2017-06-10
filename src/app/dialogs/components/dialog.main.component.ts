@@ -2,14 +2,34 @@ import {Component, Input, AfterViewInit, ViewChild, ComponentFactoryResolver} fr
 import {mappings} from "./dialog";
 import {DynDialogDirective} from "../dyn.dialogs.directive";
 
+
+import {SQLProvider} from "../../sql/sql.provider";
+import {DialogProvider} from "../dialog.provider";
+
+
 @Component({
     selector:"sql-dlg",
     template:`
         <div class="modal" (contextmenu)="skip($event)">
             <div class="modal-content  shadowed">
-            <h2>{{cible.title}}</h2>
-            <p>{{cible.texte}}</p>
-            <ng-template #dlgcontent dyn-dialog></ng-template>
+            <h2>{{descriptor.title}}</h2>
+            <p>{{descriptor.texte}}</p>
+            <div [ngSwitch]="descriptor.type">
+                <dlg-addtable *ngSwitchCase="'ADD_TABLE'" [coords]="descriptor.coords"></dlg-addtable>
+                <dlg-addfield *ngSwitchCase="'ADD_FIELD'" [table]="descriptor.target" [field]="descriptor.field"></dlg-addfield>
+                <dlg-about *ngSwitchCase="'ABOUT'"></dlg-about>
+                <dlg-tableprops *ngSwitchCase="'SHOW_TABLE'" [table]="descriptor.target"></dlg-tableprops>
+                <dlg-index *ngSwitchCase="'ADD_INDEX'" [table]="descriptor.target.table" [field]="descriptor.target.index"></dlg-index>
+                <dlg-constraint *ngSwitchCase="'ADD_CONSTRAINT'" [table]="descriptor.target" [cnt]="descriptor.constraint"></dlg-constraint>
+                <dlg-pk *ngSwitchCase="'ADD_PK'" [table]="descriptor.target?.table || descriptor.target " [field]="descriptor.target?.pk"></dlg-pk>
+                <dlg-export *ngSwitchCase="'EXPORT'"></dlg-export>
+                <dlg-newbase *ngSwitchCase="'CREATE_BASE'" [editable]="descriptor.target"></dlg-newbase>
+                <dlg-confirm *ngSwitchCase="'CONFIRM'" [next]="descriptor.next" [target]="descriptor.target"></dlg-confirm>
+                <dlg-customtype *ngSwitchCase="'CREATE_CTYPE'" [enumeration]="descriptor.target"></dlg-customtype>
+                <div *ngSwitchDefault>
+            Oups!
+        </div>
+    </div>
         </div>
     </div>
             
@@ -87,23 +107,30 @@ background: #3cb0fd;
 }`]
 })
 export class DialogMainComponent{//} implements AfterViewInit {
-  @Input() cible:any;//l'objet a charger
+  @Input() descriptor:any;//l'objet a charger
 
+  constructor(private _db:SQLProvider, private _dlg:DialogProvider){}
+
+    
+    skip(evt){
+        evt.preventDefault();
+        evt.stopPropagation();
+    }
+/*
   @ViewChild(DynDialogDirective) dynDialog:DynDialogDirective;
   subscription: any;
-  interval: any;
 
   constructor(private _componentFactoryResolver: ComponentFactoryResolver) { }
 
-  /*ngAfterViewInit() {
+  ngAfterViewInit() {
     this.loadComponent();
    
-  }*/
+  }
 
   ngOnChanges(dt){
       //modifie le componsant
       if(dt.cible){
-          this.loadComponent();
+       //   this.loadComponent();
       }
   }
   
@@ -115,7 +142,8 @@ export class DialogMainComponent{//} implements AfterViewInit {
     console.log("test2");
 
 
-    let type = this.cible.constructor.name;
+    let type = this.cible.type;//un type sous forme de string
+
     let cmp = mappings[type];
     
     if(cmp === undefined) return;
@@ -129,5 +157,5 @@ export class DialogMainComponent{//} implements AfterViewInit {
     //passe la donnée
     //(<AdComponent>componentRef.instance).data = adItem.data;
   }
-
+*/
 }

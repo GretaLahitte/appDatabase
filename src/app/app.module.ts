@@ -6,12 +6,14 @@ import { HttpModule } from '@angular/http';
 
 import {DialogModule} from "./dialogs/dialogs.module";
 import {SQLModule} from "./sql/sql.module";
+import {MenuModule} from "./menus/menu.module";
+
+
 
 import { AppComponent } from './app.component';
 import {TableComponent} from "./components/tables";
 import {FieldComponent} from "./components/field";
 // import {RelationComponent} from "./components/relation";
-import {MenuComponent} from "./components/menu";
 
 
 import {DBInfosPipe} from "./pipes/db.infos.pipe";
@@ -20,11 +22,6 @@ import {Relation2PointsPipe} from "./pipes/relation.to.points.pipe";
 import {WidthHeightPipe} from "./pipes/width.height.pipe";
 
 
-import {MenuProvider} from './providers/menu.provider';
-import {WorkerProvider} from "./providers/worker.provider";
-
-
-//import DIALOGS from "./components/dialogs/dialogs";
 
 @NgModule({
   declarations: [
@@ -37,17 +34,17 @@ import {WorkerProvider} from "./providers/worker.provider";
     
     AppComponent,
     TableComponent,
-    FieldComponent,
-    MenuComponent
+    FieldComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
     DialogModule.forRoot(),
-    SQLModule.forRoot()
+    SQLModule.forRoot(),
+    MenuModule.forRoot()
   ],
-  providers: [ MenuProvider, WorkerProvider],
+  providers: [ ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

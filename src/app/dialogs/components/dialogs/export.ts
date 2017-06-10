@@ -1,7 +1,7 @@
 import {Component} from "@angular/core";
 import {DialogProvider} from '../../dialog.provider';
 import {SQLProvider} from "../../../sql/sql.provider";
-import {WorkerProvider} from "../../../providers/worker.provider";
+import {WorkerProvider} from "../../../sql/worker.provider";
 
 
 import Base from "../../../sql/beans/base";

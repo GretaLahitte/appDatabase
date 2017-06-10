@@ -15,4 +15,15 @@ export const mappings= {
     "Base" : NewBaseDialog,
     "Field": AddFieldDialog,
     //et le reste...
-};
+    "ADD_TABLE":AddTableDialog,
+    "SHOW_TABLE":ShowTableProperties,
+    "ADD_FIELD":AddFieldDialog,
+    "ABOUT":AboutDialog,
+    "ADD_INDEX":IndexDialog,
+    "ADD_CONSTRAINT":ConstraintDialog,
+    "ADD_PK":PKDialog,
+    "EXPORT":ExportDialog,
+    "CREATE_BASE":NewBaseDialog,
+    "CONFIRM":ConfirmDialog,
+    "CREATE_CTYPE":CustomTypeDialog
+}

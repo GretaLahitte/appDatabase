@@ -1,5 +1,5 @@
 import {Component, Input} from "@angular/core";
-import {MenuProvider} from "../providers/menu.provider";
+import {MenuProvider} from "./menu.provider";
 
 
 @Component({

@@ -8,7 +8,7 @@ import { CommonModule }       from '@angular/common';
 import { FormsModule }        from '@angular/forms';
 
 import {SQLProvider} from "./sql.provider";
-
+import {WorkerProvider} from "./worker.provider";
 
 export class SQLConfigService{
 
@@ -17,7 +17,7 @@ export class SQLConfigService{
   imports:      [ CommonModule, FormsModule ],
   declarations: [],
   exports:      [  ],
-  providers:    [ SQLProvider ]
+  providers:    [ SQLProvider, WorkerProvider ]
 })
 export class SQLModule { 
     constructor (@Optional() @SkipSelf() parentModule: SQLModule) {
