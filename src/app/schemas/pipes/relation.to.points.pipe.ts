@@ -2,10 +2,21 @@ import { Pipe, PipeTransform } from '@angular/core';
 import {Relation} from "../../sql/beans/relation";
 import Table from "../../sql/beans/table";
 
-@Pipe({name: 'relation2points', pure:false})//ca craint un peu ca...
+@Pipe({name: 'relation2points'})//ca craint un peu ca...
 export class Relation2PointsPipe implements PipeTransform {
-  transform(relation: Relation): any {
+  transform(relation: any): any {
+     
+      let rc = relation;
+      var scrollX = window.scrollX;
+        var scrollY = window.scrollY;
 
+
+      if(!rc) return "";
+      let cfx = (rc.x2 -rc.x)/2 +rc.x;
+        let cfy = (rc.y2 - rc.y)/2 +rc.y;
+
+        return  (rc.x+scrollX)+","+(rc.y+scrollY)+" "+(cfx+scrollX)+","+(rc.y+scrollY)+" "+(cfx+scrollX)+","+(rc.y2+scrollY)+" "+(rc.x2+scrollX)+","+(rc.y2+scrollY);
+/*
       
         if(!relation) return "";
         
@@ -71,6 +82,7 @@ export class Relation2PointsPipe implements PipeTransform {
         //     stroke="#3E3E3E" 
         //     stroke-width:"1" 
         //     stroke-dasharray="5px 5px"  points="${c}"/>`);
+*/
         
   }
 }

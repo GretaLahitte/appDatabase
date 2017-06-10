@@ -2,26 +2,15 @@ import { Pipe } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 
 
-
-@Pipe({name: 'widthHeight', pure:false})
+//probleme: supprimer le pure=false: OK
+@Pipe({name: 'widthHeight'})
 export class WidthHeightPipe {
   constructor(private sanitizer:DomSanitizer){}
 
-  transform(tables) {
+  transform(ws) {
+    console.log("transform wh")
     //calcule la taille minimale de la zone de dessin
-    let maxX = 0, maxY = 0;
-    for (let table of tables){
-        let c = table.__elem.nativeElement.getBoundingClientRect();
-        let mx = c.right + window.scrollX;
-        let my = c.bottom + window.scrollY;
-       
-        maxX = mx > maxX ? mx : maxX;
-        maxY = my > maxY ? my : maxY;
-
-        
-    }
-    maxX = maxX < window.innerWidth ? window.innerWidth : maxX;
-        maxY = maxY < window.innerHeight ? window.innerHeight : maxY;
-    return this.sanitizer.bypassSecurityTrustStyle(`width:${maxX}px; height:${maxY}px;`);
+    if(!ws) return this.sanitizer.bypassSecurityTrustStyle("width: 100%; height:100%;");
+    return this.sanitizer.bypassSecurityTrustStyle(`width:${ws.width}px; height:${ws.height}px;`);
   }
 }

@@ -43,8 +43,9 @@ export class FieldComponent{
         // this._app.onDragStarted(true);
     }
     doStopDrag(evt){
-        event.stopPropagation();
-        event.preventDefault();
+        console.log("stop dragging")
+        evt.stopPropagation();
+        evt.preventDefault();
     }
 
     updateField(){

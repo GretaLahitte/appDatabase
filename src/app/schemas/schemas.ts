@@ -46,6 +46,9 @@ export class SchemasComponent {
   menuObs:Observable<any>;
   DLGoBS:Observable<any>;
 
+
+  work_size:any = {width:0,height:0};//la taille de la zone de travaille, a mettre a jour avec les deplacements des tables
+
   constructor (private _db:SQLProvider, private _menu:MenuProvider, private _dlg:DialogProvider){}
   ngOnInit(){
 
@@ -65,10 +68,16 @@ export class SchemasComponent {
     let jstr = window.localStorage.getItem("gretasql");
     if(jstr){
         this._db.convertFromJSON(jstr);
-    }
-
+        
+    } else  this._db.loadDummyBase();
+    
 
     
+  }
+
+  ngAfterViewInit(){
+    this.doUpdateWorkSize();
+    this.doUpdateRelationsCoords();
   }
 
   setSelectedTable(el:any){
@@ -85,13 +94,132 @@ export class SchemasComponent {
           evt.stopPropagation();
         
            let __cible = this.selectedTable;
-           //nouvelles coords de la table
-            __cible.coords = {x:evt.clientX + this.shift_left,
+           let c = {x:evt.clientX + this.shift_left,
                             y:evt.clientY + this.shift_top};
+           //nouvelles coords de la table
+            __cible.coords = c;
             
-           
+          //verifie si doit mettre a jour la taille de la zone de travaille
+          this.doUpdateWorkSize(__cible);
+           setTimeout(()=>this.doUpdateRelationsCoordsForTable(__cible), 100);
          }
         
+    }
+
+
+    //YOUPI: permet de ne pas recalculer a chaque tick la taille du SVG!!!!
+    private doUpdateWorkSize(include_table?:Table){
+      if(include_table){
+        //juste une mise a jour au besoin
+        let maxX = this.work_size.width, maxY = this.work_size.height;
+        let c = include_table.elem.nativeElement.getBoundingClientRect();
+        let mx = c.right + window.scrollX;
+        let my = c.bottom + window.scrollY;
+      
+        if(mx>maxX || my>maxY){
+           maxX = mx > maxX ? mx : maxX;
+            maxY = my > maxY ? my : maxY;
+          this.work_size = {
+            width:maxX+50,
+            height:maxY+50
+          }
+        }
+
+
+
+      } else {
+        //recalcule tout
+        let tables = this._db._db.tables;
+        if(!tables || tables.length<1) return;//rien a faire, laisse 100%
+
+
+        let maxX = 0, maxY = 0;
+        for (let table of tables){
+            if(!table.elem) continue;
+
+            let c = table.elem.nativeElement.getBoundingClientRect();
+            let mx = c.right + window.scrollX;
+            let my = c.bottom + window.scrollY;
+          
+            maxX = mx > maxX ? mx : maxX;
+            maxY = my > maxY ? my : maxY;
+
+            
+        }
+        maxX = maxX < window.innerWidth ? window.innerWidth : maxX;
+            maxY = maxY < window.innerHeight ? window.innerHeight : maxY;
+
+        //enregistre les informations de taille de l'ecran
+        this.work_size = {
+          width: maxX,
+          height: maxY
+        }
+        //return this.sanitizer.bypassSecurityTrustStyle(`width:${maxX}px; height:${maxY}px;`);
+
+      }
+    }
+
+
+    private doUpdateRelationsCoordsForTable(table:Table){
+      for (let r of this._db._db.relations){
+
+          if(r.from.table == table || r.to.table == table){
+              //met a jour
+              //recup les infos de position
+              let fromElem = r.from.field;
+              let toElem = r.to.field;
+              if(!fromElem.__elem){   
+                console.log("pas encore de rendu...")          
+                  return; //pas encore rendu        
+              }
+              let e1 = fromElem.__elem.nativeElement.getBoundingClientRect();
+              let e2 = toElem.__elem.nativeElement.getBoundingClientRect();
+              
+
+              //calcule le centre des elements
+              let rc = {
+                  x: e1.width/2 + e1.left ,
+                  y: e1.height/2 + e1.top,
+              
+                  x2: e2.width/2 + e2.left,
+                  y2: e2.height/2 + e2.top 
+              }
+              
+              r.coords = rc;
+          }
+      }
+    }
+    private doUpdateRelationsCoords(){
+      console.log("Calcule des relations entre tables...")
+      //calcule les coordonnées pour toutes les relations de la base
+      for(let r of this._db._db.relations){
+
+        //recup les infos de position
+        let fromElem = r.from.field;
+        let toElem = r.to.field;
+         if(!fromElem.__elem){   
+           console.log("pas encore de rendu...")          
+            return; //pas encore rendu        
+        }
+        let e1 = fromElem.__elem.nativeElement.getBoundingClientRect();
+        let e2 = toElem.__elem.nativeElement.getBoundingClientRect();
+        
+
+        //calcule le centre des elements
+        let rc = {
+            x: e1.width/2 + e1.left ,
+            y: e1.height/2 + e1.top,
+        
+            x2: e2.width/2 + e2.left,
+            y2: e2.height/2 + e2.top 
+        }
+        
+        r.coords = rc;
+        
+
+
+      }
+      
     }
     
     /**
@@ -101,7 +229,8 @@ export class SchemasComponent {
      */
     stop_drag(evt){
         if(this.selectedTable){
-            let __cible = this.selectedTable;
+          this.selectedTable = null;
+            /*let __cible = this.selectedTable;
             __cible.selected = false;
             //remet en place une derniere fois...
             __cible.coords = {x:evt.clientX + this.shift_left,
@@ -118,7 +247,7 @@ export class SchemasComponent {
             //redimensionne l'element conteneur
             this.wrapper.nativeElement.width = maxX;
             this.wrapper.nativeElement.height = maxY;
-        
+            */
         }
         
     }

@@ -126,7 +126,7 @@ export default class Table{
     get selected(){return this._selected;}
     set selected(v:boolean){this._selected = v;}
     get elem(){return this.__elem;}
-    set elem(v:boolean){this.__elem = v;}
+    set elem(v){this.__elem = v;}
 
 
     //uniquement le temps de finir les rewrite

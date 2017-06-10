@@ -59,7 +59,7 @@ export class TableComponent{
     skip_evt(event){event.preventDefault();}
     doDrop(event){
         let dt = event.dataTransfer.getData("js/field");
-              
+              console.log("Trying to drop?")
         event.stopPropagation();
         this.skip_evt(event);
         //lance le move

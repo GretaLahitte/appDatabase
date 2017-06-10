@@ -15,7 +15,7 @@ import {SchemasModule} from "./schemas/schemas.module";
 import { AppComponent } from './app.component';
 
 
-import appRoutes from "./routing";
+import {appRoutes} from "./routing";
 @NgModule({
   declarations: [   
     AppComponent,

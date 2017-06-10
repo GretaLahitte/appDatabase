@@ -30,7 +30,60 @@ export class SQLProvider{
         this._db = base;//previent?
         this.db_subject.next(base);
     }
+     loadDummyBase(){
+        //cree une base toute simple pour les tests...
+        //le field pour l'ID client de la table 1
+         let _db = new Base({
+            //qqs infos d'ordre generales sur la base elle meme et l'utilisateur
+            file_url:'a/path',//chemin vers le fichier sql/dump ou enregistrer
+            db_name:"nom_de_la_base",
+            db_type:"postgres",//ou mysql, mongo....
+            db_port:5432,
+            host:"host",
+            login:"loginUtilisateur",
+            passwrd:"passwordUtilisateur",
 
+            
+        });
+        //ne crée qu'une seule table avec des explications
+        let table = new Table({
+            name:"GretaSQLTool",
+            coords:{
+                x:400,
+                y:200
+            },
+            comment:"Thank's for using GretaSQLTool! Click on the burger menu overthere to access table context and add fields, constraints... or anywhere to access main context menu and add new tables or export to sql file",
+            fields:[
+                new Field({
+                    name:"a_simple_field",
+                    comment:"This is a simple field, click on the arrow to get the context menu and edit it's properties"
+                }),
+                new Field({
+                    name:"a_simple_id",
+                    comment:"This is a primary key, there can only be one, and it's UNIQUE, so you can drag it to another table to make a relation between them",
+                    primary_key: true,
+                    
+                }),
+                 new Field({
+                    name:"a_simple_index",
+                    comment:"This is a index, there can be as much as you want, and IF UNIQUE, you can drag it to another table to make a relation between them",
+                    index:true
+                }),
+
+            ]
+        })
+
+       
+        //END DUMMY DATAS
+        _db.tables = [
+                table,
+            ];
+        //ajoute les liens 
+
+        this._db = _db;
+        this.db_subject.next(_db);
+
+    }
 
 
     createEmptyTable(){
@@ -263,6 +316,7 @@ export class SQLProvider{
      * Permet d'eviter les erreurs de redondances cycliques
      */
     convertToJSON(base:Base):Promise<string>{
+        if(!base) return Promise.resolve('');
         return new Promise( (resolve,reject)=>{
 
        
