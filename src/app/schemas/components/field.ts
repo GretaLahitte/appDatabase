@@ -1,9 +1,9 @@
 import {Component, Input,ViewChild, ElementRef} from "@angular/core";
-import {Field} from "../sql/beans/field";
-import {Index} from "../sql/beans/index";
-import Table from "../sql/beans/table";
-import {DialogProvider} from "../dialogs/dialog.provider";
-import {SQLProvider} from "../sql/sql.provider";
+import {Field} from "../../sql/beans/field";
+import {Index} from "../../sql/beans/index";
+import Table from "../../sql/beans/table";
+import {DialogProvider} from "../../dialogs/dialog.provider";
+import {SQLProvider} from "../../sql/sql.provider";
 
 @Component({
     selector:"field-cmp",

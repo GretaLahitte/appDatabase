@@ -2,39 +2,23 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { RouterModule, Routes } from '@angular/router';
 
 
 import {DialogModule} from "./dialogs/dialogs.module";
 import {SQLModule} from "./sql/sql.module";
 import {MenuModule} from "./menus/menu.module";
 
+import {SchemasModule} from "./schemas/schemas.module";
 
 
 import { AppComponent } from './app.component';
-import {TableComponent} from "./components/tables";
-import {FieldComponent} from "./components/field";
-// import {RelationComponent} from "./components/relation";
 
 
-import {DBInfosPipe} from "./pipes/db.infos.pipe";
-import {BypassCSSPipe} from "./pipes/bypass.css.pipe";
-import {Relation2PointsPipe} from "./pipes/relation.to.points.pipe";
-import {WidthHeightPipe} from "./pipes/width.height.pipe";
-
-
-
+import appRoutes from "./routing";
 @NgModule({
-  declarations: [
-    DBInfosPipe,
-    BypassCSSPipe,
-    Relation2PointsPipe,
-    WidthHeightPipe,
-    
-    //...DIALOGS,
-    
+  declarations: [   
     AppComponent,
-    TableComponent,
-    FieldComponent
   ],
   imports: [
     BrowserModule,
@@ -42,9 +26,10 @@ import {WidthHeightPipe} from "./pipes/width.height.pipe";
     HttpModule,
     DialogModule.forRoot(),
     SQLModule.forRoot(),
-    MenuModule.forRoot()
+    MenuModule.forRoot(),
+    SchemasModule,
+    RouterModule.forRoot(appRoutes)
   ],
-  providers: [ ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

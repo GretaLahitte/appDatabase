@@ -1,7 +1,7 @@
 import {Component, Input, Output, EventEmitter, ViewChild} from "@angular/core";
-import Table from "../sql/beans/table";
-import {MenuProvider} from "../menus/menu.provider";
-import {SQLProvider} from "../sql/sql.provider";
+import Table from "../../sql/beans/table";
+import {MenuProvider} from "../../menus/menu.provider";
+import {SQLProvider} from "../../sql/sql.provider";
 
 @Component({
     selector:"table-cmp",
