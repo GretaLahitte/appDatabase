@@ -3,6 +3,10 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
+
+import {DialogModule} from "../dialogs/dialogs.module";
+import {SQLModule} from "../sql/sql.module";
+
 import { AppComponent } from './app.component';
 import {TableComponent} from "./components/tables";
 import {FieldComponent} from "./components/field";
@@ -21,13 +25,11 @@ import {ExtraTypePipe} from "./pipes/extra.type.pipe";
 import {WidthHeightPipe} from "./pipes/width.height.pipe";
 
 
-import {DBProvider} from './providers/db.provider';
-import {DialogProvider} from "./providers/dialog.provider";
 import {MenuProvider} from './providers/menu.provider';
 import {WorkerProvider} from "./providers/worker.provider";
 
 
-import DIALOGS from "./components/dialogs/dialogs";
+//import DIALOGS from "./components/dialogs/dialogs";
 
 @NgModule({
   declarations: [
@@ -40,7 +42,7 @@ import DIALOGS from "./components/dialogs/dialogs";
     ExtraTypePipe,
     WidthHeightPipe,
     
-    ...DIALOGS,
+    //...DIALOGS,
     
     AppComponent,
     TableComponent,
@@ -52,9 +54,11 @@ import DIALOGS from "./components/dialogs/dialogs";
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    DialogModule.forRoot(),
+    SQLModule.forRoot()
   ],
-  providers: [DBProvider,DialogProvider, MenuProvider, WorkerProvider],
+  providers: [ MenuProvider, WorkerProvider],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

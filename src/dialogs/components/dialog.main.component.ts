@@ -1,4 +1,22 @@
+import {Component, Input, AfterViewInit, ViewChild, ComponentFactoryResolver} from "@angular/core";
+import {Base,Field} from "../../sql/sql.entities";
+import {mappings} from "./dialog";
+import {DynDialogDirective} from "../dyn.dialogs.directive";
 
+@Component({
+    selector:"sql-dlg",
+    template:`
+        <div class="modal" (contextmenu)="skip($event)">
+            <div class="modal-content  shadowed">
+            <h2>{{cible.title}}</h2>
+            <p>{{cible.texte}}</p>
+            <ng-template #dlgcontent dyn-dialog></ng-template>
+        </div>
+    </div>
+            
+    `,
+    styles:[
+      `
 /* Modal dialog */
 /* The Modal (background) */
 .modal {
@@ -67,4 +85,50 @@ background: #3cb0fd;
   background-image: -ms-linear-gradient(top, #e6fc3c, #ced934);
   background-image: -o-linear-gradient(top, #e6fc3c, #ced934);
   background-image: linear-gradient(to bottom, #e6fc3c, #ced934);
+}`]
+})
+export class DialogMainComponent{//} implements AfterViewInit {
+  @Input() cible:any;//l'objet a charger
+
+  @ViewChild(DynDialogDirective) dynDialog:DynDialogDirective;
+  subscription: any;
+  interval: any;
+
+  constructor(private _componentFactoryResolver: ComponentFactoryResolver) { }
+
+  /*ngAfterViewInit() {
+    this.loadComponent();
+   
+  }*/
+
+  ngOnChanges(dt){
+      //modifie le componsant
+      if(dt.cible){
+          this.loadComponent();
+      }
+  }
+  
+
+  loadComponent() {
+    //suivant le type de données, choisi la dialog necessaire
+    console.log("test");
+    if(!this.cible) return;
+    console.log("test2");
+
+
+    let type = this.cible.constructor.name;
+    let cmp = mappings[type];
+    
+    if(cmp === undefined) return;
+    
+    let componentFactory = this._componentFactoryResolver.resolveComponentFactory(cmp);
+    
+    let viewContainerRef = this.dynDialog.viewContainerRef;
+    viewContainerRef.clear();//supprime tout si besoin
+
+    let componentRef = viewContainerRef.createComponent(componentFactory);
+    //passe la donnée
+    //(<AdComponent>componentRef.instance).data = adItem.data;
+  }
+
 }

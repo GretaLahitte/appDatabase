@@ -1,7 +1,6 @@
 import {Component, Input, Output, EventEmitter, ViewChild} from "@angular/core";
-import {Table} from "../providers/datas/table";
+import {Table} from "../../sql/beans/table";
 import {MenuProvider} from "../providers/menu.provider";
-import {DBProvider} from "../providers/db.provider";
 
 
 @Component({

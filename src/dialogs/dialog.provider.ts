@@ -2,15 +2,6 @@ import {Injectable} from "@angular/core";
 import {Subject} from "rxjs/Subject";
 import {Observable} from "rxjs/Observable";
 
-import {Table} from "../providers/datas/table";
-import {Field} from "../providers/datas/field";
-import {Index} from "../providers/datas/index";
-import {Enumeration} from "../providers/datas/enumeration";
-
-
-import {DBProvider} from "../providers/db.provider";
-
-
 /**
  * Chargée de créer les descripteurs de dialogues pour l'application
  */
@@ -20,16 +11,20 @@ export class DialogProvider{
     dlg:Subject<any> = new Subject<any>();
     _history:Array<any> = [];
 
-
-    constructor(private _db:DBProvider){}
+    
     getDialogObservable():Observable<any>{
         return this.dlg.asObservable();
     }
 
+    //supprime toute la liste des dialogues et supprime de l'ecran
+    //supprime aussi l'historique au cas ou...
     clearDialogs(){
         this._history = [];//vide l'historique
         this.dlg.next(null);
     }
+
+    //revient dans l'historique un coup en arriere
+    //si plus de données dans l'historique, supprime la boite de dialogue
     back(){
         let last = null;
         if(this._history.length > 0){
@@ -39,11 +34,16 @@ export class DialogProvider{
         }
         this.dlg.next(last);
     }
+
+    //push une nouvelle dialogue à l'ecran
+    //ajoute la dialogue courante (si existe) dans l'historique
     next(dlg:any){
         this._history.push(dlg);
          this.dlg.next(dlg);
 
     }
+
+    //Juste pour les tests
     pushDummyDialog(){
         let desc = {
             title:"test",
@@ -58,6 +58,8 @@ export class DialogProvider{
         this.next(desc);
     }
 
+
+/*
     pushAddTableDialog(coords={x:0,y:0}){
         let desc = {
             title:"Add Table",
@@ -183,22 +185,6 @@ export class DialogProvider{
         };
         this.next(desc);
     }
-    pushEditBaseDialog(){
-        let desc = {
-            title:"Base Properties",
-            texte:"Edit and change base properties, but take care...",
-            type:"CREATE_BASE",
-            target: this._db._db
-        };
-        this.next(desc);
-    }
-    pushCustomTypeDialog(target?:Enumeration){
-        let desc = {
-            title:"Custom Types",
-            texte:"Edit custom types enumeration for the base",
-            type:"CREATE_CTYPE",
-            target: target
-        };
-        this.next(desc);
-    }
+
+*/
 }

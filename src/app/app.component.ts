@@ -1,7 +1,11 @@
 import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
-import {DBProvider} from './providers/db.provider';
-import {DialogProvider} from "./providers/dialog.provider";
+//import {DBProvider} from './providers/db.provider';
+//import {DialogProvider} from "./providers/dialog.provider";
 import {MenuProvider} from "./providers/menu.provider";
+
+
+import {SQLProvider} from "../sql/sql.provider";
+import {DialogProvider} from "../dialogs/dialog.provider";
 
 
 import {Base} from "./providers/datas/base";
@@ -41,7 +45,7 @@ export class AppComponent {
   menuObs:Observable<any>;
   DLGoBS:Observable<any>;
 
-  constructor (private _db:DBProvider, private _menu:MenuProvider, private _dlg:DialogProvider){}
+  constructor (private _db:SQLProvider, private _menu:MenuProvider, private _dlg:DialogProvider){}
   ngOnInit(){
 
     this.menuObs = this._menu.getMenuObservable();
