@@ -151,7 +151,7 @@ export class MenuProvider{
                 break;
             }
             case "edit_base":{
-                this._dlg.pushEditBaseDialog();
+                this._dlg.pushEditBaseDialog(target);
                 break;
             }
             case 'DELETE':{

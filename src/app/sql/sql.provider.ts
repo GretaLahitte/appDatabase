@@ -311,6 +311,68 @@ export class SQLProvider{
         }
     }
 
+
+    //ajout a la ramasse des actions de la table, je mettrais de l'ordre plus tard....
+
+    //uniquement le temps de finir les rewrite
+    //permet de ne pas completement bugger
+    addIndex(table:Table, index:Index){
+        if(!index.id) index.id=generateUUID();
+        
+        if(index.fields.length == 1){
+            let fi:Field = index.fields[0];
+            fi.index = true;
+            fi.unique = index.unique;
+
+            
+            //this.fields.push(fi);
+        } else {
+            //verifications....
+            let n = index.name;
+            for(let t of table.fields){
+                if(t.name == n) throw "Invalid name: index must be unique in table!";
+            }
+            index.index = true;
+            table.fields.push(index);
+        }
+        
+        //this.indexes.push(index);
+    }
+    addConstraint(table:Table, c:Enumeration){
+        let n = c.key;
+        for(let t of table.constraints){
+            if(t.key == n) throw "Invalid name: constraint must be unique in table!";
+        }
+        table.constraints.push(c);
+    }
+    removeConstraint(table:Table, c:Enumeration){
+        let i = table.constraints.indexOf(c);
+        if(i>=0) table.constraints.splice(i,1);
+    }
+    addCompositePK(table:Table, index:any){
+
+        if(index.fields.length == 1){
+            //un seul field, pas de création d'index
+            index = index.fields[0];
+            index.primary_key = true;
+        }
+        else {
+            //plusieurs clés, cree un nouvel element
+            if(!index.name){
+                //genere la clé?
+                index.name = index.fields.map(el=>{
+                    return el.name;
+                }).join('_');
+            }
+            index.primary_key = true;
+            index.type="Composite";
+
+            
+            table.fields.push(index);
+        }
+        
+    }
+
     /**
      * Convertie l'objet Base en json-compliant pour le webworker
      * Permet d'eviter les erreurs de redondances cycliques

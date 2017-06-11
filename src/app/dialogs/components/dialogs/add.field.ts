@@ -1,4 +1,4 @@
-import {Component, Input} from "@angular/core";
+import {Component, Input, ViewChild} from "@angular/core";
 import {SQLProvider, FIELD_TYPES} from "../../../sql/sql.provider";
 import {DialogProvider} from '../../dialog.provider';
 
@@ -18,6 +18,8 @@ import {Enumeration} from "../../../sql/beans/enumeration";
 export class AddFieldDialog{
     @Input () table:Table;
     @Input () field:Field;
+    @ViewChild("focusable") firstInput;
+
     tmp:Field;
     
     addfield:boolean = false;//pour savoir quel submit je veut
@@ -43,9 +45,11 @@ export class AddFieldDialog{
         } else {
             this.tmp = new Field({id:null});
         }
+
+        this.firstInput.nativeElement.focus();
     }
 
-    process_dialog_form(){
+    process_dialog_form(frm){
         //cree la nouvelle table et ajoute
         //suivant le submit...
         this.error = "";
@@ -111,6 +115,9 @@ export class AddFieldDialog{
                     this.field = null;
                     this.tmp = new Field({id:null});
                     this.custom_type = new Enumeration();
+                    //remet le focus sur le premier champs
+                    frm.reset();
+                    this.firstInput.nativeElement.focus();
                     return;
 
                 }   

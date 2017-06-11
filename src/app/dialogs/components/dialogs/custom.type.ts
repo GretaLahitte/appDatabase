@@ -1,4 +1,4 @@
-import {Component, Input} from "@angular/core";
+import {Component, Input, ViewChild} from "@angular/core";
 import {Enumeration} from "../../../sql/beans/enumeration";
 
 import {SQLProvider} from "../../../sql/sql.provider";
@@ -10,6 +10,7 @@ import {DialogProvider} from "../../dialog.provider";
     styleUrls:['./custom.type.scss','./global.dialog.scss']
 })
 export class CustomTypeDialog{
+    @ViewChild("firstInput") firstinput;
     @Input() enumeration:Enumeration;
     e:Enumeration;
 
@@ -25,7 +26,7 @@ export class CustomTypeDialog{
         } else this.e = new Enumeration();
     }
 
-    
+    ngAfterViewInit(){this.firstinput.nativeElement.focus();}
     process_dialog_form(form){
         this.error = "";
         try{

@@ -42,7 +42,8 @@ export class PKDialog{
 
         }   else {
             this.index.primary_key = true;
-            this.table.addCompositePK(this.index);
+            this._db.addCompositePK(this.table, this.index);
+            //this.table.addCompositePK(this.index);
             
         }
         this._dlg.back();

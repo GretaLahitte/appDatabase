@@ -1,4 +1,4 @@
-import {Component, Input} from "@angular/core";
+import {Component, Input, ViewChild} from "@angular/core";
 import Table from "../../../sql/beans/table";
 import {Field} from "../../../sql/beans/field";
 import {Index} from "../../../sql/beans/index";
@@ -17,7 +17,7 @@ import {SQLProvider} from "../../../sql/sql.provider";
 })
 export class ShowTableProperties{
     @Input() table: Table;
-    
+    @ViewChild("firstInput") firstinput;
 
 
     error:string = "";
@@ -35,6 +35,7 @@ export class ShowTableProperties{
             this.table_cpy.copy(dt.table.currentValue);
         }
     }
+    ngAfterViewInit(){this.firstinput.nativeElement.focus();}
 
     process_dialog_form(){
         //validate datas and then change in table...

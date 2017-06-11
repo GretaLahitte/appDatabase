@@ -1,4 +1,4 @@
-import {Component, Input} from "@angular/core";
+import {Component, Input, ViewChild} from "@angular/core";
 import Table from "../../../sql/beans/table";
 import {Field} from "../../../sql/beans/field";
 import {DialogProvider} from '../../dialog.provider';
@@ -12,7 +12,7 @@ import {Index} from "../../../sql/beans/index";
     styleUrls:['./index.scss','./global.dialog.scss']
 })
 export class IndexDialog {
-
+    @ViewChild("firstInput") firstinput;
     @Input() table:Table;
     @Input () field:Index;//si edition
     index:Index = new Index({id:null});
@@ -36,6 +36,7 @@ export class IndexDialog {
             this.index = new Index({id:null});
         }
     }
+    ngAfterViewInit(){this.firstinput.nativeElement.focus();}
     process_dialog_form(form){
         this.index.index = true; 
         if(this.field){
@@ -49,7 +50,8 @@ export class IndexDialog {
 
         }   else {
             console.log("creation index");
-             this.table.addIndex(this.index);
+            this._db.addIndex(this.table, this.index);
+            // this.table.addIndex(this.index);
         }    
        
         this._dlg.back();

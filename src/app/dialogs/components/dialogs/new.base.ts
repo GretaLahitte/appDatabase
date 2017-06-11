@@ -1,4 +1,4 @@
-import {Component, Input} from "@angular/core";
+import {Component, Input,ViewChild} from "@angular/core";
 import Base from "../../../sql/beans/base";
 import {DialogProvider} from '../../dialog.provider';
 import {SQLProvider} from "../../../sql/sql.provider";
@@ -10,7 +10,7 @@ import {Enumeration} from "../../../sql/beans/enumeration";
     styleUrls:['./new.base.scss','./global.dialog.scss']
 })
 export class NewBaseDialog {
-
+    @ViewChild("firstInput") firstinput;
     @Input() editable:Base;
     base:Base;
     error:string;
@@ -28,7 +28,7 @@ export class NewBaseDialog {
             this.copy(this.base, e);
         } else this.base = new Base({});
     }
-
+    ngAfterViewInit(){this.firstinput.nativeElement.focus();}
 
     private copy(a:Base, b:Base){
         a.db_name = b.db_name;

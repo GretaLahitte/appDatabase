@@ -1,7 +1,7 @@
 <form #indexForm="ngForm" (ngSubmit)="process_dialog_form(indexForm)">
         <content>
             <label>Index name:</label>
-            <input type="text" name="index_name" [(ngModel)]="index.name" required autofocus>
+            <input #firstInput type="text" name="index_name" [(ngModel)]="index.name" required autofocus>
             
             
             <div *ngIf="!index.is_reference">

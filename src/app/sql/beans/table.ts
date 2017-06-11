@@ -129,64 +129,6 @@ export default class Table{
     set elem(v){this.__elem = v;}
 
 
-    //uniquement le temps de finir les rewrite
-    //permet de ne pas completement bugger
-    addIndex(index:Index){
-        if(!index.id) index.id=generateUUID();
-        
-        if(index.fields.length == 1){
-            let fi:Field = index.fields[0];
-            fi.index = true;
-            fi.unique = index.unique;
-
-            
-            //this.fields.push(fi);
-        } else {
-            //verifications....
-            let n = index.name;
-            for(let t of this.fields){
-                if(t.name == n) throw "Invalid name: index must be unique in table!";
-            }
-            index.index = true;
-            this.fields.push(index);
-        }
-        
-        //this.indexes.push(index);
-    }
-    addConstraint(c:Enumeration){
-        let n = c.key;
-        for(let t of this.constraints){
-            if(t.key == n) throw "Invalid name: constraint must be unique in table!";
-        }
-        this.constraints.push(c);
-    }
-    removeConstraint(c:Enumeration){
-        let i = this.constraints.indexOf(c);
-        if(i>=0) this.constraints.splice(i,1);
-    }
-    addCompositePK(index:any){
-
-        if(index.fields.length == 1){
-            //un seul field, pas de création d'index
-            index = index.fields[0];
-            index.primary_key = true;
-        }
-        else {
-            //plusieurs clés, cree un nouvel element
-            if(!index.name){
-                //genere la clé?
-                index.name = index.fields.map(el=>{
-                    return el.name;
-                }).join('_');
-            }
-            index.primary_key = true;
-            index.type="Composite";
-
-            
-            this.fields.push(index);
-        }
-        
-    }
     copy(t:Table){
         this.id = t.id;
         this.name = t.name;
