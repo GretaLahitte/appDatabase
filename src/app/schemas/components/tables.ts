@@ -1,5 +1,7 @@
 import {Component, Input, Output, EventEmitter, ViewChild} from "@angular/core";
 import Table from "../../sql/beans/table";
+import {Field} from "../../sql/beans/field";
+
 import {MenuProvider} from "../../menus/menu.provider";
 import {SQLProvider} from "../../sql/sql.provider";
 
@@ -68,34 +70,44 @@ export class TableComponent{
             let ids = dt.split(" ");
             //recupe la table
             let table = this._db.getTableById(ids[0]);
-            if(!table || table==this.table) return;
 
-
-            let field = null;
+            //update: drag & drop dans une meme table
+            //if(!table || table==this.table) return;
+            if(!table) return;
+            let field:Field = null;
+            let index = -1;
             for (let f of table.fields){
+                index++;
                 if(f.id == ids[1]) {
                     field = f;
                     break;
                 }
             }
-            // //teste les indexs
-            // if(!field) {
-            //     for (let f of table.indexes){
-            //         if(f.id == ids[1]) {
-            //             field = f;
-            //             break;
-            //         }
-            //     }
-            // }
-            if(!field) return;
 
+            console.log("Verification de la cible....")
 
-            
-            //sinon, crée une nouvelle relation entre les tables
-            //probleme, ai besoin de connaitre la table de depart...
-            
-            this._db.makeRelation({table:table, field:field},this.table);
-            this.newRelation.emit({table: this.table});
+            if(table == this.table){
+                //deplace le field dans la table
+                console.log("Move in table");
+                //a quel index????
+                //remet a jour les relations
+                this.newRelation.emit({table:this.table});
+
+            } else {
+
+                //creation d'une relation entre 2 tables
+                //verifie que le field est unique ou PK
+                console.log("création d'une relation?", field);
+                if(!field) return;
+                if(!field.unique && !field.primary_key) return;//ne permet pas la creation d'une relation
+                console.log("OK, creation!!!")
+                
+                //sinon, crée une nouvelle relation entre les tables
+                //probleme, ai besoin de connaitre la table de depart...
+                
+                this._db.makeRelation({table:table, field:field},this.table);
+                this.newRelation.emit({table: this.table});
+            }
         }
     }
 }

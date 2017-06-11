@@ -32,8 +32,8 @@ export class FieldComponent{
     doStartDrag(event){
         event.stopPropagation();
         console.log("trying to drag");
-        if(!this.field.unique && !this.field.primary_key) return;
-        console.log("OK")
+        //if(!this.field.unique && !this.field.primary_key) return;
+        //console.log("OK")
         //event.preventDefault();
         //event.stopPropagation();
         event.dataTransfer.effectAllowed = 'move';
@@ -64,6 +64,60 @@ export class FieldComponent{
         console.log("youhou")
         if(this.field.primary_key) this._dlg.pushPKDialog(this.table, <Index>this.field);
         else this._dlg.pushIndexDialog(this.table, <Index>this.field);
+    }
+
+
+
+    skip_evt(event){event.preventDefault();}
+    doDrop(event){
+
+        //drop uniquement si de la meme table!!!!
+        let dt = event.dataTransfer.getData("js/field");
+        
+        //lance le move
+        if(dt){
+            
+            let ids = dt.split(" ");
+            //verifie si se trouve sur la meme table???
+            let table = this._db.getTableById(ids[0]);
+            if(!table) return;
+            if(table != this.table) return;//provient d'une autre table, refuse
+
+            //sinon, insert before
+            /*event.stopPropagation();
+            this.skip_evt(event);*/
+
+            //recupere l'index du field
+            let field:Field = null;
+            let index = -1;
+            for (let f of table.fields){
+                index++;
+                if(f.id == ids[1]) {
+                    field = f;
+                    break;
+                }
+            }
+            if(!field) return;
+            if(field == this.field) return;//deplace sur lui meme
+            //pop
+            this.table.fields.splice(index,1);
+            //recupere son index
+            let myindex = this.table.fields.indexOf(this.field);
+
+            //2 cas: remonte ou descend
+            if(myindex>=index){
+                //descend, met apres
+                if(myindex+1==this.table.fields.length) this.table.fields.push(field);
+                else this.table.fields.splice(myindex+1,0,field);
+            } else {
+                //monte, met avant
+                if(myindex==0) this.table.fields.unshift(field);
+                else this.table.fields.splice(myindex,0,field);
+            }
+            //insert le precedent APRES
+            //console.log("indexes: ",index, myindex);
+            
+        }
     }
     
 }
