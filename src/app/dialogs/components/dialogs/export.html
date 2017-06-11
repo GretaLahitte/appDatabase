@@ -1,6 +1,6 @@
 <content>
  
-    <pre> <code id='colored'></code></pre>
+    <pre> <code [innerHTML]='sql_datas | sql_color'></code></pre>
     <p *ngIf="!error && !sql_datas">Loading sql, please wait...</p>
     <p class="error" *ngIf="error">{{error}}</p>
     <div class="commands" >

@@ -16,6 +16,7 @@ import {ExtraTypePipe} from "./pipes/extra.type.pipe";
 import {HasPrimaryKeyPipe} from "./pipes/has.pk.pipe";
 import {PureFieldyPipe} from "./pipes/pure.field.pipe";
 import {FileDownloadPipe} from "./pipes/file.download";
+import {ColorizeSQLPipe} from "./pipes/colorize.sql.pipe";
 
 
 export class DialogConfigService{
@@ -24,7 +25,7 @@ export class DialogConfigService{
 @NgModule({
   imports:      [ CommonModule, FormsModule ],
   declarations: [DialogMainComponent, DynDialogDirective,
-                ExtraTypePipe,HasPrimaryKeyPipe,PureFieldyPipe,FileDownloadPipe,
+                ExtraTypePipe,HasPrimaryKeyPipe,PureFieldyPipe,FileDownloadPipe,ColorizeSQLPipe,
                  ...DIALOGS],
   exports:      [ DialogMainComponent ],
   providers:    [ DialogProvider ],
