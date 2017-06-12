@@ -1,0 +1,36 @@
+<div >
+    <!--div #fieldElem class="field" [class.notDraggable]="field.unique !=true && field.primary_key !=true"  [draggable]="field.unique ==true || field.primary_key ==true" (dragstart)="doStartDrag($event)" (dragend)="doStopDrag($event)"-->                    
+    <div #fieldElem class="field" draggable="true" (dragstart)="doStartDrag($event)" (dragend)="doStopDrag($event)"
+    (dragenter)="skip_evt($event)"
+                  (dragover)="skip_evt($event)"
+                  (dragleave)="skip_evt($event)"
+                  (drop)="doDrop($event)">                    
+        <h3 [id]="field.id"  >
+            <a (click)="showItemProperty($event)" >{{field.name}}</a>
+            <i class="material-icons" *ngIf="field.is_reference" title="Reference" >link</i>
+            <i class="material-icons" *ngIf="field.primary_key" title="Primary Key">vpn_key</i>
+            <i class="material-icons" *ngIf="field.index" title="Index" >format_list_numbered</i>
+            <i class="material-icons" *ngIf="field.unique" title="Unique">looks_one</i>
+            
+            <div *ngIf="!field.fields" class="floater">
+                <a class="fab child" [class.first]="show_fabs" (click)="updateField()"><i class="material-icons rippler">mode_edit</i></a>
+                <a class="fab child" [class.second]="show_fabs" (click)="deleteField()"><i class="material-icons rippler">delete_forever</i></a>
+                <a class="fab" (click)="show_fabs=!show_fabs"><i class="material-icons rippler">keyboard_arrow_right</i></a>
+            </div> 
+            <div *ngIf="field.fields" class="floater">
+                <a class="fab child" [class.first]="show_fabs" (click)="updateComposite()"><i class="material-icons rippler">mode_edit</i></a>
+                <a class="fab child" [class.second]="show_fabs" (click)="deleteField()"><i class="material-icons rippler">delete_forever</i></a>
+                <a class="fab" (click)="show_fabs=!show_fabs"><i class="material-icons rippler">keyboard_arrow_right</i></a>
+            </div> 
+        </h3>
+        
+        
+        
+        <p *ngIf="field.comment">{{field.comment}}</p>    
+        <div class="composite" *ngIf="field.fields">
+            <div *ngFor="let f of field.fields">
+                {{f.name}}
+            </div>
+        </div>
+    </div>
+</div>

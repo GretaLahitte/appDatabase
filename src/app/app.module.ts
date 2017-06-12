@@ -2,59 +2,36 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { RouterModule, Routes } from '@angular/router';
+
+
+//import {DialogModule} from "./dialogs/dialogs.module";
+import {SQLModule} from "./sql/sql.module";
+import {TestModule} from "./test/test.module";
+//import {MenuModule} from "./menus/menu.module";
+
+import {SchemasModule} from "./schemas/schemas.module";
+
 
 import { AppComponent } from './app.component';
-import {TableComponent} from "./components/tables";
-import {FieldComponent} from "./components/field";
-// import {RelationComponent} from "./components/relation";
-import {MenuComponent} from "./components/menu";
-import {DialogComponent} from "./components/dialog";
 
 
-import {DBInfosPipe} from "./pipes/db.infos.pipe";
-import {BypassCSSPipe} from "./pipes/bypass.css.pipe";
-import {Relation2PointsPipe} from "./pipes/relation.to.points.pipe";
-import {HasPrimaryKeyPipe} from "./pipes/has.pk.pipe";
-import {FileDownloadPipe} from "./pipes/file.download";
-import {PureFieldyPipe} from "./pipes/pure.field.pipe";
-import {ExtraTypePipe} from "./pipes/extra.type.pipe";
-import {WidthHeightPipe} from "./pipes/width.height.pipe";
-
-
-import {DBProvider} from './providers/db.provider';
-import {DialogProvider} from "./providers/dialog.provider";
-import {MenuProvider} from './providers/menu.provider';
-import {WorkerProvider} from "./providers/worker.provider";
-
-
-import DIALOGS from "./components/dialogs/dialogs";
-
+import {appRoutes} from "./routing";
 @NgModule({
-  declarations: [
-    DBInfosPipe,
-    BypassCSSPipe,
-    Relation2PointsPipe,
-    HasPrimaryKeyPipe,
-    FileDownloadPipe,
-    PureFieldyPipe,
-    ExtraTypePipe,
-    WidthHeightPipe,
-    
-    ...DIALOGS,
-    
+  declarations: [   
     AppComponent,
-    TableComponent,
-    FieldComponent,
-    MenuComponent,
-    DialogComponent
-    // RelationComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    //DialogModule.forRoot(),
+    SQLModule.forRoot(),
+   // MenuModule.forRoot(),
+    SchemasModule,
+    TestModule,
+    RouterModule.forRoot(appRoutes)
   ],
-  providers: [DBProvider,DialogProvider, MenuProvider, WorkerProvider],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
