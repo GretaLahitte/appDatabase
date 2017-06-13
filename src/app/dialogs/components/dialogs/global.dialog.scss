@@ -72,7 +72,7 @@ content{
 
 
 }
-button, a {
+button, a:not(.simple) {
   
             min-width: 90px;
             cursor:pointer;
