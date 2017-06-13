@@ -3,6 +3,7 @@ import Base from "../../../sql/beans/base";
 import {DialogProvider} from '../../dialog.provider';
 import {SQLProvider} from "../../../sql/sql.provider";
 import {Enumeration} from "../../../sql/beans/enumeration";
+import {PG_EXTENSIONS} from "../../../sql/beans/postgres.extension";
 
 @Component({
     selector:"dlg-newbase",
@@ -14,6 +15,8 @@ export class NewBaseDialog {
     @Input() editable:Base;
     base:Base;
     error:string;
+
+    extensions= PG_EXTENSIONS;
     
     constructor(private _db:SQLProvider, private _dlg:DialogProvider){}
     ngOnInit(){
@@ -37,7 +40,7 @@ export class NewBaseDialog {
         a.host = b.host;
         a.login = b.login;
         a.passwrd = b.passwrd;
-
+        a.uuid = b.uuid;
         a.enumerations = b.enumerations;
     }
     process_dialog_form(form){
@@ -81,4 +84,11 @@ export class NewBaseDialog {
         
     }
     
+
+    loadFromServer(){
+        //chargement a partir du serveur....
+    }
+    parseFile(sql){
+        console.log(sql.value);
+    }
 }

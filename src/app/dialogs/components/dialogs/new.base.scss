@@ -17,3 +17,36 @@
         }
     }
 }
+.extensions{
+    display:flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    label{
+        width: 25%;
+    }
+}
+.label-file {
+    cursor: pointer;
+    min-width: 90px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-family: Poiret cursive;
+    border: none;
+    color: #E3E3E3;
+    padding: 10px 20px 10px 20px;
+    text-decoration: none;
+    text-transform: uppercase;
+    margin: 5px;
+    font-size: 13.33333px;
+    text-align: center;
+}
+.label-file:hover {
+   text-decoration: none;
+    background: #3498db;
+    background-image: linear-gradient(to bottom, #3498db, #2980b9);
+}
+
+// et on masque le input
+.input-file {
+    display: none;
+}

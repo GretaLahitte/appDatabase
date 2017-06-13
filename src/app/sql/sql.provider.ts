@@ -28,6 +28,7 @@ export class SQLProvider{
     setCurrentBase(base:Base){
         //validation de la base...
         this._db = base;//previent?
+        this._db.uuid = generateUUID();//par defaut, recrée l'uuid
         this.db_subject.next(base);
     }
      loadDummyBase(){
@@ -515,7 +516,7 @@ export class SQLProvider{
             base.host = desc.host;
             base.login = desc.login;
             base.passwrd = desc.passwrd;
-
+            base.uuid = generateUUID();
             //les type enums 
             for (let enums of Object.keys(desc.enumerations)){
                 let e = new Enumeration();

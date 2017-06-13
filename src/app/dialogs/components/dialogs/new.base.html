@@ -1,3 +1,12 @@
+<div *ngIf="!base.uuid" style="margin-bottom: 40px;">
+    <p>You can provide a SQL file, and if Mathieu decide it, the application will parse it to display all the tables.(Note:
+        you can also drag and drop your sql file directly on the main page to load it!)
+    </p>
+    <label for="file" class="label-file  invert">
+    <input accept=".sql" id="file" class="input-file" type="file" type="file" name="file" #filesql (change)="parseFile(filesql)">Choose a sql file</label>
+</div>
+<p>Or fill the form below....</p>
+
 <form #baseForm="ngForm" (ngSubmit)="process_dialog_form()">
         <content>
             <label>Base name:</label>
@@ -31,9 +40,27 @@
             </div>
             <label>Password:</label>
             <input type="text" name="b_pswd" [(ngModel)]="base.passwrd">
-            
 
 
+            <div *ngIf="!base.uuid && baseForm.form.valid" style="margin-bottom: 20px;">
+                <p><strong>EXPERIMENTAL</strong> You can connect to the server to retreive all the tables and relations directly from the DB.</p>
+                <button type="button" class="invert" style="width:100%" [disabled]="!baseForm.form.valid"  (click)="loadFromServer()">Connect to the Server and retreive DB</button>
+                <p><strong>EXPERIMENTAL</strong> You can also connect to the server and work directly on the base -all changes will be sent directly, take care!</p>
+                <button type="button" class="invert" style="width:100%" [disabled]="!baseForm.form.valid"  (click)="loadFromServer(true)">Link the app to the DB Server</button>
+            </div>
+            <br/>
+
+            <div *ngIf="base.db_type == 'postgres'">
+                <div >
+                    <h3>PostgreSQL Extensions</h3>
+                    <div class="extensions">
+                    <label *ngFor="let ex of extensions">
+                        <input  type="checkbox" [value]="ex">{{ex}}
+                    </label>
+                    </div>
+                </div>
+            </div>
+            <br/>
             <!-- les contraintes de la table -->
             <div class="group">Custom Types:
                 <div *ngFor="let enum of base.enumerations">
@@ -48,7 +75,7 @@
             
                 
             </div>
-
+            <br/>
 
 
             
@@ -56,7 +83,8 @@
         <p class="error" *ngIf="error">{{error}}</p>
         <div class="commands" >
             <button class="invert" type="button" (click)="newEnum()" type="button">Add new Custom Type</button>
-            <button [disabled]="!baseForm.form.valid"  class="invert" type="submit">Create Base</button> 
+            <button *ngIf="!base.uuid" [disabled]="!baseForm.form.valid"  class="invert" type="submit">Create Empty Base</button>
+            <button *ngIf="base.uuid" [disabled]="!baseForm.form.valid"  class="invert" type="submit">Save change</button> 
             <button type="button" (click)="cancel()" class="invert">Cancel</button>      
         </div>
     </form>
