@@ -1,0 +1,9 @@
+<content>
+ 
+    <div class="commands" >
+         
+             <a [hidden]="!project" [download]="name+'.json'" [href]="project | file_download"  class="invert">Download file?</a> 
+            <button type="button" (click)="cancel()" class="invert">Close</button>      
+        </div>
+        
+</content>

@@ -165,15 +165,7 @@ export class DialogProvider{
         };
         this.next(desc);
     }
-    pushExportDialog(){
-        let desc = {
-            title:"Export your base",
-            texte:"Export your base to  SQL",
-            type:"EXPORT"
-            
-        };
-        this.next(desc);
-    }
+    
     pushNewBaseDialog(){
         let desc = {
             title:"Create a new Base",
@@ -194,7 +186,33 @@ export class DialogProvider{
         };
         this.next(desc);
     }
-
+pushExportDialog(){
+        let desc = {
+            title:"Export your base",
+            texte:"Export your base to  SQL",
+            type:"EXPORT"
+            
+        };
+        this.next(desc);
+    }
+    pushProjectExportDialog(){
+        let desc = {
+            title:"Time to back up your work.",
+            texte:"Export your project to a json file",
+            type:"PROJECT_EXPORT"
+            
+        };
+        this.next(desc);
+    }
+    pushProjectImportDialog(){
+        let desc = {
+            title:"Open a project.",
+            texte:"Import your project from a json file",
+            type:"PROJECT_IMPORT"
+            
+        };
+        this.next(desc);
+    }
      pushEditBaseDialog(target?:Base){
         let desc = {
             title:"Base Properties",

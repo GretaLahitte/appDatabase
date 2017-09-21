@@ -20,7 +20,7 @@ content{
        
     }
     input, textarea, select{
-        width: 98%;
+        width: 100%;
         padding: 5px;
         margin-bottom: 10px;
         &.ng-valid[required], .ng-valid.required  {
@@ -72,7 +72,7 @@ content{
 
 
 }
-button, a:not(.simple) {
+button, a {
   
             min-width: 90px;
             cursor:pointer;

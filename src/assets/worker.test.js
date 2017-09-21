@@ -96,13 +96,13 @@ function createSqlField(champs, field_desc,tableName,  base){
 	
 	//enum mysql syntax
 	if(base.enumerations && base.db_type=='mysql'){
-		console.log('base enum',base.enumerations);
+		//console.log('base enum',base.enumerations);
 		for (var t in base.enumerations ){
-			console.log('enum type is:',t);
+			//console.log('enum type is:',t);
 			//console.log('champs',champs,'field',field_desc,'tablename',tableName);
 			if(field_desc.type==t){
 				isEnum = true;
-				console.log('t',base.enumerations[t]);
+			//	console.log('t',base.enumerations[t]);
 				//console.log('this enum is mysql');
 				//for (var en in base.enumerations[t]) mysqlEnum.push(...createSqlEnum(base.db_type,en, base.enumerations[en]));
 				//console.log('testArray',mysqlEnum);

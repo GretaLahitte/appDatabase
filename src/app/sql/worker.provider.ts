@@ -21,7 +21,7 @@ export class WorkerProvider{
         return new Promise<string>( (resolve,reject)=>{
             this.worker.onmessage = function(e){
                 //renvoie un resultat valide
-                console.log(e)
+              //  console.log(e)
                 if(e) resolve(e.data);
                 else reject("No response from webworker");
             };

@@ -10,6 +10,8 @@ import {ExportDialog} from "./dialogs/export";
 import {NewBaseDialog} from "./dialogs/new.base";
 import {ConfirmDialog} from "./dialogs/confirm";
 import {CustomTypeDialog} from "./dialogs/custom.type";
+import {ProjectExportDialog} from "./dialogs/project.export";
+import {ProjectImportDialog} from "./dialogs/project.import";
 
 export const mappings= {
     "Base" : NewBaseDialog,
@@ -23,6 +25,8 @@ export const mappings= {
     "ADD_CONSTRAINT":ConstraintDialog,
     "ADD_PK":PKDialog,
     "EXPORT":ExportDialog,
+    "PROJECT_EXPORT":ProjectExportDialog,
+    "PROJECT_IMPORT":ProjectImportDialog,
     "CREATE_BASE":NewBaseDialog,
     "CONFIRM":ConfirmDialog,
     "CREATE_CTYPE":CustomTypeDialog

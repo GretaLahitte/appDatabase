@@ -85,6 +85,16 @@ export class MenuProvider{
                     label:"Export SQL"
                 },
                 {
+                    action:"export_project",
+                    icon:"file_upload",
+                    label:"Export Project"
+                },
+                {
+                    action:"import_project",
+                    icon:"file_download",
+                    label:"Import Project"
+                },
+                {
                     action:"new_base",
                     icon:"folder",
                     label:"New BASE"
@@ -130,6 +140,14 @@ export class MenuProvider{
             }
             case 'export_sql':{
                 this._dlg.pushExportDialog();
+                break;
+            }
+            case 'export_project':{
+                this._dlg.pushProjectExportDialog();
+                break;
+            }
+            case 'import_project':{
+                this._dlg.pushProjectImportDialog();
                 break;
             }
             case 'ADD_CONSTRAINT':{

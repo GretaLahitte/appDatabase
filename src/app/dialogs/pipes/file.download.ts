@@ -8,7 +8,6 @@ export class FileDownloadPipe implements PipeTransform {
     constructor(private sanitizer:DomSanitizer){}
   transform(sql: any): any {
         if(!sql) return "";
-
         return this.sanitizer.bypassSecurityTrustResourceUrl(`data:text/octet-stream;charset:utf-8,`+encodeURIComponent(sql));
   }
 }

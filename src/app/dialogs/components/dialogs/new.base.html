@@ -1,16 +1,6 @@
-<div *ngIf="!base.uuid" style="margin-bottom: 40px;">
-    <p>You can provide a SQL file, and if Mathieu decide it, the application will parse it to display all the tables.(Note:
-        you can also drag and drop your sql file directly on the main page to load it!)
-    </p>
-    <label for="file" class="label-file  invert">
-    <input accept=".sql" id="file" class="input-file" type="file" type="file" name="file" #filesql (change)="parseFile(filesql)">Choose a sql file</label>
-</div>
-<p *ngIf="!base.uuid">Or fill the form below....</p>
-
 <form #baseForm="ngForm" (ngSubmit)="process_dialog_form()">
         <content>
             <label>Base name:</label>
-            <span>The name of the database</span>
             <input #firstInput  type="text" #bname="ngModel" name="b_name" [(ngModel)]="base.db_name" required pattern="^[a-zA-Z_]+[a-zA-Z0-9_]+$" autofocus>
             <div [hidden]="bname.valid || bname.pristine"
              class="error">
@@ -19,7 +9,6 @@
 
 
             <label>Type:</label>
-            <span>The type of Database, currently, only PostgreSQL is supported</span>
             <select [(ngModel)]="base.db_type" name="b_method" required>
                 <option value="postgres">PostgreSQL</option>
                 <option value="mysql">MySQL</option>
@@ -27,52 +16,26 @@
                 <option value="mongo">MongoDB</option>
             </select>
             <label>Port:</label>
-            <span>Listening port of database server -normally 5432 for postgreSQL</span>
             <input type="number"  min="1" max="65535" step="1" name="b_port" [(ngModel)]="base.db_port" required>
             <label>Host:</label>
-            <span>Address of the server (localhost if you are working with a local server)</span>
             <input #host="ngModel" type="text" name="b_host" [(ngModel)]="base.host" required pattern="^([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])(\.([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]{0,61}[a-zA-Z0-9]))*$">
             <div [hidden]="host.valid || host.pristine"
              class="error">
                 Host is not valid...
             </div>
             <label>login:</label>
-            <span>Connection identification</span>
             <input type="text" #log="ngModel" name="b_log" [(ngModel)]="base.login" required>
             <div [hidden]="log.valid || log.pristine"
              class="error">
                 You must provide a login
             </div>
             <label>Password:</label>
-            <span>Guess what...</span>
             <input type="text" name="b_pswd" [(ngModel)]="base.passwrd">
+            
 
 
-            <div *ngIf="!base.uuid && baseForm.form.valid" style="margin-bottom: 20px;">
-                <p><strong>EXPERIMENTAL</strong> You can connect to the server to retreive all the tables and relations directly from the DB.</p>
-                <button type="button" class="invert" style="width:100%" [disabled]="!baseForm.form.valid"  (click)="loadFromServer()">Connect to the Server and retreive DB</button>
-                <p><strong>EXPERIMENTAL</strong> You can also connect to the server and work directly on the base -all changes will be sent directly, take care!</p>
-                <button type="button" class="invert" style="width:100%" [disabled]="!baseForm.form.valid"  (click)="loadFromServer(true)">Link the app to the DB Server</button>
-            </div>
-            <br/>
-            <p *ngIf="!base.uuid">...or, finish to fill the form</p>
-
-            <div *ngIf="base.db_type == 'postgres'">
-                <div >
-                    <h3>PostgreSQL Extensions</h3>
-                    <p>Choose extensions to add to your base (Warning: extensions must be <a class="simple" href="https://www.postgresql.org/docs/9.1/static/contrib.html" target="_blank">installed</a> and created by DBAdmin to be available)</p>
-                    <div class="extensions">
-                    <label *ngFor="let ex of extensions">
-                        <input  type="checkbox" [value]="ex">{{ex}}
-                    </label>
-                    </div>
-                </div>
-            </div>
-            <br/>
             <!-- les contraintes de la table -->
-            <div class="group"><h3>Custom Types:</h3>
-                <p>Custom Types or Enumerated (enum) types are data types that comprise a static, ordered set of values. They are equivalent to the enum types supported in a number of programming languages. An example of an enum type might be the days of the week, or a set of status values for a piece of data.</p>
-                <button class="invert" type="button" (click)="newEnum()" type="button">Add new Custom Type</button>
+            <div class="group">Custom Types:
                 <div *ngFor="let enum of base.enumerations">
                     <div  class="index-infos">
                         <span  class="name">{{enum.key}}</span>(<span >{{enum.values}}</span>)
@@ -85,16 +48,15 @@
             
                 
             </div>
-            <br/>
+
 
 
             
         </content>
         <p class="error" *ngIf="error">{{error}}</p>
         <div class="commands" >
-            
-            <button *ngIf="!base.uuid" [disabled]="!baseForm.form.valid"  class="invert" type="submit">Create Empty Base</button>
-            <button *ngIf="base.uuid" [disabled]="!baseForm.form.valid"  class="invert" type="submit">Save change</button> 
+            <button class="invert" type="button" (click)="newEnum()" type="button">Add new Custom Type</button>
+            <button [disabled]="!baseForm.form.valid"  class="invert" type="submit">Create Base</button> 
             <button type="button" (click)="cancel()" class="invert">Cancel</button>      
         </div>
     </form>

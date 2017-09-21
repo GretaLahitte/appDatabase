@@ -23,6 +23,8 @@ import {DialogProvider} from "../dialog.provider";
                 <dlg-constraint *ngSwitchCase="'ADD_CONSTRAINT'" [table]="descriptor.target" [cnt]="descriptor.constraint"></dlg-constraint>
                 <dlg-pk *ngSwitchCase="'ADD_PK'" [table]="descriptor.target?.table || descriptor.target " [field]="descriptor.target?.pk"></dlg-pk>
                 <dlg-export *ngSwitchCase="'EXPORT'"></dlg-export>
+                <dlg-projectExport *ngSwitchCase="'PROJECT_EXPORT'"></dlg-projectExport>
+                <dlg-projectImport *ngSwitchCase="'PROJECT_IMPORT'"></dlg-projectImport>
                 <dlg-newbase *ngSwitchCase="'CREATE_BASE'" [editable]="descriptor.target"></dlg-newbase>
                 <dlg-confirm *ngSwitchCase="'CONFIRM'" [next]="descriptor.next" [target]="descriptor.target"></dlg-confirm>
                 <dlg-customtype *ngSwitchCase="'CREATE_CTYPE'" [enumeration]="descriptor.target"></dlg-customtype>
