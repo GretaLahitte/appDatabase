@@ -113,7 +113,7 @@ export class SchemasComponent {
 
 
     //YOUPI: permet de ne pas recalculer a chaque tick la taille du SVG!!!!
-    private doUpdateWorkSize(include_table?:Table){
+         doUpdateWorkSize(include_table?:Table){
       if(include_table){
         //juste une mise a jour au besoin
         let maxX = this.work_size.width, maxY = this.work_size.height;
@@ -194,7 +194,7 @@ export class SchemasComponent {
           }
       }
     }
-    private doUpdateRelationsCoords(){
+     doUpdateRelationsCoords(){
       console.log("Calcule des relations entre tables...")
       //calcule les coordonnées pour toutes les relations de la base
       for(let r of this._db._db.relations){

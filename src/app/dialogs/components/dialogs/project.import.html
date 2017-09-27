@@ -1,5 +1,5 @@
 <content>
- 
+ <div [hidden]="isOnlyOne" class="error">Only one file is required!</div>
     <div class="commands" >
          
             <div (dragover)="false" (dragend)="false" (drop)="handleDrop($event)" id="drop_zone">   Drop file here   </div>

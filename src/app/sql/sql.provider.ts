@@ -502,7 +502,6 @@ export class SQLProvider{
      * inverse d'au dessus, datas provennant du localstorage
      */
     convertFromJSON(jstr){
-        console.log('typeof',typeof jstr );
             let desc = JSON.parse(jstr);
             
             let composites = [];
